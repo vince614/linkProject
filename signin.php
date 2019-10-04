@@ -6,6 +6,57 @@ session_start();
 //includes
 include './include/config.php';
 
+//Variable 
+$isLogin = false;
+
+if(isset($_POST['login'], $_POST['pass'])) {
+	if(!empty($_POST['login']) && !empty($_POST['pass'])) {
+
+		//Variables 
+		$login = $_POST['login'];
+		$password = sha1($_POST['pass']);
+
+		//Check login
+		$check_login = $bdd->prepare('SELECT * FROM account WHERE username = ? OR mail = ?');
+		$check_login->execute(array($login, $login));
+		$check_login_count = $check_login->rowCount();
+
+		//Si il existe un compte 
+		if ($check_login_count > 0){
+
+			if($mdp = $check_login->fetch()) {
+
+				//Password bdd 
+				$password_bdd = $mdp['pass'];
+				$username = $mdp['username'];
+
+				if ($password_bdd == $password) {
+
+					//Cree une variable session
+					$_SESSION['username'] = $username;
+					$isLogin = true;
+
+					//Redirect
+					header('Location: ./index.php');
+
+				}else {
+
+					$err = "Password don't match";
+
+				}
+
+
+			}
+
+		}else {
+
+			$err = "Username or email don't exist !";
+
+		}
+
+	}
+}
+
 
 ?>
 
@@ -86,17 +137,17 @@ include './include/config.php';
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h3 class="thin text-center">Sign in to your account</h3>
-							<p class="text-center text-muted">Lorem ipsum dolor sit amet, <a href="signup.html">Register</a> adipisicing elit. Quo nulla quibusdam cum doloremque incidunt nemo sunt a tenetur omnis odio. </p>
+							<p class="text-center text-muted">Lorem ipsum dolor sit amet, <a href="signup.php">Register</a> adipisicing elit. Quo nulla quibusdam cum doloremque incidunt nemo sunt a tenetur omnis odio. </p>
 							<hr>
 							
-							<form>
+							<form action="" method="POST">
 								<div class="top-margin">
 									<label>Username/Email <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" name="login" >
 								</div>
 								<div class="top-margin">
 									<label>Password <span class="text-danger">*</span></label>
-									<input type="password" class="form-control">
+									<input type="password" class="form-control" name="pass">
 								</div>
 
 								<hr>
@@ -106,6 +157,7 @@ include './include/config.php';
 										<b><a href="">Forgot password?</a></b>
 									</div>
 									<div class="col-lg-4 text-right">
+										<?php if(isset($err)) { echo '<p style="color:red">'.$err.'</p>'; } ?>
 										<button class="btn btn-action" type="submit">Sign in</button>
 									</div>
 								</div>

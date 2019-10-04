@@ -71,7 +71,7 @@ include './include/config.php';
 	<header id="head">
 		<div class="container">
 			<div class="row">
-				<h1 class="lead">AWESOME, CUSTOMIZABLE, FREE</h1>
+				<h1 class="lead">WELCOME <?=$_SESSION['username'] ?></h1>
 				<p class="tagline">PROGRESSUS: free business bootstrap template by <a
 						href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a>
 				</p>

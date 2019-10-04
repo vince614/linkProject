@@ -6,19 +6,65 @@ session_start();
 //includes 
 include './include/config.php';
 
-if (isset($_POST['firstName'], $_POST['lastName'], $_POST['mail'], $_POST['password'], $_POST['confirmPassword'])) {
+//Check POST form
+if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confirmPassword'])) {
+	if(!empty($_POST['username']) && !empty($_POST['mail']) && !empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
 
-	$firstName = $_POST['firstName'];
-	$lastName = $_POST['lastName'];
-	$mail = $_POST['mail'];
-	$pass = $_POST['password'];
-	$pass_confirm = $_POST['confirmPassword'];
+		//Variables
+		$username = $_POST['username'];
+		$mail = $_POST['mail'];
+		$pass = sha1($_POST['password']);
+		$pass_confirm = sha1($_POST['confirmPassword']);
 
-	if ($pass === $pass_confirm) {
+		//Si les mot de passe corresponde
+		if ($pass === $pass_confirm) {
 
-	}else {
+			//Check account 
+			$check = $bdd->prepare('SELECT * FROM account WHERE username = ?');
+			$check->execute(array($username));
+			$checkCount = $check->rowCount();
 
-		$err = 'Les mots de passe sont différents';
+			//Si l'username existe déjà 
+			if ($checkCount > 0) {
+
+				$err = 'Username is already use !';
+
+			}else {
+
+				//Check mail 
+				$check_mail = $bdd->prepare('SELECT * FROM account WHERE mail = ?');
+				$check_mail->execute(array($mail));
+				$check_mailCount = $check_mail->rowCount();
+
+				//Si le mail est déjà pris
+				if ($check_mailCount == 0) {
+
+					//Insertion
+					$ins = $bdd->prepare('INSERT INTO account (username, pass, mail)  VALUES (?, ?, ?)');
+					$ins->execute(array($username, $pass, $mail));
+
+					//Return success
+					$succ = "You are register ! ";
+
+					header('Location: ./signin.php');
+
+				}else {
+
+					$err = "Mail already used !";
+
+				}
+
+
+				
+
+			}
+			
+
+		}else {
+
+			$err = 'Les mots de passe sont différents';
+
+		}
 
 	}
 
@@ -110,26 +156,22 @@ if (isset($_POST['firstName'], $_POST['lastName'], $_POST['mail'], $_POST['passw
 
 							<form action="" method="POST">
 								<div class="top-margin">
-									<label>First Name</label>
-									<input type="text" class="form-control" name="firstName">
-								</div>
-								<div class="top-margin">
-									<label>Last Name</label>
-									<input type="text" class="form-control" name="lastName">
+									<label>Username</label>
+									<input type="text" class="form-control" name="username" required>
 								</div>
 								<div class="top-margin">
 									<label>Email Address <span class="text-danger">*</span></label>
-									<input type="email" class="form-control" name="mail">
+									<input type="email" class="form-control" name="mail" required>
 								</div>
 
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Password <span class="text-danger">*</span></label>
-										<input type="password" class="form-control" name="password">
+										<input type="password" class="form-control" name="password" required>
 									</div>
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="password" class="form-control" name="confirmPassword">
+										<input type="password" class="form-control" name="confirmPassword" required>
 									</div>
 								</div>
 
@@ -144,6 +186,7 @@ if (isset($_POST['firstName'], $_POST['lastName'], $_POST['mail'], $_POST['passw
 									</div>
 									<div class="col-lg-4 text-right">
 										<?php if(isset($err)) { echo '<p style="color: red">'.$err.'</p>'; } ?>
+										<?php if(isset($succ)) { echo '<p style="color: green">'.$succ.'</p>'; } ?>
 										<button class="btn btn-action" type="submit">Register</button>
 									</div>
 								</div>
