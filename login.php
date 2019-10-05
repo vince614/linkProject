@@ -8,6 +8,7 @@ include './includes/config.php';
 
 //Variable 
 $isLogin = false;
+$vincnt= 'je suis moche';
 
 if(isset($_POST['login'], $_POST['pass'])) {
 	if(!empty($_POST['login']) && !empty($_POST['pass'])) {
@@ -102,7 +103,7 @@ if(isset($_POST['login'], $_POST['pass'])) {
                   </div>
                   <form class="user" action="" method="POST">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" name="login" aria-describedby="emailHelp" placeholder="Enter Email Address or Username">
+                      <input type="text" class="form-control form-control-user" name="login" aria-describedby="emailHelp" placeholder="Enter Email Address or Username">
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" name="pass" placeholder="Password">
