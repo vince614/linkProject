@@ -8,7 +8,6 @@ include './includes/config.php';
 
 //Variable 
 $isLogin = false;
-$vincnt= 'je suis moche';
 
 if(isset($_POST['login'], $_POST['pass'])) {
 	if(!empty($_POST['login']) && !empty($_POST['pass'])) {
