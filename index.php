@@ -1,7 +1,14 @@
 <?php 
 
+$isLogin = false;
+
 //Start sessions
 session_start();
+if (isset($_SESSION['username'])){
+	if (!empty($_SESSION['username'])){
+		$isLogin = true ;
+	}
+}
 
 //Include
 include './include/config.php';
@@ -29,6 +36,13 @@ include './include/config.php';
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- UIkit CSS -->
+	<!-- UIkit CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
+
+<!-- UIkit JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -48,6 +62,7 @@ include './include/config.php';
 				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png"
 						alt="Progressus HTML5 template"></a>
 			</div>
+			<?php if($isLogin == false) { ?>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">Home</a></li>
@@ -62,6 +77,23 @@ include './include/config.php';
 					<li><a class="btn" href="signin.php">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div>
+			<?php }else { ?>
+				<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="about.html">About</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="sidebar-left.html">Left Sidebar</a></li>
+							<li class="active"><a href="sidebar-right.html">Right Sidebar</a></li>
+						</ul>
+						<li> <button class="uk-button uk-button-danger" onclick="location.href='logout.php';">Déconnexion</button> </li>
+					</li>
+				</ul>
+			</div>
+			<?php } ?>
+
 			<!--/.nav-collapse -->
 		</div>
 	</div>
