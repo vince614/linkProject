@@ -1,20 +1,15 @@
 <?php
 
+//Variable 
 $isLogin = false;
+$insertion = false;
+$isHTTPS = 0;
 
 //Start sessions
 session_start();
-if (isset($_SESSION['username'])){
-	if (!empty($_SESSION['username'])){
-		$isLogin = true ;
-	}
-}
 
 //includes
 include './includes/config.php';
-
-//Variable 
-$isLogin = false;
 
 //Si l'utilisateur est connecté 
 if(isset($_SESSION['username'])) {
@@ -30,6 +25,64 @@ if(isset($_SESSION['username'])) {
 //Redirection si il n'es pas connecté 
 if ($isLogin == false) {
   header('Location: ./login.php');
+}
+
+//Create new link 
+if (isset($_POST['url_origin'], $_POST['title'])) {
+  if (!empty($_POST['url_origin']) && !empty($_POST['title'])){
+
+    //Variables 
+    $origin_link = $_POST['url_origin'];
+    $title = $_POST['title'];
+    $verif = 1;
+    $time = time();
+
+    //Si l'url est valide 
+    if (filter_var($origin_link, FILTER_VALIDATE_URL) !== FALSE) {
+
+      //Http
+      $HTTPS =  explode(':', $origin_link);
+      
+      //Connaitre la nature du lien
+      if ($HTTPS[0] == 'https') {
+        $isHTTPS = 1;
+      }
+      
+      //Caractères du code 
+      $characts = 'abcdefghijklmnopqrstuvwxyz';
+      $characts .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $characts .= '1234567890';
+      $code_aleatoire = '';
+
+      //Nombre de caractère
+      $charactsCount = 5;
+
+      //Si il le code existe déjà recommencé
+      while($verif !== 0) {
+
+        //Géneration du caractère
+        for($i=0; $i < $charactsCount; $i++) {
+          $code_aleatoire .= substr($characts,rand()%(strlen($characts)),1);
+        }
+
+        //Les codes dans la bdd
+        $codes = $bdd->prepare('SELECT * FROM links_table WHERE code = ?');
+        $codes->execute(array($code_aleatoire));
+        $verif = $codes->rowCount();
+
+      }
+
+      //Infos account
+
+      //Insertion à la bdd 
+      $ins = $bdd->prepare('INSERT INTO links_table (links_origin, owner_username, title, isHTTPS, code, date_link) VALUES (?, ?, ?, ?, ?, ?)');
+      $ins->execute(array($origin_link, $username, $title, $isHTTPS, $code_aleatoire, $time));
+
+      //Redirection
+      header('Location: index.php');
+      
+    } 
+  }
 }
 
 
@@ -60,6 +113,9 @@ if ($isLogin == false) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
 
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -70,8 +126,12 @@ if ($isLogin == false) {
   <div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
     <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
       <button class="uk-modal-close-full" type="button" uk-close></button>
-      <form class="uk-search uk-search-large">
-        <input class="uk-search-input uk-text-center" type="search" placeholder="Search..." autofocus>
+      <form class="uk-search uk-search-large" action="" method="POST">
+        <p class="uk-text-center">Create your link shorted</p>
+        <input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
+        <hr>
+        <input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url" required>
+        <button style="display:none" type="submit"></button>
       </form>
     </div>
   </div>
@@ -110,7 +170,7 @@ if ($isLogin == false) {
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link uk-navbar-toggle" href="#modal-full" uk-toggle >
+        <a class="nav-link uk-navbar-toggle" href="#modal-full" uk-toggle>
           <i class="fas fa-link"></i>
           <span>Create link</span></a>
       </li>
