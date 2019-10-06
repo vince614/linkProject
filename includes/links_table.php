@@ -19,6 +19,13 @@ if ($req_links_count > 0) {
         $code = $l['code'];
         $owner_username = $l['owner_username'];
 
+        //req click count
+        $req_clicks = $bdd->prepare('SELECT COUNT(id) AS clicksCount FROM clicks WHERE code = ?');
+        $req_clicks->execute(array($code));
+
+        $data_clicks = $req_clicks->fetch();
+        $clicksCount = $data_clicks['clicksCount']; 
+
         //Protocol
         if($l['isHTTPS'] == 0) {
 
@@ -40,10 +47,16 @@ if ($req_links_count > 0) {
     <td><?=$title ?></td>
     <td><?=$url ?></td>
     <td><?=$protocol ?></td>
-    <td><a href="#">http://linky/<?=$code ?></a></td>
+    <td><a href="http://localhost/linky/<?=$code ?>" target="_blank">http://localhost/linky/<?=$code ?></a></td>
     <td><?=$owner_username ?></td>
     <td><?=$date ?></td>
-    <td>52</td>
+    <td><?=$clicksCount ?></td>
+    <td>
+        <center>
+            <a href="#" style="position: relative; right: 3px;" class="btn btn-info btn-circle btn-sm" uk-tooltip="Edit"><i class="far fa-edit"></i></a>
+            <a href="#" style="position: relative; left: 3px;" class="btn btn-danger btn-circle btn-sm" uk-tooltip="Delete"><i class="fas fa-trash"></i></a>
+        </center>
+    </td>
 </tr>
 
 <?php } } ?>

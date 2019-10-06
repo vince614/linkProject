@@ -57,6 +57,13 @@ $links->execute(array($username));
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+  <!-- UIkit CSS -->
+  <link rel="stylesheet" href="css/uikit.min.css" />
+
+  <!-- UIkit JS -->
+  <script src="js/uikit.min.js"></script>
+  <script src="js/uikit-icons.min.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -370,6 +377,11 @@ $links->execute(array($username));
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+        <ul class="uk-breadcrumb">
+            <li><a href="index.php">Dashboard</a></li>
+            <li><span>Linky Table</span></li>
+        </ul>
+
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Linky table</h1>
           <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -391,6 +403,7 @@ $links->execute(array($username));
                       <th>Owner</th>
                       <th>Start date</th>
                       <th>Clicks</th>
+                      <th>Manage</th>
                     </tr>
                   </thead>
                   <tbody>

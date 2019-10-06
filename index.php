@@ -590,7 +590,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Click Sources</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Click devices</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -613,13 +613,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                   </div>
                   <div class="mt-4 text-center small">
                     <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Computer
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Phone
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Tablet
+                      Something ...
                     </span>
                   </div>
                 </div>
@@ -817,9 +811,9 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
   <!-- Page level plugins -->
   <script src="vendor/chart.js/Chart.min.js"></script>
 
-  <!-- Page level custom scripts -->
+  <!-- require Charts -->
   <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <?php require './includes/chart_pie.php' ?>
 
 </body>
 
