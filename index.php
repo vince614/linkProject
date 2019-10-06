@@ -85,8 +85,9 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
   }
 }
 
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,26 +99,29 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Link - Dashboard</title>
+  <title>Linky - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
+  <link href="css/kanit-css.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- UIkit CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
+  <link rel="stylesheet" href="css/uikit.min.css" />
 
   <!-- UIkit JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
+  <script src="js/uikit.min.js"></script>
+  <script src="js/uikit-icons.min.js"></script>
 
   <!-- SweetAlert -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="js/sweetalert2@8.js"></script>
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Charts -->
+  <link href="css/Chart.css" rel="stylesheet">
+  <script src="js/Chart.js"></script>
 
 </head>
 
@@ -165,14 +169,20 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        Links
       </div>
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link uk-navbar-toggle" href="#modal-full" uk-toggle>
+        <a class="nav-link" href="#modal-full" uk-toggle>
           <i class="fas fa-link"></i>
-          <span>Create link</span></a>
+          <span>Create linky</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="links.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Linky Table</span></a>
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
@@ -603,13 +613,13 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                   </div>
                   <div class="mt-4 text-center small">
                     <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Direct
+                      <i class="fas fa-circle text-primary"></i> Computer
                     </span>
                     <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Social
+                      <i class="fas fa-circle text-success"></i> Phone
                     </span>
                     <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Referral
+                      <i class="fas fa-circle text-info"></i> Tablet
                     </span>
                   </div>
                 </div>
@@ -626,19 +636,19 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
               <!-- Project Card Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">All links</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">5 most popular links</h6>
                 </div>
                 <div class="card-body">
-                  <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+
+                <!--Include liens http -->
+                <?php include './includes/HTTPlinks.php'; ?>
+                <!-- Fin include -->
+
+
+                <!--Include liens https -->
+                <?php include './includes/HTTPSlinks.php'; ?>
+                <!-- Fin include -->
+
                   <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
                   <div class="progress mb-4">
                     <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0"
