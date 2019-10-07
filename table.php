@@ -57,6 +57,9 @@ $links->execute(array($username));
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+  <!-- SweetAlert -->
+  <script src="js/sweetalert2@8.js"></script>
+
   <!-- UIkit CSS -->
   <link rel="stylesheet" href="css/uikit.min.css" />
 
@@ -478,6 +481,7 @@ $links->execute(array($username));
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script src="js/functions.js"></script>
 
 </body>
 

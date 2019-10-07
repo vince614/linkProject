@@ -66,39 +66,29 @@ if(isset($_GET['code'])){
 
                 }
 
+            }else {
+
+                header('Location: 404.php');
+            
             }
 
+        }else {
+
+            header('Location: 404.php');
+        
         }
 
+    }else {
+
+        header('Location: 404.php');
+    
     }
-}
 
-//  http://mobiledetect.net/
- 
-// Any mobile device (phones or tablets).
-if ( $detect->isMobile() ) {
- 
-}
- 
-// Any tablet device.
-if( $detect->isTablet() ){
- 
-}
- 
-// Exclude tablets.
-if( $detect->isMobile() && !$detect->isTablet() ){
- 
-}
- 
-// Check for a specific platform with the help of the magic methods:
-if( $detect->isiOS() ){
- 
-}
- 
-if( $detect->isAndroidOS() ){
- 
-}
+}else {
 
+    header('Location: 404.php');
+
+}
 
 
 ?>

@@ -43,8 +43,8 @@ if ($req_links_count > 0) {
 
 ?>
 
-<tr>
-    <td><?=$title ?></td>
+<tr id="<?=$code ?>">
+    <td id="edit<?=$code ?>"><?=$title ?></td>
     <td><?=$url ?></td>
     <td><?=$protocol ?></td>
     <td><a href="http://localhost/linky/<?=$code ?>" target="_blank">http://localhost/linky/<?=$code ?></a></td>
@@ -53,8 +53,8 @@ if ($req_links_count > 0) {
     <td><?=$clicksCount ?></td>
     <td>
         <center>
-            <a href="#" style="position: relative; right: 3px;" class="btn btn-info btn-circle btn-sm" uk-tooltip="Edit"><i class="far fa-edit"></i></a>
-            <a href="#" style="position: relative; left: 3px;" class="btn btn-danger btn-circle btn-sm" uk-tooltip="Delete"><i class="fas fa-trash"></i></a>
+            <button onclick="edit('<?=$code  ?>','<?=$title ?>')" style="position: relative; right: 3px;" class="btn btn-info btn-circle btn-sm" uk-tooltip="Edit"><i class="far fa-edit"></i></button>
+            <button onclick="trash('<?=$code  ?>','<?=$title ?>')" style="position: relative; left: 3px;" class="btn btn-danger btn-circle btn-sm" uk-tooltip="Delete"><i class="fas fa-trash"></i></button>
         </center>
     </td>
 </tr>
