@@ -284,6 +284,15 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
             </div>
           </form>
 
+          <div id="search-box-container" >
+          <label > How To Integrate Live Search In PHP And MySQL With JQuery : </label><br><br>
+          <input  type="text" id="search-data" name="searchData" placeholder="Search By Post Title (word length should be greater than 3) ..." autocomplete="off" />
+          <div id="display-button" style="">fsdfds</div> 
+          </div>
+
+          <div id="search-result-container" style="border:solid 1px #BDC7D8;display:none; ">
+          </div>
+
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -543,8 +552,10 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                       aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
+                      <button class="dropdown-item" onclick="chartArea('all','day')">Day</button>
+                      <button class="dropdown-item" onclick="chartArea('all','week')">Week</button>
+                      <button class="dropdown-item" onclick="chartArea('all','month')">Month</button>
+                      <button class="dropdown-item" onclick="chartArea('all','year')">Year</button>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
