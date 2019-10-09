@@ -13,7 +13,7 @@ if(isset($_POST['login'], $_POST['pass'])) {
 	if(!empty($_POST['login']) && !empty($_POST['pass'])) {
 
 		//Variables 
-		$login = $_POST['login'];
+		$login = strtolower($_POST['login']);
 		$password = sha1($_POST['pass']);
 
 		//Check login

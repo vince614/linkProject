@@ -284,14 +284,6 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
             </div>
           </form>
 
-          <div id="search-box-container" >
-          <label > How To Integrate Live Search In PHP And MySQL With JQuery : </label><br><br>
-          <input  type="text" id="search-data" name="searchData" placeholder="Search By Post Title (word length should be greater than 3) ..." autocomplete="off" />
-          <div id="display-button" style="">fsdfds</div> 
-          </div>
-
-          <div id="search-result-container" style="border:solid 1px #BDC7D8;display:none; ">
-          </div>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -452,87 +444,6 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <!-- Content Row -->
 
@@ -543,7 +454,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Click Overview</h6>
+                  <h6 id="chart-area-h6" class="m-0 font-weight-bold text-primary"></h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -551,7 +462,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                       aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
+                      <div class="dropdown-header">Sort by date:</div>
                       <button class="dropdown-item" onclick="chartArea('all','day')">Day</button>
                       <button class="dropdown-item" onclick="chartArea('all','week')">Week</button>
                       <button class="dropdown-item" onclick="chartArea('all','month')">Month</button>
@@ -585,7 +496,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Click devices</h6>
+                  <h6 id="chart-pie-h6" class="m-0 font-weight-bold text-primary"></h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
@@ -593,9 +504,10 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                       aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
+                      <button class="dropdown-item" onclick="chartPie('all','day')">Day</button>
+                      <button class="dropdown-item" onclick="chartPie('all','week')">Week</button>
+                      <button class="dropdown-item" onclick="chartPie('all','month')">Month</button>
+                      <button class="dropdown-item" onclick="chartPie('all','year')">Year</button>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
@@ -604,11 +516,21 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2">
+
+                    <!-- Loading -->
+                    <div id="loader-pie" class="text-center" style="height: 100%">
+                      <div class="spinner-border" style="position: relative; top: 40%" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
                     <canvas id="myPieChart"></canvas>
+
+
                   </div>
                   <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      Something ...
+                    <span id="time-pie" class="mr-2">
+
                     </span>
                   </div>
                 </div>
@@ -791,7 +713,8 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
 
   <!-- require Charts -->
   <script src="js/chart-area.js"></script>
-  <?php require './includes/chart_pie.php' ?>
+  <script src="js/chart-pie.js"></script>
+  
 
 </body>
 

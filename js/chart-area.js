@@ -188,15 +188,18 @@ function chartArea(code, date) {
                     //Datas 
                     dataChart = obj.hours;
 
+                    //Destroy chart is exist 
                     if(typeof myLineChart !== 'undefined') {
 
                         myLineChart.destroy();
-                        console.log(typeof myLineChart);
 
                     }
 
                     //DrawChart
                     drawChart();
+
+                    //Change h6 
+                    $('#chart-area-h6').text("Overview clicks [Day]");
 
                 } else if (obj.date == 'week') {
 
@@ -232,12 +235,14 @@ function chartArea(code, date) {
                     if(typeof myLineChart !== 'undefined') {
 
                         myLineChart.destroy();
-                        console.log(typeof myLineChart);
 
                     }
 
                     //DrawChart
                     drawChart();
+
+                    //Change h6 
+                    $('#chart-area-h6').text("Overview clicks [Week]");
 
                 } else if (obj.date == 'month') {
 
@@ -273,12 +278,14 @@ function chartArea(code, date) {
                     if(typeof myLineChart !== 'undefined') {
 
                         myLineChart.destroy();
-                        console.log(typeof myLineChart);
 
                     }
 
                     //DrawChart
                     drawChart();
+
+                    //Change h6 
+                    $('#chart-area-h6').text("Overview clicks [Month]");
 
                 }else if(obj.date == 'year'){
 
@@ -314,14 +321,14 @@ function chartArea(code, date) {
                     if(typeof myLineChart !== 'undefined') {
 
                         myLineChart.destroy();
-                        console.log(typeof myLineChart);
 
                     }
 
-                    console.log(typeof myLineChart);
-
                     //DrawChart
                     drawChart();
+
+                    //Change h6 
+                    $('#chart-area-h6').text("Overview clicks [Year]");
 
 
                 }

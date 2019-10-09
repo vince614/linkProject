@@ -11,8 +11,8 @@ if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confir
 	if(!empty($_POST['username']) && !empty($_POST['mail']) && !empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
 
 		//Variables
-		$username = $_POST['username'];
-		$mail = $_POST['mail'];
+    $username = strtolower($_POST['username']);
+		$mail = strtolower($_POST['mail']);
 		$pass = sha1($_POST['password']);
 		$pass_confirm = sha1($_POST['confirmPassword']);
 

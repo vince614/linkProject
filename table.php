@@ -25,6 +25,64 @@ if ($isLogin == false) {
   header('Location: ./login.php');
 }
 
+//Create new link 
+if (isset($_POST['url_origin'], $_POST['title'])) {
+  if (!empty($_POST['url_origin']) && !empty($_POST['title'])){
+
+    //Variables 
+    $origin_link = $_POST['url_origin'];
+    $title = $_POST['title'];
+    $verif = 1;
+    $time = time();
+
+    //Si l'url est valide 
+    if (filter_var($origin_link, FILTER_VALIDATE_URL) !== FALSE) {
+
+      //Http
+      $HTTPS =  explode(':', $origin_link);
+      
+      //Connaitre la nature du lien
+      if ($HTTPS[0] == 'https') {
+        $isHTTPS = 1;
+      }
+      
+      //Caractères du code 
+      $characts = 'abcdefghijklmnopqrstuvwxyz';
+      $characts .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $characts .= '1234567890';
+      $code_aleatoire = '';
+
+      //Nombre de caractère
+      $charactsCount = 5;
+
+      //Si il le code existe déjà recommencé
+      while($verif !== 0) {
+
+        //Géneration du caractère
+        for($i=0; $i < $charactsCount; $i++) {
+          $code_aleatoire .= substr($characts,rand()%(strlen($characts)),1);
+        }
+
+        //Les codes dans la bdd
+        $codes = $bdd->prepare('SELECT * FROM links_table WHERE code = ?');
+        $codes->execute(array($code_aleatoire));
+        $verif = $codes->rowCount();
+
+      }
+
+      //Infos account
+
+      //Insertion à la bdd 
+      $ins = $bdd->prepare('INSERT INTO links_table (links_origin, owner_username, title, isHTTPS, code, date_link) VALUES (?, ?, ?, ?, ?, ?)');
+      $ins->execute(array($origin_link, $username, $title, $isHTTPS, $code_aleatoire, $time));
+
+      //Redirection
+      header('Location: index.php');
+      
+    } 
+  }
+}
+
 //links 
 $links = $bdd->prepare('SELECT * FROM links_table WHERE owner_username = ?');
 $links->execute(array($username));

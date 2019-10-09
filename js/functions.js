@@ -1,5 +1,5 @@
 //Function delete 
-function trash(code,title){
+function trash(code, title) {
 
     //Swal
     Swal.fire({
@@ -10,7 +10,7 @@ function trash(code,title){
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+    }).then((result) => {
         if (result.value) {
 
             //Ajax 
@@ -21,14 +21,14 @@ function trash(code,title){
                     code: code
                 },
                 success: function (data) {
-        
+
                     //Recupérer le fichier json en objet
                     var obj = JSON.parse(data);
                     console.log(obj);
 
-                    if(obj.exist == true) {
+                    if (obj.exist == true) {
 
-                        if(obj.delete == true) {
+                        if (obj.delete == true) {
 
                             //Swal
                             Swal.fire(
@@ -43,7 +43,7 @@ function trash(code,title){
 
                         }
 
-                    }else {
+                    } else {
 
                         //Swal
                         Swal.fire(
@@ -54,10 +54,10 @@ function trash(code,title){
 
                     }
 
-                    
 
-                    
-                    
+
+
+
                 }
             });
 
@@ -67,16 +67,18 @@ function trash(code,title){
 }
 
 //Function edit
-function edit(code, title){
+function edit(code, title) {
 
     (async () => {
 
-        const { value: newTitle } = await Swal.fire({
-          title: 'Change linky title of ' + title,
-          input: 'text',
-          inputPlaceholder: 'Enter new title'
+        const {
+            value: newTitle
+        } = await Swal.fire({
+            title: 'Change linky title of ' + title,
+            input: 'text',
+            inputPlaceholder: 'Enter new title'
         })
-        
+
         if (newTitle) {
 
             //Ajax 
@@ -88,14 +90,14 @@ function edit(code, title){
                     title: newTitle
                 },
                 success: function (data) {
-        
+
                     //Recupérer le fichier json en objet
                     var obj = JSON.parse(data);
                     console.log(obj);
 
-                    if(obj.exist == true) {
+                    if (obj.exist == true) {
 
-                        if(obj.edit == true) {
+                        if (obj.edit == true) {
 
                             //Swal
                             Swal.fire('Entered title: ' + newTitle);
@@ -106,7 +108,7 @@ function edit(code, title){
 
                         }
 
-                    }else {
+                    } else {
 
                         //Swal
                         Swal.fire(
@@ -117,35 +119,15 @@ function edit(code, title){
 
                     }
 
-                    
 
-                    
-                    
+
+
+
                 }
             });
 
         }
-        
-        })()
+
+    })()
 
 }
-
-// This function helps to send the request to retrieve data from mysql database...
-function searchData(val){
-    $('#search-result-container').show();
-    $('#search-result-container').html('<div><img src="preloader.gif" width="50px;" height="50px"> <span style="font-size: 20px;">Please Wait...</span></div>');
-    $.post('controller.php',{'search-data': val}, function(data){
-        
-     if(data != "")
-      $('#search-result-container').html(data);
-           else    
-     $('#search-result-container').html("<div class='search-result'>No Result Found...</div>");
-    }).fail(function(xhr, ajaxOptions, thrownError) { //any errors?
-        
-    alert(thrownError); //alert with HTTP error
-            
-    });
-   }
-
-
-
