@@ -16,7 +16,7 @@ function trash(code, title) {
             //Ajax 
             $.ajax({
                 type: "POST",
-                url: "./functions/delete.php",
+                url: "../functions/delete.php",
                 data: {
                     code: code
                 },
@@ -84,7 +84,7 @@ function edit(code, title) {
             //Ajax 
             $.ajax({
                 type: "POST",
-                url: "./functions/edit.php",
+                url: "../functions/edit.php",
                 data: {
                     code: code,
                     title: newTitle
@@ -129,5 +129,45 @@ function edit(code, title) {
         }
 
     })()
+
+}
+
+//hide / show 
+function hidePieChart() {
+
+    if($('#card-pie-chart').is(':visible')) {
+        $('#card-pie-chart').hide(300);
+        $('#hide-show-pie').html('Show');
+    }else {
+        $('#card-pie-chart').show(300);
+        $('#hide-show-pie').html('Hide');
+    }
+    
+
+}
+
+function hideAreaChart() {
+
+    if($('#card-area-chart').is(':visible')) {
+        $('#card-area-chart').hide(300);
+        $('#hide-show-area').html('Show');
+    }else {
+        $('#card-area-chart').show(300);
+        $('#hide-show-area').html('Hide');
+    }
+    
+
+}
+
+function hideDataTable() {
+
+    if($('#card-datatable').is(':visible')) {
+        $('#card-datatable').hide(300);
+        $('#hide-show-datatable').html('Show');
+    }else {
+        $('#card-datatable').show(300);
+        $('#hide-show-datatable').html('Hide');
+    }
+    
 
 }

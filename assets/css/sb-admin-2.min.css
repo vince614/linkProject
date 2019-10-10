@@ -10780,8 +10780,8 @@ a:focus {
 }
 
 .bg-gradient-primary {
-    background-color: #4e73df;
-    background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+    background-color: #149dcc;
+    background-image: linear-gradient(180deg, #149dcc 10%, #5170ce 100%);
     background-size: cover
 }
 
@@ -11292,7 +11292,7 @@ a:focus {
 .sidebar #sidebarToggle::after {
     font-weight: 900;
     content: '\f104';
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Font Awesome 5 Free';
     margin-right: .1rem
 }
 
@@ -11311,7 +11311,7 @@ a:focus {
 
 .sidebar.toggled #sidebarToggle::after {
     content: '\f105';
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Font Awesome 5 Free';
     margin-left: .25rem
 }
 
@@ -11401,7 +11401,7 @@ a:focus {
         border: 0;
         font-weight: 900;
         content: '\f107';
-        font-family: 'Kanit', sans-serif;
+        font-family: 'Font Awesome 5 Free';
     }
 
     .sidebar .nav-item .nav-link[data-toggle=collapse].collapsed::after {
@@ -11739,21 +11739,21 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url(../img/undraw_authentication_fsn5.svg);
+    background: url(../img/undraw_account_490v.svg);
     background-position: center;
     background-size: 100% 100%;
 }
 
 .bg-register-image {
-    background: url(../img/undraw_create_f05x.svg);
-    background-position: center;
-    background-size: 100% 100%;
+    background: url(../img/undraw_profile_6l1l.svg);
+    background-position: 10px, 10px;
+    background-size: 98% 98%;
 }
 
 .bg-password-image {
     background: url(../img/undraw_forgot_password_gi2d.svg);
-    background-position: center;
-    background-size: 100% 100%;
+    background-position: 15px, 10px;
+    background-size: 98% 98%;
 }
 
 form.user .custom-checkbox.small label {

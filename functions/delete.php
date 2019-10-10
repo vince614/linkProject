@@ -32,6 +32,10 @@ if(isset($_POST['code'])) {
             $delete = $bdd->prepare('DELETE FROM links_table WHERE code = ?');
             $delete->execute(array($code));
 
+            //Delete 
+            $deleteClick = $bdd->prepare('DELETE FROM clicks WHERE code = ?');
+            $deleteClick->execute(array($code));
+
             $myObj->delete = true;
 
 

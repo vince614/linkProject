@@ -4,7 +4,7 @@
 session_start();
 
 //includes
-include './includes/config.php';
+include '../includes/config.php';
 
 //Variable 
 $isLogin = false;
@@ -37,7 +37,7 @@ if(isset($_POST['login'], $_POST['pass'])) {
 					$isLogin = true;
 
 					//Redirect
-					header('Location: ./index.php');
+					header('Location: ../dashboard');
 
 				}else {
 
@@ -73,11 +73,11 @@ if(isset($_POST['login'], $_POST['pass'])) {
   <title>Link - Login</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../assets/css/kanit-css.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -102,10 +102,10 @@ if(isset($_POST['login'], $_POST['pass'])) {
                   </div>
                   <form class="user" action="" method="POST">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" name="login" aria-describedby="emailHelp" placeholder="Enter Email Address or Username">
+                      <input type="text" class="form-control form-control-user" name="login" aria-describedby="emailHelp" placeholder="Enter Email Address or Username" required>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" name="pass" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" name="pass" placeholder="Password" required>
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -116,19 +116,19 @@ if(isset($_POST['login'], $_POST['pass'])) {
                     <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                     <?php if(isset($err)) { echo '<center><p style="color:red">'.$err.'</p></center>'; } ?>
                     <hr>
-                    <a href="index.php" class="btn btn-google btn-user btn-block">
+                    <a href="#" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Login with Google
                     </a>
-                    <a href="index.php" class="btn btn-facebook btn-user btn-block">
+                    <a href="#" class="btn btn-facebook btn-user btn-block">
                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                     </a>
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.php">Forgot Password?</a>
+                    <a class="small" href="../forgot-password">Forgot Password?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.php">Create an Account!</a>
+                    <a class="small" href="../register">Create an Account!</a>
                   </div>
                 </div>
               </div>
@@ -143,14 +143,14 @@ if(isset($_POST['login'], $_POST['pass'])) {
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="../assets/js/sb-admin-2.min.js"></script>
 
 </body>
 

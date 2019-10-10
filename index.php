@@ -1,720 +1,325 @@
-<?php
+<?php 
 
 //Variable 
 $isLogin = false;
-$insertion = false;
-$isHTTPS = 0;
 
-//Start sessions
+//Start session 
 session_start();
 
-//includes
+//includes 
 include './includes/config.php';
 
 //Si l'utilisateur est connecté 
 if(isset($_SESSION['username'])) {
-  if (!empty($_SESSION['username'])) {
-    
-    //Var connection 
-    $username = $_SESSION['username'];
-    $isLogin = true;
-
-  }
-}
-
-//Redirection si il n'es pas connecté 
-if ($isLogin == false) {
-  header('Location: ./login.php');
-}
-
-//Create new link 
-if (isset($_POST['url_origin'], $_POST['title'])) {
-  if (!empty($_POST['url_origin']) && !empty($_POST['title'])){
-
-    //Variables 
-    $origin_link = $_POST['url_origin'];
-    $title = $_POST['title'];
-    $verif = 1;
-    $time = time();
-
-    //Si l'url est valide 
-    if (filter_var($origin_link, FILTER_VALIDATE_URL) !== FALSE) {
-
-      //Http
-      $HTTPS =  explode(':', $origin_link);
+    if (!empty($_SESSION['username'])) {
       
-      //Connaitre la nature du lien
-      if ($HTTPS[0] == 'https') {
-        $isHTTPS = 1;
-      }
-      
-      //Caractères du code 
-      $characts = 'abcdefghijklmnopqrstuvwxyz';
-      $characts .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      $characts .= '1234567890';
-      $code_aleatoire = '';
-
-      //Nombre de caractère
-      $charactsCount = 5;
-
-      //Si il le code existe déjà recommencé
-      while($verif !== 0) {
-
-        //Géneration du caractère
-        for($i=0; $i < $charactsCount; $i++) {
-          $code_aleatoire .= substr($characts,rand()%(strlen($characts)),1);
-        }
-
-        //Les codes dans la bdd
-        $codes = $bdd->prepare('SELECT * FROM links_table WHERE code = ?');
-        $codes->execute(array($code_aleatoire));
-        $verif = $codes->rowCount();
-
-      }
-
-      //Infos account
-
-      //Insertion à la bdd 
-      $ins = $bdd->prepare('INSERT INTO links_table (links_origin, owner_username, title, isHTTPS, code, date_link) VALUES (?, ?, ?, ?, ?, ?)');
-      $ins->execute(array($origin_link, $username, $title, $isHTTPS, $code_aleatoire, $time));
-
-      //Redirection
-      header('Location: index.php');
-      
-    } 
-  }
+      //Var connection 
+      $username = $_SESSION['username'];
+      $isLogin = true;
+  
+    }
 }
+  
+
+//Requête compteur 
+
+//Links count 
+$req_link = $bdd->prepare('SELECT * FROM links_table');
+$req_link->execute();
+$req_link_count = $req_link->rowCount();
+
+//User count 
+$req_user = $bdd->prepare('SELECT * FROM account');
+$req_user->execute();
+$req_user_count = $req_user->rowCount();
+
+//Clicks Count 
+$req_clicks = $bdd->prepare('SELECT * FROM clicks');
+$req_clicks->execute();
+$req_clicks_count = $req_clicks->rowCount();
+
+
 
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="vfiewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
+    <meta name="description" content="">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <title>Linky</title>
+    <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="assets/tether/tether.min.css">
+    <link rel="stylesheet" href="assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
+    <link href="assets/fonts/kanit-css.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
-  <title>Linky - Dashboard</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="css/kanit-css.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- UIkit CSS -->
-  <link rel="stylesheet" href="css/uikit.min.css" />
-
-  <!-- UIkit JS -->
-  <script src="js/uikit.min.js"></script>
-  <script src="js/uikit-icons.min.js"></script>
-
-  <!-- SweetAlert -->
-  <script src="js/sweetalert2@8.js"></script>
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- Charts -->
-  <link href="css/Chart.css" rel="stylesheet">
-  <script src="js/Chart.js"></script>
 
 </head>
 
-<body id="page-top">
-
-  <div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
-    <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
-      <button class="uk-modal-close-full" type="button" uk-close></button>
-      <form class="uk-search uk-search-large" action="" method="POST">
-        <p class="uk-text-center">Create your link shorted</p>
-        <input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
-        <hr>
-        <input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url" required>
-        <button style="display:none" type="submit"></button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">LINKY <sup>2</sup></div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Links
-      </div>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="#modal-full" uk-toggle>
-          <i class="fas fa-link"></i>
-          <span>Create linky</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="table.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Linky Table</span></a>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-          aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.php">Colors</a>
-            <a class="collapse-item" href="utilities-border.php">Borders</a>
-            <a class="collapse-item" href="utilities-animation.php">Animations</a>
-            <a class="collapse-item" href="utilities-other.php">Other</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-          aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="login.php">Login</a>
-            <a class="collapse-item" href="register.php">Register</a>
-            <a class="collapse-item" href="forgot-password.php">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.php">404 Page</a>
-            <a class="collapse-item" href="blank.php">Blank Page</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.php">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+<body>
+    <section class="menu cid-rEuzbR33ku" once="menu" id="menu2-4">
 
 
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
 
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                      aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been
-                      having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them
-                      sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so
-                      far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people
-                      say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <?php include './includes/nav_user_info.php'; ?>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-          </div>
-
-
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 id="chart-area-h6" class="m-0 font-weight-bold text-primary"></h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Sort by date:</div>
-                      <button class="dropdown-item" onclick="chartArea('all','day')">Day</button>
-                      <button class="dropdown-item" onclick="chartArea('all','week')">Week</button>
-                      <button class="dropdown-item" onclick="chartArea('all','month')">Month</button>
-                      <button class="dropdown-item" onclick="chartArea('all','year')">Year</button>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
+        <nav
+            class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-
-                    <!-- Loading -->
-                    <div id="loader-area" class="text-center" style="height: 100%">
-                      <div class="spinner-border" style="position: relative; top: 40%" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
-
-                    <!-- Charts -->
-                    <canvas id="myAreaChart"></canvas>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 id="chart-pie-h6" class="m-0 font-weight-bold text-primary"></h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                      aria-labelledby="dropdownMenuLink">
-                      <button class="dropdown-item" onclick="chartPie('all','day')">Day</button>
-                      <button class="dropdown-item" onclick="chartPie('all','week')">Week</button>
-                      <button class="dropdown-item" onclick="chartPie('all','month')">Month</button>
-                      <button class="dropdown-item" onclick="chartPie('all','year')">Year</button>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-
-                    <!-- Loading -->
-                    <div id="loader-pie" class="text-center" style="height: 100%">
-                      <div class="spinner-border" style="position: relative; top: 40%" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
-
-                    <canvas id="myPieChart"></canvas>
-
-
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span id="time-pie" class="mr-2">
-
+            </button>
+            <div class="menu-logo">
+                <div class="navbar-brand">
+                    <span class="navbar-logo">
+                        <a href="./">
+                            <img src="assets/images/logo2.png" alt="Linky" style="height: 3.8rem;">
+                        </a>
                     </span>
-                  </div>
+                    <span class="navbar-caption-wrap">
+                        <a class="navbar-caption text-black display-4" href="./">
+                            LINKY
+                        </a>
+                    </span>
                 </div>
-              </div>
             </div>
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
-
-              <!-- Project Card Example -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">5 most popular links</h6>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar-buttons mbr-section-btn">
+                    <a class="btn btn-sm btn-primary display-4" href="login/">
+                        <span class="btn-icon mbri-mobile mbr-iconfont mbr-iconfont-btn">
+                        </span>
+                        SIGN IN / SIGN UP 
+                    </a>
                 </div>
-                <div class="card-body">
-
-                <!--Include liens http -->
-                <?php include './includes/HTTPlinks.php'; ?>
-                <!-- Fin include -->
-
-
-                <!--Include liens https -->
-                <?php include './includes/HTTPSlinks.php'; ?>
-                <!-- Fin include -->
-
-                  <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0"
-                      aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100"
-                      aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Color System -->
-              <div class="row">
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-primary text-white shadow">
-                    <div class="card-body">
-                      Primary
-                      <div class="text-white-50 small">#4e73df</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-success text-white shadow">
-                    <div class="card-body">
-                      Success
-                      <div class="text-white-50 small">#1cc88a</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                      Info
-                      <div class="text-white-50 small">#36b9cc</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                      Warning
-                      <div class="text-white-50 small">#f6c23e</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-danger text-white shadow">
-                    <div class="card-body">
-                      Danger
-                      <div class="text-white-50 small">#e74a3b</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
-                      Secondary
-                      <div class="text-white-50 small">#858796</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
+        </nav>
+    </section>
 
-            <div class="col-lg-6 mb-4">
+    <section class="header6 cid-rEuzOBLVQD mbr-fullscreen" >
 
-              <!-- Illustrations -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                      src="img/undraw_posting_photo.svg" alt="">
-                  </div>
-                  <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow"
-                      href="https://undraw.co/">unDraw</a>, a constantly updated collection of beautiful svg images that
-                    you can use completely free and without attribution!</p>
-                  <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on unDraw &rarr;</a>
-                </div>
-              </div>
 
-              <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                </div>
-                <div class="card-body">
-                  <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor
-                    page performance. Custom CSS classes are used to create custom components and custom utility
-                    classes.</p>
-                  <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap
-                    framework, especially the utility classes.</p>
-                </div>
-              </div>
 
+        <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(35, 35, 35);">
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="mbr-white col-md-10">
+                    <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">
+                        URL SHORTENER
+                    </h1>
+                    <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">
+                    Reduce your url with linky, and get advanced stats on clicks.
+                    </p>
+                    <div class="mbr-section-btn align-center">
+                        <a class="btn btn-md btn-primary display-4" href="login/">START NOW</a>
+                        <a class="btn btn-md btn-white-outline display-4" href="dashboard/">DASHBOARD</a>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
+
+        <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
+            <a href="#next">
+                <i class="mbri-down mbr-iconfont"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="counters1 counters cid-rEuzQTm6bi" id="counters1-6">
+
+
+
+
+
+        <div class="container">
+            <h3 class="mbr-section-subtitle mbr-fonts-style display-5">
+                Best url shortener ⚡ ! 
+            </h3>
+
+            <div class="container pt-4 mt-2">
+                <div class="media-container-row">
+                    <div class="card p-3 align-center col-12 col-md-6 col-lg-4">
+                        <div class="panel-item p-3">
+                            <div class="card-img pb-3">
+                                <span class="mbri-link mbr-iconfont"></span>
+                            </div>
+
+                            <div class="card-text">
+                                <h3 class="count pt-3 pb-3 mbr-fonts-style display-2">
+                                    <?=$req_link_count ?>
+                                </h3>
+                                <h4 class="mbr-content-title mbr-bold mbr-fonts-style display-7">
+                                    Shortcut links
+                                </h4>
+                                <p class="mbr-content-text mbr-fonts-style display-7">
+                                <strong>Linky</strong> gives you the possibility to shorten your URLs for easy access to the desired address. 
+                                The handy solution for an influencer to keep in view the links you share with your community !
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card p-3 align-center col-12 col-md-6 col-lg-4">
+                        <div class="panel-item p-3">
+                            <div class="card-img pb-3">
+                                <span class="mbri-user mbr-iconfont"></span>
+                            </div>
+                            <div class="card-text">
+                                <h3 class="count pt-3 pb-3 mbr-fonts-style display-2">
+                                    <?=$req_user_count ?>
+                                </h3>
+                                <h4 class="mbr-content-title mbr-bold mbr-fonts-style display-7">
+                                    Users
+                                </h4>
+                                <p class="mbr-content-text mbr-fonts-style display-7">
+                                <a href="register/">Sign up</a> on <strong>linky</strong> to start the adventure! If you already have an account, 
+                                we thank you for your trust and we invite you to <a href="login/">log in</a>!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-3 align-center col-12 col-md-6 col-lg-4">
+                        <div class="panel-item p-3">
+                            <div class="card-img pb-3">
+                                <span class="mbri-cursor-click mbr-iconfont"></span>
+                            </div>
+                            <div class="card-text">
+                                <h3 class="count pt-3 pb-3 mbr-fonts-style display-2">
+                                    <?=$req_clicks_count ?>
+                                </h3>
+                                <h4 class="mbr-content-title mbr-bold mbr-fonts-style display-7">
+                                    Clicks
+                                </h4>
+                                <p class="mbr-content-text mbr-fonts-style display-7">
+                                    When a person is directed to our URLs, he is instantly redirected to the links you have. 
+                                    This <strong>quick redirect</strong> allows us to collect information and thus traced beautiful curves in <a href="dashboard/">dashboard</a>!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mbr-section article content1 cid-rEuA2UrJk1" id="content1-8">
+
+
+
+        <div class="container">
+            <div class="media-container-row">
+                <div class="mbr-text col-12 mbr-fonts-style display-7 col-md-8">
+                    <p>
+                        <strong>Create your links in just a few clicks and benefit all our advantages!</strong>
+                        Linky is <strong>free</strong> for everyone and has been developed with ❤ by <a href="#">vince</a>.
+                        Start now the new experience that linky offers.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="countdown1 cid-rEuAaedhyA" id="countdown1-9">
+
+
+
+        <div class="container ">
+            <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
+                Start in:
+            </h2>
 
         </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
+        <div class="container countdown-cont align-center">
+            <div class="daysCountdown" title="Days"></div>
+            <div class="hoursCountdown" title="Hours"></div>
+            <div class="minutesCountdown" title="Minutes"></div>
+            <div class="secondsCountdown" title="Seconds"></div>
+            <div class="countdown pt-5 mt-2" data-due-date="2019/11/01">
+            </div>
         </div>
-      </footer>
-      <!-- End of Footer -->
+    </section>
 
-    </div>
-    <!-- End of Content Wrapper -->
+    <section class="cid-rEuAiGBD0o" id="social-buttons3-a">
 
-  </div>
-  <!-- End of Page Wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
 
-  <!-- Logout Modal-->
-  <?php include './includes/logout_modal.php'; ?>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <div class="container">
+            <div class="media-container-row">
+                <div class="col-md-8 align-center">
+                    <h2 class="pb-3 mbr-section-title mbr-fonts-style display-2">
+                        SHARE LINKY!
+                    </h2>
+                    <div>
+                        <div class="mbr-social-likes">
+                            <span class="btn btn-social socicon-bg-facebook facebook mx-2"
+                                title="Share link on Facebook">
+                                <i class="socicon socicon-facebook"></i>
+                            </span>
+                            <span class="btn btn-social twitter socicon-bg-twitter mx-2" title="Share link on Twitter">
+                                <i class="socicon socicon-twitter"></i>
+                            </span>
+                            <span class="btn btn-social vkontakte socicon-bg-vkontakte mx-2"
+                                title="Share link on VKontakte">
+                                <i class="socicon socicon-vkontakte"></i>
+                            </span>
+                            <span class="btn btn-social odnoklassniki socicon-bg-odnoklassniki mx-2"
+                                title="Share link on Odnoklassniki">
+                                <i class="socicon socicon-odnoklassniki"></i>
+                            </span>
+                            <span class="btn btn-social pinterest socicon-bg-pinterest mx-2"
+                                title="Share link on Pinterest">
+                                <i class="socicon socicon-pinterest"></i>
+                            </span>
+                            <span class="btn btn-social mailru socicon-bg-mail mx-2" title="Share link on Mailru">
+                                <i class="socicon socicon-mail"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
 
-  <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="assets/web/assets/jquery/jquery.min.js"></script>
+    <script src="assets/popper/popper.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/vimeoplayer/jquery.mb.vimeo_player.js"></script>
+    <script src="assets/smoothscroll/smooth-scroll.js"></script>
+    <script src="assets/dropdown/js/nav-dropdown.js"></script>
+    <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+    <script src="assets/tether/tether.min.js"></script>
+    <script src="assets/ytplayer/jquery.mb.ytplayer.min.js"></script>
+    <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
+    <script src="assets/countdown/jquery.countdown.min.js"></script>
+    <script src="assets/sociallikes/social-likes.js"></script>
+    <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+    <script src="assets/theme/js/script.js"></script>
 
-  <!-- require Charts -->
-  <script src="js/chart-area.js"></script>
-  <script src="js/chart-pie.js"></script>
-  
 
 </body>
 

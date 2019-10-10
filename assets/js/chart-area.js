@@ -143,7 +143,7 @@ function chartArea(code, date) {
     //Ajax 
     $.ajax({
             type: "POST",
-            url: "./functions/chart_area.php",
+            url: "../functions/chart_area.php",
             data: {
                 code: code,
                 date: date

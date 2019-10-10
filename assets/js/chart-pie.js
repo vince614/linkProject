@@ -74,7 +74,7 @@ function chartPie(code, date) {
     //Ajax 
     $.ajax({
             type: "POST",
-            url: "./functions/chart_pie.php",
+            url: "../functions/chart_pie.php",
             data: {
                 code: code,
                 date: date

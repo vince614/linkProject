@@ -53,8 +53,8 @@ if ($req_links_count > 0) {
     <td><?=$clicksCount ?></td>
     <td>
         <center>
-            <button onclick="edit('<?=$code  ?>','<?=$title ?>')" style="position: relative; right: 3px;" class="btn btn-info btn-circle btn-sm" uk-tooltip="Edit"><i class="far fa-edit"></i></button>
-            <button onclick="trash('<?=$code  ?>','<?=$title ?>')" style="position: relative; left: 3px;" class="btn btn-danger btn-circle btn-sm" uk-tooltip="Delete"><i class="fas fa-trash"></i></button>
+            <button onclick="edit('<?=$code  ?>','<?=$title ?>')"  class="btn btn-info btn-circle btn-sm" uk-tooltip="Edit"><i class="far fa-edit"></i></button>
+            <button onclick="trash('<?=$code  ?>','<?=$title ?>')"  class="btn btn-danger btn-circle btn-sm" uk-tooltip="Delete"><i class="fas fa-trash"></i></button>
         </center>
     </td>
 </tr>
