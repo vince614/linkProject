@@ -9,6 +9,14 @@ include '../includes/config.php';
 //Variable 
 $isLogin = false;
 
+//Verif si la personne est connecté 
+if(isset($_SESSION['username'])) {
+
+  header('Location: ../dashboard/');
+
+}
+
+
 if(isset($_POST['login'], $_POST['pass'])) {
 	if(!empty($_POST['login']) && !empty($_POST['pass'])) {
 
@@ -26,15 +34,18 @@ if(isset($_POST['login'], $_POST['pass'])) {
 
 			if($mdp = $check_login->fetch()) {
 
-				//Password bdd 
+				//Variable
 				$password_bdd = $mdp['pass'];
-				$username = $mdp['username'];
+        $username = $mdp['username'];
+        $mail = $mdp['mail'];
+        $picture = $mdp['picture'];
 
 				if ($password_bdd == $password) {
 
 					//Cree une variable session
-					$_SESSION['username'] = $username;
-					$isLogin = true;
+          $_SESSION['username'] = $username;
+          $_SESSION['email'] = $mail;
+          $_SESSION['picture'] = $picture;
 
 					//Redirect
 					header('Location: ../dashboard');
@@ -116,10 +127,10 @@ if(isset($_POST['login'], $_POST['pass'])) {
                     <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                     <?php if(isset($err)) { echo '<center><p style="color:red">'.$err.'</p></center>'; } ?>
                     <hr>
-                    <a href="#" class="btn btn-google btn-user btn-block">
+                    <a href="google.php" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Login with Google
                     </a>
-                    <a href="#" class="btn btn-facebook btn-user btn-block">
+                    <a href="facebook.php" class="btn btn-facebook btn-user btn-block">
                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                     </a>
                   </form>

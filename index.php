@@ -48,11 +48,11 @@ $req_clicks_count = $req_clicks->rowCount();
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="vfiewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
     <meta name="description" content="">
 
-    <title>Linky</title>
+    <title>Clypy</title>
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -90,12 +90,12 @@ $req_clicks_count = $req_clicks->rowCount();
                 <div class="navbar-brand">
                     <span class="navbar-logo">
                         <a href="./">
-                            <img src="assets/images/logo2.png" alt="Linky" style="height: 3.8rem;">
+                            <img src="assets/images/logo2.png" alt="Clypy" style="height: 3.8rem;">
                         </a>
                     </span>
                     <span class="navbar-caption-wrap">
                         <a class="navbar-caption text-black display-4" href="./">
-                            LINKY
+                            CLYPY
                         </a>
                     </span>
                 </div>
@@ -126,7 +126,7 @@ $req_clicks_count = $req_clicks->rowCount();
                         URL SHORTENER
                     </h1>
                     <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">
-                    Reduce your url with linky, and get advanced stats on clicks.
+                    Reduce your url with clypy, and get advanced stats on clicks.
                     </p>
                     <div class="mbr-section-btn align-center">
                         <a class="btn btn-md btn-primary display-4" href="login/">START NOW</a>
@@ -170,7 +170,7 @@ $req_clicks_count = $req_clicks->rowCount();
                                     Shortcut links
                                 </h4>
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                <strong>Linky</strong> gives you the possibility to shorten your URLs for easy access to the desired address. 
+                                <strong>Clypy</strong> gives you the possibility to shorten your URLs for easy access to the desired address. 
                                 The handy solution for an influencer to keep in view the links you share with your community !
                                 </p>
                             </div>
@@ -191,7 +191,7 @@ $req_clicks_count = $req_clicks->rowCount();
                                     Users
                                 </h4>
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                <a href="register/">Sign up</a> on <strong>linky</strong> to start the adventure! If you already have an account, 
+                                <a href="register/">Sign up</a> on <strong>clypy</strong> to start the adventure! If you already have an account, 
                                 we thank you for your trust and we invite you to <a href="login/">log in</a>!
                                 </p>
                             </div>
@@ -234,8 +234,8 @@ $req_clicks_count = $req_clicks->rowCount();
                 <div class="mbr-text col-12 mbr-fonts-style display-7 col-md-8">
                     <p>
                         <strong>Create your links in just a few clicks and benefit all our advantages!</strong>
-                        Linky is <strong>free</strong> for everyone and has been developed with ❤ by <a href="#">vince</a>.
-                        Start now the new experience that linky offers.
+                        Clypy is <strong>free</strong> for everyone and has been developed with ❤ by <a href="#">vince</a>.
+                        Start now the new experience that Clypy offers.
                 </div>
             </div>
         </div>
@@ -271,7 +271,7 @@ $req_clicks_count = $req_clicks->rowCount();
             <div class="media-container-row">
                 <div class="col-md-8 align-center">
                     <h2 class="pb-3 mbr-section-title mbr-fonts-style display-2">
-                        SHARE LINKY!
+                        SHARE CLYPY!
                     </h2>
                     <div>
                         <div class="mbr-social-likes">

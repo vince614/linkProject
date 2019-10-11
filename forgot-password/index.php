@@ -1,3 +1,94 @@
+<?php 
+
+//includes 
+include '../includes/config.php';
+
+if(isset($_POST['email'])) {
+  if(!empty($_POST['email'])){
+
+    //Variable
+    $mail = $_POST['email'];
+    $time = time();
+    $time_end = $time + 60*30; 
+    $verif = 1;
+
+    //Check mail 
+    $req_mail = $bdd->prepare('SELECT * FROM account WHERE mail = ?');
+    $req_mail->execute(array($mail));
+    $mail_count = $req_mail->rowCount();
+
+    //If exist 
+    if ($mail_count > 0) {
+
+      //Verif code 
+      $req_code_expire = $bdd->prepare('SELECT * FROM forgot_pass WHERE time_end < ? AND mail = ?');
+      $req_code_expire->execute(array($time, $mail));
+      $req_code_expire_count = $req_code_expire->rowCount();
+
+      //Si le code est disponible 
+      if ($req_code_expire_count > 0) {
+
+        //Caractères du code 
+        $characts = 'abcdefghijklmnopqrstuvwxyz';
+        $characts .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characts .= '1234567890';
+        $code_aleatoire = '';
+
+        //Nombre de caractère
+        $charactsCount = 30;
+
+        //Si il le code existe déjà recommencé
+        while($verif !== 0) {
+
+          //Géneration du caractère
+          for($i=0; $i < $charactsCount; $i++) {
+            $code_aleatoire .= substr($characts,rand()%(strlen($characts)),1);
+          }
+
+          //Les codes dans la bdd
+          $codes = $bdd->prepare('SELECT * FROM forgot_pass WHERE code = ?');
+          $codes->execute(array($code_aleatoire));
+          $verif = $codes->rowCount();
+
+
+        }
+
+        //Insertion à la bdd 
+        $ins = $bdd->prepare('INSERT INTO forgot_pass (mail, code, time_end) VALUES (?, ?, ?)');
+        $ins->execute(array($mail, $code_aleatoire, $time_end));
+
+
+        $succ = "Mail was send on ".$mail." The code sent expires in 30 minutes";
+
+      }else {
+
+        $err = "Your code is not expired ! Check your mailbox.";
+
+      }
+
+      
+
+    }else {
+
+      $err = "Mail not used in clypy.me";
+
+    }
+    
+
+  }else {
+
+    $err = "Please enter valid email address";
+
+  }
+}else {
+
+  $err = "Please enter valid email address";
+
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +100,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Linky - Forgot Password</title>
+  <title>Clypy - Forgot Password</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -40,13 +131,13 @@
                     <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
                     <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
                   </div>
-                  <form class="user">
+                  <form action="" method="POST" class="user">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" name="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." required>
                     </div>
-                    <a href="#" class="btn btn-primary btn-user btn-block">
-                      Reset Password
-                    </a>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">Reset Password</button>
+                    <?php if(isset($err)) { echo '<center><span style="color: red">'.$err.'</span></center>'; } ?>
+                    <?php if(isset($succ)) { echo '<center><span style="color: green">'.$succ.'</span></center>'; } ?>
                   </form>
                   <hr>
                   <div class="text-center">

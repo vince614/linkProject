@@ -6,6 +6,9 @@ session_start();
 //includes 
 include '../includes/config.php';
 
+//Variables 
+$isLogin = false;
+
 //Check POST form
 if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confirmPassword'])) {
 	if(!empty($_POST['username']) && !empty($_POST['mail']) && !empty($_POST['password']) && !empty($_POST['confirmPassword'])) {
@@ -14,7 +17,9 @@ if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confir
     $username = strtolower($_POST['username']);
 		$mail = strtolower($_POST['mail']);
 		$pass = sha1($_POST['password']);
-		$pass_confirm = sha1($_POST['confirmPassword']);
+    $pass_confirm = sha1($_POST['confirmPassword']);
+    $auth = "form";
+    $time = time();
 
 		//Si les mot de passe corresponde
 		if ($pass === $pass_confirm) {
@@ -40,8 +45,8 @@ if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confir
 				if ($check_mailCount == 0) {
 
 					//Insertion
-					$ins = $bdd->prepare('INSERT INTO account (username, pass, mail)  VALUES (?, ?, ?)');
-					$ins->execute(array($username, $pass, $mail));
+					$ins = $bdd->prepare('INSERT INTO account (username, pass, mail, auth, date_time)  VALUES (?, ?, ?, ?, ?)');
+					$ins->execute(array($username, $pass, $mail, $auth, $time));
 
 					//Return success
 					$succ = "You are register ! ";
@@ -66,7 +71,21 @@ if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confir
 
 }
 
+//Si l'utilisateur est connecté 
+if(isset($_SESSION['username'])) {
+  if (!empty($_SESSION['username'])) {
+    
+    //Var connection 
+    $username = $_SESSION['username'];
+    $isLogin = true;
 
+  }
+}
+
+//Redirection si il n'es pas connecté 
+if ($isLogin == true) {
+  header('Location: ../dashboard');
+}
 
 ?>
 
@@ -81,7 +100,7 @@ if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confir
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Link - Register</title>
+  <title>Clypy - Register</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -126,11 +145,12 @@ if (isset($_POST['username'], $_POST['mail'], $_POST['password'], $_POST['confir
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
                 <?php if(isset($err)) { echo '<center><p style="color:red">'.$err.'</p></center>'; } ?>
+                <?php if(isset($_SESSION['exist']) && $_SESSION['exist'] == true) { echo '<center><p style="color:red">Mail already exist</p></center>'; } ?>
                 <hr>
-                <a href="#" class="btn btn-google btn-user btn-block">
+                <a href="google.php" class="btn btn-google btn-user btn-block">
                   <i class="fab fa-google fa-fw"></i> Register with Google
                 </a>
-                <a href="#" class="btn btn-facebook btn-user btn-block">
+                <a href="facebook.php" class="btn btn-facebook btn-user btn-block">
                   <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                 </a>
               </form>

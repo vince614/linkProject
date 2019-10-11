@@ -315,7 +315,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
           </div>
 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Links table [All]</h1>
+            <h1 class="h3 mb-0 text-gray-800">Links table</h1>
           </div>
 
           <!-- Dropdown Card Example -->
@@ -323,7 +323,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
             <!-- Card Header - Dropdown -->
             <a onclick="hideDataTable()">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">DataTable</h6>
+                <h6 class="m-0 font-weight-bold text-primary">DataTable [All]</h6>
                 <div class="dropdown no-arrow">
                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
