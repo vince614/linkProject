@@ -21,10 +21,10 @@ $myObj = new \stdClass();
 $myObj->date = $date;
 
 
-if(isset($_SESSION['username'])) {
-    if(!empty($_SESSION['username'])) {
+if(isset($_SESSION['email'])) {
+    if(!empty($_SESSION['email'])) {
 
-        $username = $_SESSION['username'];
+        $email = $_SESSION['email'];
 
         //requête jour
         if($date == 'day') {
@@ -43,16 +43,16 @@ if(isset($_SESSION['username'])) {
                 if($code == 'all') {
 
                     //Requête all day of week
-                    $req_day = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_day->execute(array($username, $time_hours_before, $time_hours_after));
+                    $req_day = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_day->execute(array($email, $time_hours_before, $time_hours_after));
 
 
                 //Si on veux juste un linky
                 }else {
 
                     //Requête all day of week
-                    $req_day = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_day->execute(array($username, $code, $time_hours_before, $time_hours_after));
+                    $req_day = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_day->execute(array($email, $code, $time_hours_before, $time_hours_after));
 
                 }
 
@@ -93,16 +93,16 @@ if(isset($_SESSION['username'])) {
                 if($code == 'all') {
 
                     //Requête all day of week
-                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_week->execute(array($username, $time_Days_before, $time_Days_after));
+                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_week->execute(array($email, $time_Days_before, $time_Days_after));
 
 
                 //Si on veux juste un linky
                 }else {
 
                     //Requête all day of week
-                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_week->execute(array($username, $code, $time_Days_before, $time_Days_after));
+                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_week->execute(array($email, $code, $time_Days_before, $time_Days_after));
 
                 }
 
@@ -141,16 +141,16 @@ if(isset($_SESSION['username'])) {
                 if($code == 'all') {
 
                     //Requête all day of week
-                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_week->execute(array($username, $time_week_before, $time_week_after));
+                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_week->execute(array($email, $time_week_before, $time_week_after));
 
 
                 //Si on veux juste un linky
                 }else {
 
                     //Requête all day of week
-                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_week->execute(array($username, $code, $time_week_before, $time_week_after));
+                    $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_week->execute(array($email, $code, $time_week_before, $time_week_after));
 
                 }
 
@@ -192,16 +192,16 @@ if(isset($_SESSION['username'])) {
                 if($code == 'all') {
 
                     //Requête all day of month
-                    $req_month = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_month->execute(array($username, $time_month_before, $time_month_after));
+                    $req_month = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_month->execute(array($email, $time_month_before, $time_month_after));
 
 
                 //Si on veux juste un linky
                 }else {
 
                     //Requête all day of month
-                    $req_month = $bdd->prepare('SELECT id FROM clicks WHERE owner_username = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
-                    $req_month->execute(array($username, $code, $time_month_before, $time_month_after));
+                    $req_month = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND code = ? AND clicks_time BETWEEN ? AND ?');
+                    $req_month->execute(array($email, $code, $time_month_before, $time_month_after));
 
                 }
 
