@@ -161,7 +161,7 @@ if(isset($_GET['code'])){
                     $ins->execute(array($code, $owner_username, $owner_email, $isMobile, $isTablet, $isDesktop, $user_browser, $country, $country_code, $state, $city, $time));
 
                     //Redirect
-                    //header('Location: '.$redirect);
+                    header('Location: '.$redirect);
 
                 }
 

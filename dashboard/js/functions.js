@@ -4,7 +4,7 @@ function trash(code, title) {
     //Swal
     Swal.fire({
         title: 'Are you sure?',
-        text: "Do you want delete " + title + " linky",
+        html: "Do you want delete <b>" + title + "</b> linky",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -190,5 +190,20 @@ function hideBar() {
         $('#hide-bar').attr('data-uk-icon', 'icon: close');
     }
     
+
+}
+
+function copy(code) {
+
+    var dummyContent = "https://clypy.me/" + code;
+    var dummy = $('<input>').val(dummyContent).appendTo('body').select()
+    document.execCommand('copy');
+
+    //SweetAlert 
+    Swal.fire(
+        'Copy!',
+        'The following link has been copied : ' + dummyContent,
+        'success'
+    )
 
 }

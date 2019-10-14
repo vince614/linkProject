@@ -1,4 +1,4 @@
-chartsPie("all");
+
 
 function drawPie() {
 

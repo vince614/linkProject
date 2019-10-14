@@ -4,6 +4,7 @@
 $isLogin = false;
 $insertion = false;
 $isHTTPS = 0;
+$view = "all";
 
 //Start sessions
 session_start();
@@ -16,8 +17,8 @@ if(isset($_SESSION['username'])) {
   if (!empty($_SESSION['username'])) {
     
     //Var connection 
-    $username = $_SESSION['username'];
-    $email = $_SESSION['email'];
+	$username = $_SESSION['username'];
+	$email = $_SESSION['email'];
     $isLogin = true;
 
   }
@@ -86,48 +87,299 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
   }
 }
 
-?>
+//Get code for charts 
+if(isset($_GET['code'])) {
+	if(!empty($_GET['code'])) {
 
+		//Variables
+		$code = $_GET['code'];
+
+		//Verif 
+		$verif = $bdd->prepare('SELECT * FROM links_table WHERE code = ?');
+		$verif->execute(array($code));
+		$verif_count = $verif->rowCount();
+
+		if ($verif_count > 0){
+
+			//Change view 
+			$view = $_GET['code'];
+
+		}
+
+	}
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Linky - Dashboard</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="../assets/css/kanit-css.css" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
-
-  <!-- UIkit CSS -->
-  <link rel="stylesheet" href="../assets/css/uikit.min.css" />
-
-  <!-- UIkit JS -->
-  <script src="../assets/js/uikit.min.js"></script>
-  <script src="../assets/js/uikit-icons.min.js"></script>
-
-  <!-- SweetAlert -->
-  <script src="../assets/js/sweetalert2@8.js"></script>
-
-  <!-- Custom styles for this template-->
-  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Dashboard - Clypy.me</title>
+	<!-- CSS FILES -->
+	<link rel="stylesheet" type="text/css" href="../assets/css/uikit.min.css">
+	<link rel="stylesheet" type="text/css" href="css/dashboard.css">
+	<link rel="stylesheet" type="text/css" href="../assets/fonts/kanit-css.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 </head>
 
-<body id="page-top">
+<body>
 
-  <div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
+	<!--HEADER-->
+	<header id="top-head" class="uk-position-fixed">
+		<div class="uk-container uk-container-expand uk-background-primary">
+			<nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
+				<div class="uk-navbar-left">
+					<div class="uk-navbar-item uk-hidden@m">
+						<a class="uk-logo" href="#"><img class="custom-logo" src="img/dashboard-logo-white.svg" alt=""></a>
+					</div>
+				</div>
+				<div class="uk-navbar-right">
+					<ul class="uk-navbar-nav">
+						<li><a href="#" data-uk-icon="icon:user" title="Your profile" data-uk-tooltip></a></li>
+						<li><a href="#" data-uk-icon="icon: settings" title="Settings" data-uk-tooltip></a></li>
+						<li><a href="../logout.php" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a></li>
+						<li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"
+								title="Offcanvas" data-uk-tooltip></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</header>
+	<!--/HEADER-->
+	<!-- LEFT BAR -->
+	<aside id="left-col" class="uk-light uk-visible@m">
+		<div class="left-logo uk-flex uk-flex-middle">
+			<img class="custom-logo" src="img/dashboard-logo.svg" alt="">
+		</div>
+		
+		<!-- Left Content Box Dark -->
+		<?php include '../includes/user_info.php' ?>
+
+		<div class="left-nav-wrap">
+			<ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav>
+				<li class="uk-nav-header">ACTIONS</li>
+				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle" class="uk-margin-small-right"></span>Create new link</a>
+				<li class="uk-nav-header">LINKS</li>
+				
+				<!-- Include links nav -->
+				<?php include '../includes/links_nav.php'; ?>
+
+			</ul>
+		</div>
+		<div class="bar-bottom">
+			<ul class="uk-subnav uk-flex uk-flex-center uk-child-width-1-4" data-uk-grid>
+				<li>
+					<a href="../" class="uk-icon-link" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a>
+				</li>
+				<li>
+					<a href="#" class="uk-icon-link" data-uk-icon="icon: settings" title="Settings" data-uk-tooltip></a>
+				</li>
+				<li>
+					<a href="../logout.php" class="uk-icon-link" data-uk-tooltip="Sign out" data-uk-icon="icon: sign-out"></a>
+				</li>
+			</ul>
+		</div>
+	</aside>
+	<!-- /LEFT BAR -->
+	<!-- CONTENT -->
+	<div id="content" data-uk-height-viewport="expand: true">
+		<div class="uk-container uk-container-expand">
+			<div class="uk-grid uk-grid-divider uk-grid-medium uk-child-width-1-2 uk-child-width-1-4@l uk-child-width-1-2@xl"
+				data-uk-grid>
+				<div>
+					<span class="uk-text-small"><span data-uk-icon="icon:world"
+							class="uk-margin-small-right uk-text-primary"></span>New Clicks</span>
+					<h1 class="uk-heading-primary uk-margin-remove  uk-text-primary">2.134</h1>
+					<div class="uk-text-small">
+						<span class="uk-text-success" data-uk-icon="icon: triangle-up">15%</span> more than last week.
+					</div>
+				</div>
+				<div>
+
+					<span class="uk-text-small"><span data-uk-icon="icon:link"
+							class="uk-margin-small-right uk-text-primary"></span>Best link</span>
+					<h1 class="uk-heading-primary uk-margin-remove uk-text-primary">8.490</h1>
+					<div class="uk-text-small">
+						<span class="uk-text-success" >15%</span> Total clicks.
+					</div>
+
+				</div>
+			</div>
+			<hr>
+			<div>
+				<h1 class="uk-text-large uk-text-uppercase uk-text-center uk-text-bold"><span uk-icon="chevron-down"></span> View of <?=$view ?> <span uk-icon="chevron-down"></span></h1>
+			</div>
+			<hr>
+			<div class="uk-grid uk-grid-medium" data-uk-grid>
+
+				<!-- panel -->
+				<div class="uk-width-2-3@l">
+					<div class="uk-card uk-card-default uk-card-small uk-card-hover">
+						<div class="uk-card-header">
+							<div class="uk-grid uk-grid-small">
+								<div class="uk-width-auto">
+									<h4>Overview clicks <span id="chart-area-badge" class="uk-label">day</span></h4>
+								</div>
+								<div class="uk-width-expand uk-text-right panel-icons">
+									<a href="#offcanvas-slide-area" class="uk-icon-link" title="Configuration" data-uk-tooltip 
+									data-uk-icon="icon: cog" uk-toggle></a>
+									<a id="hide-show-area" class="uk-icon-link" title="Close" onclick="hideAreaChart()" data-uk-tooltip
+										data-uk-icon="icon: close"></a>
+								</div>
+							</div>
+						</div>
+						<div id="card-area-chart" class="uk-card-body">
+							<div class="chart-container">
+								<div id="loader-area" style="height: 100%">
+									<div class="uk-position-center" role="status">
+										<div uk-spinner></div>
+									</div>
+								</div>
+								<canvas id="myAreaChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /panel -->
+				<!-- panel -->
+				<div class="uk-width-1-3@l">
+					<div class="uk-card uk-card-default uk-card-small uk-card-hover">
+						<div class="uk-card-header">
+							<div class="uk-grid uk-grid-small">
+								<div class="uk-width-auto">
+									<h4>Devices clicks <span id="chart-pie-badge" class="uk-label">day</span></h4>
+								</div>
+								<div class="uk-width-expand uk-text-right panel-icons">
+									<a href="#offcanvas-slide-pie" class="uk-icon-link" title="Configuration" data-uk-tooltip
+										data-uk-icon="icon: cog" uk-toggle></a>
+									<a id="hide-show-pie" class="uk-icon-link" title="Close" onclick="hidePieChart()" data-uk-tooltip
+										data-uk-icon="icon: close"></a>
+								</div>
+							</div>
+						</div>
+						<div id="card-pie-chart" class="uk-card-body">
+							<div class="chart-container">
+								<div id="loader-pie" style="height: 100%">
+									<div class="uk-position-center" role="status">
+										<div uk-spinner></div>
+									</div>
+								</div>
+								<canvas id="myPieChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /panel -->
+				<!-- panel -->
+				<div class="uk-width-1-1 uk-width-1-3@l uk-width-1-3@xl">
+					<div class="uk-card uk-card-default uk-card-small uk-card-hover">
+						<div class="uk-card-header">
+							<div class="uk-grid uk-grid-small">
+								<div class="uk-width-auto">
+									<h4>Location clicks <span class="uk-label">Total</span></h4>
+								</div>
+								<div class="uk-width-expand uk-text-right panel-icons">
+									<a id="hide-pie" class="uk-icon-link" title="Close" data-uk-tooltip onclick="hidePie()"
+										data-uk-icon="icon: close"></a>
+								</div>
+							</div>
+						</div>
+						<div id="card-pie" class="uk-card-body">
+							<div class="chart-container">
+								<div id="loader-pie2" style="height: 100%">
+									<div class="uk-position-center" role="status">
+										<div uk-spinner></div>
+									</div>
+								</div>
+								<canvas id="PieChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /panel -->
+				<!-- panel -->
+				<div class="uk-width-1-2@s uk-width-1-3@l uk-width-2-3@xl">
+					<div class="uk-card uk-card-default uk-card-small uk-card-hover">
+						<div class="uk-card-header">
+							<div class="uk-grid uk-grid-small">
+								<div class="uk-width-auto">
+									<h4>Browser clicks <span class="uk-label">Total</span></h4>
+								</div>
+								<div class="uk-width-expand uk-text-right panel-icons">
+									<a id="hide-bar" class="uk-icon-link" title="Close" data-uk-tooltip onclick="hideBar()"
+										data-uk-icon="icon: close"></a>
+								</div>
+							</div>
+						</div>
+						<div id="card-bar" class="uk-card-body">
+							<div class="chart-container">
+								<div id="loader-bar" style="height: 100%">
+									<div class="uk-position-center" role="status">
+										<div uk-spinner></div>
+									</div>
+								</div>
+								<canvas id="myBarChart"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /panel -->
+			</div>
+			<footer class="uk-section uk-section-small uk-text-center">
+				<hr>
+				<p class="uk-text-small uk-text-center">Copyright &copy; Clypy.me 2019</p>
+			</footer>
+		</div>
+	</div>
+	<!-- /CONTENT -->
+	<!-- OFFCANVAS -->
+	<div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: true">
+		<div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+			<button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
+			<ul class="uk-nav uk-nav-default uk-nav-parent-icon " data-uk-nav>
+				<li class="uk-nav-header">ACTIONS</li>
+				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle" class="uk-margin-small-right"></span>Create new link</a>
+				<li class="uk-nav-header">LINKS</li>
+				
+				<!-- Include links nav -->
+				<?php include '../includes/links_nav_responsive.php'; ?>
+
+			</ul>
+		</div>
+	</div>
+
+	<div id="offcanvas-slide-area" uk-offcanvas>
+		<div class="uk-offcanvas-bar">
+
+			<ul class="uk-nav uk-nav-default uk-position-center">
+				<li class="uk-nav-header">Overview clicks sort by:</li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','day')">Day</a></li>
+                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','week')">Week</a></li>
+                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','month')">Month</a></li>
+                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','year')">Year</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+	<div id="offcanvas-slide-pie" uk-offcanvas>
+		<div class="uk-offcanvas-bar">
+
+			<ul class="uk-nav uk-nav-default uk-position-center">
+				<li class="uk-nav-header">Devices clicks sort by:</li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','day')">Day</a></li>
+                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','week')">Week</a></li>
+                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','month')">Month</a></li>
+                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','year')">Year</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+	<div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
     <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
       <button class="uk-modal-close-full" type="button" uk-close></button>
       <form class="uk-search uk-search-large" action="" method="POST">
@@ -140,290 +392,31 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
       </form>
     </div>
   </div>
+	<!-- /OFFCANVAS -->
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+	<!-- JS FILES -->
+	<script src="../assets/js/uikit.min.js"></script>
+  	<script src="../assets/js/uikit-icons.min.js"></script>
+	<script src="../vendor/jquery/jquery.min.js"></script>
+	<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="../vendor/chart.js/Chart.min.js"></script>
+	<script src="../assets/js/sweetalert2@8.js"></script>
+	<script src="js/chart-area.js"></script>
+	<script src="js/chart-dog.js"></script>
+	<script src="js/chart-pie.js"></script>
+	<script src="js/chart-bar.js"></script>
+	<script src="js/functions.js"></script>
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+	<!-- JS FONCTION INIT -->
+	<script>
 
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-
-          <div class="uk-navbar-left">
-
-            <div class="uk-navbar-item">
-              <form class="uk-search uk-search-navbar">
-                <span uk-search-icon></span>
-                <input class="uk-search-input" type="search" placeholder="Search your link">
-              </form>
-            </div>
-
-          </div>
-
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                      aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <?php include '../includes/nav_user_info.php'; ?>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">DataCharts</h1>
-            <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#modal-full" uk-toggle><i
-                class="fas fa-link fa-sm text-white-50"></i> Create new link</a>
-          </div>
-
-
-          <!-- Content Row -->
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <a onclick="hideAreaChart()">
-                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 id="chart-area-h6" class="m-0 font-weight-bold text-primary"></h6>
-                    <div class="dropdown no-arrow">
-                      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Sort by :</div>
-                        <button class="dropdown-item" onclick="chartArea('all','day')">Day</button>
-                        <button class="dropdown-item" onclick="chartArea('all','week')">Week</button>
-                        <button class="dropdown-item" onclick="chartArea('all','month')">Month</button>
-                        <button class="dropdown-item" onclick="chartArea('all','year')">Year</button>
-                        <div class="dropdown-divider"></div>
-                        <button id="hide-show-area" class="dropdown-item" onclick="hideAreaChart()">Hide</button>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <!-- Card Body -->
-                <div id="card-area-chart" class="card-body">
-                  <div class="chart-area">
-
-                    <!-- Loading -->
-                    <div id="loader-area" class="text-center" style="height: 100%">
-                      <div class="spinner-border" style="position: relative; top: 40%" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
-
-                    <!-- Charts -->
-                    <canvas id="myAreaChart"></canvas>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <a onclick="hidePieChart()">
-                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 id="chart-pie-h6" class="m-0 font-weight-bold text-primary"></h6>
-                    <div class="dropdown no-arrow">
-                      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <div class="dropdown-header">Sort by :</div>
-                        <button class="dropdown-item" onclick="chartPie('all','day')">Day</button>
-                        <button class="dropdown-item" onclick="chartPie('all','week')">Week</button>
-                        <button class="dropdown-item" onclick="chartPie('all','month')">Month</button>
-                        <button class="dropdown-item" onclick="chartPie('all','year')">Year</button>
-                        <div class="dropdown-divider"></div>
-                        <button id="hide-show-pie" class="dropdown-item" onclick="hidePieChart()">Hide</button>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-                <!-- Card Body -->
-                <div id="card-pie-chart" class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-
-                    <!-- Loading -->
-                    <div id="loader-pie" class="text-center" style="height: 100%">
-                      <div class="spinner-border" style="position: relative; top: 40%" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                    </div>
-
-                    <canvas id="myPieChart"></canvas>
-
-
-                  </div>
-                  <div class="mt-4 text-center small">
-                    <span id="time-pie" class="mr-2">
-
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Links table</h1>
-          </div>
-
-          <!-- Dropdown Card Example -->
-          <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <a onclick="hideDataTable()">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">DataTable [All]</h6>
-                <div class="dropdown no-arrow">
-                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                    aria-labelledby="dropdownMenuLink">
-                    <div class="dropdown-header">Action:</div>
-                    <a class="dropdown-item" id="hide-show-datatable" onclick="hideDataTable()">Hide</a>
-
-                  </div>
-                </div>
-              </div>
-            </a>
-            <!-- Card Body -->
-            <div id="card-datatable" class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Url</th>
-                      <th>Protocol</th>
-                      <th>Linky</th>
-                      <th>Owner</th>
-                      <th>Start Date</th>
-                      <th>Clicks</th>
-                      <th>Manage</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!-- Include links_table.php -->
-                    <?php include '../includes/links_table.php'; ?>
-                    <!-- Fin include -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-
-          <!-- End of div  -->
-        </div>
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Linky 2019</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <?php include '../includes/logout_modal.php'; ?>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../assets/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="../vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-  <!-- require Charts -->
-  <script src="js/chart-area.js"></script>
-  <script src="js/chart-pie.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="../assets/js/demo/datatables-demo.js"></script>
-  <script src="js/functions.js"></script>
-
-
+		//Default req 
+		chartArea('<?=$view ?>', 'day');
+		chartBar('<?=$view ?>', 'day');
+		chartsPie("<?=$view ?>");
+		chartPie('<?=$view ?>', 'day');
+		
+	</script>
 </body>
 
 </html>

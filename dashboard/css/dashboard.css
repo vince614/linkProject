@@ -1,3 +1,6 @@
+body {
+	font-family: 'kanit', sans-serif;
+}
 /* -- Top navigation -- */
 #top-head {
 	z-index: 9;

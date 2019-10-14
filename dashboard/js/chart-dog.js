@@ -1,5 +1,5 @@
 
-chartPie('all', 'day');
+
 
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
@@ -106,8 +106,7 @@ function chartPie(code, date) {
                     drawChartPie();
 
                     //Change h6 
-                    $('#chart-pie-h6').text("Devices clicks [Day]");
-                    $('#time-pie').html(timeNow + ' <b>to</b> ' + time);
+                    $('#chart-pie-badge').text("day");
 
                 } else if (obj.date == 'week') {
 
@@ -129,8 +128,7 @@ function chartPie(code, date) {
                     drawChartPie();
 
                     //Change h6 
-                    $('#chart-pie-h6').text("Devices clicks [Week]");
-                    $('#time-pie').html(timeNow + ' <b>to</b> ' + time);
+                    $('#chart-pie-badge').text("week");
 
 
                 } else if (obj.date == 'month') {
@@ -153,8 +151,7 @@ function chartPie(code, date) {
                     drawChartPie();
 
                     //Change h6 
-                    $('#chart-pie-h6').text("Devices clicks [Month]");
-                    $('#time-pie').html(timeNow + ' <b>to</b> ' + time);
+                    $('#chart-pie-badge').text("month");
 
                 }else if(obj.date == 'year'){
 
@@ -176,8 +173,7 @@ function chartPie(code, date) {
                     drawChartPie();
 
                     //Change h6 
-                    $('#chart-pie-h6').text("Devices clicks [Year]");
-                    $('#time-pie').html(timeNow + ' <b>to</b> ' + time);
+                    $('#chart-pie-badge').text("year");
 
 
                 }

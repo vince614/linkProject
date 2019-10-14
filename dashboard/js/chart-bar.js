@@ -1,5 +1,5 @@
 //Requete par default
-chartBar('all', 'day');
+
 
 function drawBar() {
 

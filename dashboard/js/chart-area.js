@@ -1,5 +1,3 @@
-//Requete par default
-chartArea('all', 'day');
 
 function drawChart() {
 

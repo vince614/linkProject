@@ -43,7 +43,7 @@ if(isset($_SESSION['email'])) {
         }else {
 
             //Selection bdd 
-            $req_browser = $bdd->prepare('SELECT browser, COUNT(DISTINCT id) AS nb FROM clicks WHERE code ? GROUP BY browser');
+            $req_browser = $bdd->prepare('SELECT browser, COUNT(DISTINCT id) AS nb FROM clicks WHERE code = ? GROUP BY browser');
             $req_browser->execute(array($code));
 
             //Fetch 
