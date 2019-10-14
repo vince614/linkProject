@@ -17,6 +17,7 @@ if(isset($_SESSION['username'])) {
     
     //Var connection 
     $username = $_SESSION['username'];
+    $email = $_SESSION['email'];
     $isLogin = true;
 
   }
@@ -75,8 +76,8 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
       //Infos account
 
       //Insertion à la bdd 
-      $ins = $bdd->prepare('INSERT INTO links_table (links_origin, owner_username, title, isHTTPS, code, date_link) VALUES (?, ?, ?, ?, ?, ?)');
-      $ins->execute(array($origin_link, $username, $title, $isHTTPS, $code_aleatoire, $time));
+      $ins = $bdd->prepare('INSERT INTO links_table (links_origin, owner_username, owner_email, title, isHTTPS, code, date_link) VALUES (?, ?, ?, ?, ?, ?, ?)');
+      $ins->execute(array($origin_link, $username, $email, $title, $isHTTPS, $code_aleatoire, $time));
 
       //Redirection
       header('Location: ./');
@@ -104,7 +105,9 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="../assets/css/kanit-css.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
   <!-- UIkit CSS -->
   <link rel="stylesheet" href="../assets/css/uikit.min.css" />
@@ -156,17 +159,17 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input id="search-data" type="text" class="form-control bg-light border-0 small"
-                placeholder="Search for link ..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
+
+          <div class="uk-navbar-left">
+
+            <div class="uk-navbar-item">
+              <form class="uk-search uk-search-navbar">
+                <span uk-search-icon></span>
+                <input class="uk-search-input" type="search" placeholder="Search your link">
+              </form>
             </div>
-          </form>
+
+          </div>
 
 
           <!-- Topbar Navbar -->
@@ -365,7 +368,7 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
           </div>
 
 
-        <!-- End of div  -->
+          <!-- End of div  -->
         </div>
 
       </div>
@@ -413,12 +416,12 @@ if (isset($_POST['url_origin'], $_POST['title'])) {
   <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- require Charts -->
-  <script src="../assets/js/chart-area.js"></script>
-  <script src="../assets/js/chart-pie.js"></script>
+  <script src="js/chart-area.js"></script>
+  <script src="js/chart-pie.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="../assets/js/demo/datatables-demo.js"></script>
-  <script src="../assets/js/functions.js"></script>
+  <script src="js/functions.js"></script>
 
 
 </body>

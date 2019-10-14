@@ -199,7 +199,7 @@ function chartArea(code, date) {
                     drawChart();
 
                     //Change h6 
-                    $('#chart-area-h6').text("Overview clicks [Day]");
+                    $('#chart-area-badge').text("day");
 
                 } else if (obj.date == 'week') {
 
@@ -242,7 +242,7 @@ function chartArea(code, date) {
                     drawChart();
 
                     //Change h6 
-                    $('#chart-area-h6').text("Overview clicks [Week]");
+                    $('#chart-area-badge').text("week");
 
                 } else if (obj.date == 'month') {
 
@@ -285,7 +285,7 @@ function chartArea(code, date) {
                     drawChart();
 
                     //Change h6 
-                    $('#chart-area-h6').text("Overview clicks [Month]");
+                    $('#chart-area-badge').text("month");
 
                 }else if(obj.date == 'year'){
 
@@ -328,7 +328,7 @@ function chartArea(code, date) {
                     drawChart();
 
                     //Change h6 
-                    $('#chart-area-h6').text("Overview clicks [Year]");
+                    $('#chart-area-badge').text("year");
 
 
                 }

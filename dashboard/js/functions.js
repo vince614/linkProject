@@ -137,10 +137,12 @@ function hidePieChart() {
 
     if($('#card-pie-chart').is(':visible')) {
         $('#card-pie-chart').hide(300);
-        $('#hide-show-pie').html('Show');
+        $('#hide-show-pie').attr('title', 'Open');
+        $('#hide-show-pie').attr('data-uk-icon', 'icon: plus');
     }else {
         $('#card-pie-chart').show(300);
-        $('#hide-show-pie').html('Hide');
+        $('#hide-show-pie').attr('title', 'Close');
+        $('#hide-show-pie').attr('data-uk-icon', 'icon: close');
     }
     
 
@@ -150,23 +152,42 @@ function hideAreaChart() {
 
     if($('#card-area-chart').is(':visible')) {
         $('#card-area-chart').hide(300);
-        $('#hide-show-area').html('Show');
+        $('#hide-show-area').attr('title', 'Open');
+        $('#hide-show-area').attr('data-uk-icon', 'icon: plus');
     }else {
         $('#card-area-chart').show(300);
-        $('#hide-show-area').html('Hide');
+        $('#hide-show-area').attr('title', 'Close');
+        $('#hide-show-area').attr('data-uk-icon', 'icon: close');
     }
     
 
 }
 
-function hideDataTable() {
+function hidePie() {
 
-    if($('#card-datatable').is(':visible')) {
-        $('#card-datatable').hide(300);
-        $('#hide-show-datatable').html('Show');
+    if($('#card-pie').is(':visible')) {
+        $('#card-pie').hide(300);
+        $('#hide-pie').attr('title', 'Open');
+        $('#hide-pie').attr('data-uk-icon', 'icon: plus');
     }else {
-        $('#card-datatable').show(300);
-        $('#hide-show-datatable').html('Hide');
+        $('#card-pie').show(300);
+        $('#hide-pie').attr('title', 'Close');
+        $('#hide-pie').attr('data-uk-icon', 'icon: close');
+    }
+    
+
+}
+
+function hideBar() {
+
+    if($('#card-bar').is(':visible')) {
+        $('#card-bar').hide(300);
+        $('#hide-bar').attr('title', 'Open');
+        $('#hide-bar').attr('data-uk-icon', 'icon: plus');
+    }else {
+        $('#card-bar').show(300);
+        $('#hide-bar').attr('title', 'Close');
+        $('#hide-bar').attr('data-uk-icon', 'icon: close');
     }
     
 

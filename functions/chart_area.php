@@ -20,7 +20,6 @@ $time_year = $time - 12*30*24*60*60;
 $myObj = new \stdClass();
 $myObj->date = $date;
 
-
 if(isset($_SESSION['email'])) {
     if(!empty($_SESSION['email'])) {
 
