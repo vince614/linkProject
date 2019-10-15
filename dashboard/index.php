@@ -139,7 +139,7 @@ if(isset($_GET['code'])) {
 				<div class="uk-navbar-right">
 					<ul class="uk-navbar-nav">
 						<li><a href="#" data-uk-icon="icon:user" title="Your profile" data-uk-tooltip></a></li>
-						<li><a href="#" data-uk-icon="icon: settings" title="Settings" data-uk-tooltip></a></li>
+						<li><a href="../" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a></li>
 						<li><a href="../logout.php" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a></li>
 						<li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"
 								title="Offcanvas" data-uk-tooltip></a></li>
@@ -175,7 +175,7 @@ if(isset($_GET['code'])) {
 					<a href="../" class="uk-icon-link" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a>
 				</li>
 				<li>
-					<a href="#" class="uk-icon-link" data-uk-icon="icon: settings" title="Settings" data-uk-tooltip></a>
+					<a href="#" class="uk-icon-link" data-uk-icon="icon: user" title="Profile" data-uk-tooltip></a>
 				</li>
 				<li>
 					<a href="../logout.php" class="uk-icon-link" data-uk-tooltip="Sign out" data-uk-icon="icon: sign-out"></a>
@@ -187,27 +187,9 @@ if(isset($_GET['code'])) {
 	<!-- CONTENT -->
 	<div id="content" data-uk-height-viewport="expand: true">
 		<div class="uk-container uk-container-expand">
-			<div class="uk-grid uk-grid-divider uk-grid-medium uk-child-width-1-2 uk-child-width-1-4@l uk-child-width-1-2@xl"
-				data-uk-grid>
-				<div>
-					<span class="uk-text-small"><span data-uk-icon="icon:world"
-							class="uk-margin-small-right uk-text-primary"></span>New Clicks</span>
-					<h1 class="uk-heading-primary uk-margin-remove  uk-text-primary">2.134</h1>
-					<div class="uk-text-small">
-						<span class="uk-text-success" data-uk-icon="icon: triangle-up">15%</span> more than last week.
-					</div>
-				</div>
-				<div>
-
-					<span class="uk-text-small"><span data-uk-icon="icon:link"
-							class="uk-margin-small-right uk-text-primary"></span>Best link</span>
-					<h1 class="uk-heading-primary uk-margin-remove uk-text-primary">8.490</h1>
-					<div class="uk-text-small">
-						<span class="uk-text-success" >15%</span> Total clicks.
-					</div>
-
-				</div>
-			</div>
+			<!-- Header card -->
+			<?php include '../includes/header.php' ?>
+			
 			<hr>
 			<div>
 				<h1 class="uk-text-large uk-text-uppercase uk-text-center uk-text-bold"><span uk-icon="chevron-down"></span> View of <?=$view ?> <span uk-icon="chevron-down"></span></h1>
@@ -387,8 +369,11 @@ if(isset($_GET['code'])) {
         <input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
         <hr>
         <input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url"
-          required>
-        <button style="display:none" type="submit"></button>
+		  required>
+		<br/>
+		<br/>
+		<br/>
+        <button class="uk-button uk-button-default uk-button-small uk-align-center" type="submit">Create link</button>
       </form>
     </div>
   </div>

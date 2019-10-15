@@ -29,7 +29,7 @@ $fb = new \Facebook\Facebook([
 if(empty($access_token)) {
 
     $permissions = ['email'];
-    $url = $fb->getRedirectLoginHelper()->getLoginUrl("https://clype/login/facebook.php", $permissions);
+    $url = $fb->getRedirectLoginHelper()->getLoginUrl("http://localhost/clypy.me/login/facebook.php", $permissions);
 
 }
 
@@ -50,7 +50,6 @@ if(isset($access_token)) {
                 //Variable 
                 $mail = $fb_user['email'];
                 $username = $fb_user['first_name'];
-                $picture = "http://graph.facebook.com/".$fb_user['id']."/picture?type=square";
 
 
                 //If users already register 
@@ -64,7 +63,6 @@ if(isset($access_token)) {
                     //Session
                     $_SESSION['email'] = $mail;
                     $_SESSION['username'] = $username;
-                    $_SESSION['picture'] = $picture;
 
                     $isLogin = true;
 
