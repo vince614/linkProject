@@ -43,7 +43,7 @@ if(isset($_SESSION['email'])) {
         }else {
 
             //Selection bdd 
-            $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks WHERE code ? GROUP BY country_code');
+            $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks WHERE code = ? GROUP BY country_code');
             $req_country->execute(array($code));
 
             //Fetch 

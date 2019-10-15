@@ -29,7 +29,7 @@ $fb = new \Facebook\Facebook([
 if(empty($access_token)) {
 
     $permissions = ['email'];
-    $url = $fb->getRedirectLoginHelper()->getLoginUrl("http://localhost/clypy.me/login/facebook.php", $permissions);
+    $url = $fb->getRedirectLoginHelper()->getLoginUrl("https://clypy.me/login/facebook.php", $permissions);
 
 }
 

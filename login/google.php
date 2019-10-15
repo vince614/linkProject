@@ -26,7 +26,7 @@ $scopes = [
 $g_client = new Google_Client();
 $g_client->setClientId("729851811799-nqrou1qcmitqo1jplclc9tkobp0omvn8.apps.googleusercontent.com");
 $g_client->setClientSecret("9V06LyUF1uvvxcnyO4T9TPQz");
-$g_client->setRedirectUri("http://localhost/clypy.me/login/google.php");
+$g_client->setRedirectUri("https://clypy.me/login/google.php");
 $g_client->setScopes($scopes);
 
 //Step 2 : Create the url
