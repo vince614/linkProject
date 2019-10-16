@@ -11756,6 +11756,12 @@ a:focus {
     background-size: 98% 98%;
 }
 
+.bg-reset-image {
+    background: url(../img/undraw_collecting_fjjl.svg);
+    background-position: 15px, 10px;
+    background-size: 98% 98%;
+}
+
 form.user .custom-checkbox.small label {
     line-height: 1.5rem
 }

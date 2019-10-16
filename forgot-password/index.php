@@ -3,26 +3,38 @@
 //includes 
 include '../includes/config.php';
 
+//
+require '../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 if(isset($_POST['email'])) {
   if(!empty($_POST['email'])){
 
     //Variable
-    $mail = $_POST['email'];
+    $email = $_POST['email'];
     $time = time();
     $time_end = $time + 60*30; 
     $verif = 1;
 
     //Check mail 
-    $req_mail = $bdd->prepare('SELECT * FROM account WHERE mail = ?');
-    $req_mail->execute(array($mail));
-    $mail_count = $req_mail->rowCount();
+    $req_email = $bdd->prepare('SELECT * FROM account WHERE mail = ?');
+    $req_email->execute(array($email));
+    $email_count = $req_email->rowCount();
+
+    //Info sur l'utilisateur 
+    if($a = $req_email->fetch()) {
+
+      $name = $a['username'];
+
+    }
 
     //If exist 
-    if ($mail_count > 0) {
+    if ($email_count > 0) {
 
       //Verif code 
       $req_code_expire = $bdd->prepare('SELECT * FROM forgot_pass WHERE time_end > ? AND mail = ?');
-      $req_code_expire->execute(array($time, $mail));
+      $req_code_expire->execute(array($time, $email));
       $req_code_expire_count = $req_code_expire->rowCount();
 
       //Si le code est disponible 
@@ -55,10 +67,36 @@ if(isset($_POST['email'])) {
 
         //Insertion à la bdd 
         $ins = $bdd->prepare('INSERT INTO forgot_pass (mail, code, time_end) VALUES (?, ?, ?)');
-        $ins->execute(array($mail, $code_aleatoire, $time_end));
+        $ins->execute(array($email, $code_aleatoire, $time_end));
+
+        // Instantiation and passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        
+        //Server settings
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = 'mail.gandi.net';                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = 'bot@clypy.me';                     // SMTP username
+        $mail->Password   = 'victoryclan95';                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+        $mail->Port       = 587;                                    // TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('bot@clypy.me', 'clypy.me');
+        $mail->addAddress($email);
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Reset your password | Clypy.me';
+        $mail->Body    = 'Hello '.$name.' ! <br/> You have made a request to reset your password <br/><br/> Reset your pasword <a href="https://clypy.me/reset-password/'.$code_aleatoire.'">here</a> <br/><br/> (the following link expire in 30 minutes) <br/><br/> Sincerely, <br/> Clypy.me';
+        $mail->AltBody = 'Hello '.$name.' ! <br/> You have made a request to reset your password <br/><br/> Reset your pasword here : https://clypy.me/reset-password/'.$code_aleatoire.' <br/><br/> (the following link expire in 30 minutes) <br/><br/> Sincerely, <br/> Clypy.me';
+
+        $mail->send();
+            
 
 
-        $succ = "Mail was send on ".$mail." The code sent expires in 30 minutes";
+        $succ = "Mail was send on The code sent expires in 30 minutes";
 
       }else {
 

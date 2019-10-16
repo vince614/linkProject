@@ -2,6 +2,7 @@
     "require": {
         "mobiledetect/mobiledetectlib": "^2.8",
         "google/apiclient": "2.1.0",
-        "facebook/graph-sdk": "^5.7"
+        "facebook/graph-sdk": "^5.7",
+        "phpmailer/phpmailer": "^6.1"
     }
 }
