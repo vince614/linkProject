@@ -167,25 +167,25 @@ if(isset($_GET['code'])){
 
             }else {
 
-                header('Location: 404.php');
+                header('Location: ./404');
             
             }
 
         }else {
 
-            header('Location: 404.php');
+            header('Location: ./404');
         
         }
 
     }else {
 
-        header('Location: 404.php');
+        header('Location: ./404');
     
     }
 
 }else {
 
-    header('Location: 404.php');
+    header('Location: ./404');
 
 }
 

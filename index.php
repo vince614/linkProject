@@ -49,10 +49,11 @@ $req_clicks_count = $req_clicks->rowCount();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
-    <meta name="description" content="">
+    <link rel="shortcut icon" href="assets/img/clypy.png" type="image/x-icon">
+    <meta name="description" content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
+    <meta name="author" content="Vince">
 
-    <title>Clypy</title>
+    <title>Clypy.me - Best URL Shortener</title>
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -90,11 +91,11 @@ $req_clicks_count = $req_clicks->rowCount();
                 <div class="navbar-brand">
                     <span class="navbar-logo">
                         <a href="./">
-                            <img src="assets/images/logo2.png" alt="Clypy" style="height: 3.8rem;">
+                            <img src="assets/img/clypy.png" alt="Clypy" style="height: 3.8rem;">
                         </a>
                     </span>
                     <span class="navbar-caption-wrap">
-                        <a class="navbar-caption text-black display-4" href="./">
+                        <a class="navbar-caption text-white display-4" href="./">
                             CLYPY
                         </a>
                     </span>

@@ -116,7 +116,11 @@ if(isset($_GET['code'])) {
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="../assets/img/clypy.png" type="image/x-icon">
+    <meta name="description" content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
+    <meta name="author" content="Vince">
 	<title>Dashboard - Clypy.me</title>
 	<!-- CSS FILES -->
 	<link rel="stylesheet" type="text/css" href="../assets/css/uikit.min.css">

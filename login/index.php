@@ -77,11 +77,12 @@ if(isset($_POST['login'], $_POST['pass'])) {
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="../assets/img/clypy.png" type="image/x-icon">
+  <meta name="description" content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
+  <meta name="author" content="Vince">
 
-  <title>Link - Login</title>
+  <title>Login - Clypy.me</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

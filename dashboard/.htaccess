@@ -1,4 +1,4 @@
-ErrorDocument 404 /404.php 
+ErrorDocument 404 ../404
 RewriteEngine on
 
 RewriteCond %{SCRIPT_FILENAME} !-d
