@@ -1,7 +1,7 @@
 <?php
 
-//Require 
-require ("../vendor/autoload.php");
+//Require
+require '../vendor/facebook/graph-sdk/src/Facebook/autoload.php';
 
 //includes 
 include '../includes/config.php';
@@ -15,11 +15,11 @@ if(isset($_GET['state'])) {
 }
 
 /*Step 1: Enter Credentials*/
-$fb = new \Facebook\Facebook([
+$fb = new Facebook\Facebook([
 
     'app_id' => '727282361017648',
     'app_secret' => '680db8577fe4cf94c9fd584fdf285a97',
-    'default_graph_version' => 'v2.10',
+    'default_graph_version' => 'v4.0',
     //'default_access_token' => '{access-token}', // optional
 
 ]);

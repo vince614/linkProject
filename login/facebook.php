@@ -1,7 +1,7 @@
 <?php
 
 //Require 
-require ("../vendor/autoload.php");
+require '../vendor/facebook/graph-sdk/src/Facebook/autoload.php';
 
 //includes 
 include '../includes/config.php';

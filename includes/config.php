@@ -3,7 +3,7 @@
 //Var connect to db
 $host = "localhost";
 $user = "root";
-$pass = "";
+$pass = "discordinvites95330";
 $stats = "link";
 
 try {
