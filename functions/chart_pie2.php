@@ -24,13 +24,13 @@ if(isset($_SESSION['email'])) {
         if ($code == "all") {
 
             //Selection bdd 
-            $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks GROUP BY country_code');
-            $req_country->execute();
+            $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks WHERE owner_email = ? GROUP BY country_code');
+            $req_country->execute($email);
 
             //Fetch 
             while ($c = $req_country->fetch()) {
 
-                if ($c['country_code'] !== null) {
+                if ($c['country_code'] != null) {
 
                     //Push in array with key
                     $country[$c['country_code']] = $c['nb'];
@@ -43,8 +43,8 @@ if(isset($_SESSION['email'])) {
         }else {
 
             //Selection bdd 
-            $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks WHERE code = ? GROUP BY country_code');
-            $req_country->execute(array($code));
+            $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks WHERE code = ? AND owner_email = ? GROUP BY country_code');
+            $req_country->execute(array($code, $email));
 
             //Fetch 
             while ($c = $req_country->fetch()) {
