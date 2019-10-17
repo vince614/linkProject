@@ -25,7 +25,7 @@ if(isset($_SESSION['email'])) {
 
             //Selection bdd 
             $req_browser = $bdd->prepare('SELECT browser, COUNT(DISTINCT id) AS nb FROM clicks WHERE owner_email = ? GROUP BY browser');
-            $req_browser->execute($email);
+            $req_browser->execute(array($email));
 
             //Fetch 
             while ($c = $req_browser->fetch()) {

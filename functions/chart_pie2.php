@@ -25,7 +25,7 @@ if(isset($_SESSION['email'])) {
 
             //Selection bdd 
             $req_country = $bdd->prepare('SELECT country_code, COUNT(DISTINCT id) AS nb FROM clicks WHERE owner_email = ? GROUP BY country_code');
-            $req_country->execute($email);
+            $req_country->execute(array($email));
 
             //Fetch 
             while ($c = $req_country->fetch()) {

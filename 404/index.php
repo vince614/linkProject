@@ -13,7 +13,7 @@
 	<title>404 - Clypy.me</title>
 
 	<!-- Google font -->
-	<link href="../assets/fonts/kanit-css.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
