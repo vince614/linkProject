@@ -63,7 +63,7 @@ $req_clicks_count = $req_clicks->rowCount();
     <link rel="stylesheet" href="assets/socicon/css/styles.css">
     <link rel="stylesheet" href="assets/theme/css/style.css">
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
-    <link href="assets/fonts/kanit-css.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
@@ -106,7 +106,7 @@ $req_clicks_count = $req_clicks->rowCount();
                     <a class="btn btn-sm btn-primary display-4" href="login/">
                         <span class="btn-icon mbri-mobile mbr-iconfont mbr-iconfont-btn">
                         </span>
-                        SIGN IN / SIGN UP 
+                        Sign in / Sign up 
                     </a>
                 </div>
             </div>
@@ -130,8 +130,8 @@ $req_clicks_count = $req_clicks->rowCount();
                     Reduce your url with clypy, and get advanced stats on clicks.
                     </p>
                     <div class="mbr-section-btn align-center">
-                        <a class="btn btn-md btn-primary display-4" href="login/">START NOW</a>
-                        <a class="btn btn-md btn-white-outline display-4" href="dashboard/">DASHBOARD</a>
+                        <a class="btn btn-md btn-primary display-4" href="login/">Start now</a>
+                        <a class="btn btn-md btn-white-outline display-4" href="dashboard/">Dashboard</a>
                     </div>
                 </div>
             </div>
@@ -228,30 +228,30 @@ $req_clicks_count = $req_clicks->rowCount();
 
     <section class="mbr-section article content1 cid-rEuA2UrJk1" id="content1-8">
 
-
+        <div class="align-center">
+            <img src="assets/img/Asset 880.svg" alt="Computer" style="width: 70%; height: auto">
+        </div>
 
         <div class="container">
             <div class="media-container-row">
-                <div class="mbr-text col-12 mbr-fonts-style display-7 col-md-8">
+                <div class="mbr-text col-12 mbr-fonts-style display-7 col-md-8 align-center">
                     <p>
                         <strong>Create your links in just a few clicks and benefit all our advantages!</strong>
                         Clypy is <strong>free</strong> for everyone and has been developed with ❤ by <a href="#">vince</a>.
                         Start now the new experience that Clypy offers.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
+
     <section class="countdown1 cid-rEuAaedhyA" id="countdown1-9">
 
-
-
-        <div class="container ">
-            <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
-                Start in:
-            </h2>
-
+        <div class="align-center">
+            <h2>Clypy start in:</h2>
         </div>
+
         <div class="container countdown-cont align-center">
             <div class="daysCountdown" title="Days"></div>
             <div class="hoursCountdown" title="Hours"></div>

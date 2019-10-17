@@ -5,10 +5,10 @@
 
 
 body {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .display-1 {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 4.25rem;
   font-display: swap;
 }
@@ -16,7 +16,7 @@ body {
   font-size: 6.8rem;
 }
 .display-2 {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 3rem;
   font-display: swap;
 }
@@ -24,7 +24,7 @@ body {
   font-size: 4.8rem;
 }
 .display-4 {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   font-display: swap;
 }
@@ -32,7 +32,7 @@ body {
   font-size: 1.6rem;
 }
 .display-5 {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
   font-display: swap;
 }
@@ -40,7 +40,7 @@ body {
   font-size: 2.4rem;
 }
 .display-7 {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   font-display: swap;
 }
@@ -105,6 +105,14 @@ body {
 }
 .bg-danger {
   background-color: #b1a374 !important;
+}
+.bg-computer {
+  width: 600px;
+  height: 300px;
+  background: url(../../img/Asset\ 880.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%, 100%;
 }
 .btn-primary,
 .btn-primary:active {
@@ -546,7 +554,7 @@ a:hover {
   display: none;
 }
 .form-control {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
   font-display: swap;
 }

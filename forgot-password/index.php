@@ -118,10 +118,6 @@ if(isset($_POST['email'])) {
     $err = "Please enter valid email address";
 
   }
-}else {
-
-  $err = "Please enter valid email address";
-
 }
 
 
@@ -142,7 +138,7 @@ if(isset($_POST['email'])) {
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="../assets/css/kanit-css.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">

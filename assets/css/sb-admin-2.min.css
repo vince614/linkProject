@@ -47,7 +47,7 @@
 }
 
 html {
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent
@@ -68,7 +68,7 @@ section {
 
 body {
     margin: 0;
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -201,7 +201,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1em
 }
 
@@ -261,7 +261,7 @@ optgroup,
 select,
 textarea {
     margin: 0;
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: inherit;
     line-height: inherit
 }
@@ -6147,7 +6147,7 @@ a.close.disabled {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -6272,7 +6272,7 @@ a.close.disabled {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -10310,7 +10310,7 @@ button.bg-dark:hover {
 }
 
 .text-monospace {
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .text-justify {
@@ -11019,7 +11019,7 @@ a:focus {
     border: 0;
     font-weight: 900;
     content: '\f105';
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .sidebar .nav-item.dropdown.show .dropdown-toggle::after,
@@ -11690,7 +11690,7 @@ a:focus {
     line-height: 51px;
     font-weight: 900;
     content: '\f107';
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #d1d3e2
 }
 
@@ -11739,15 +11739,15 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url(../img/undraw_account_490v.svg);
+    background: url(../img/cyber-guardin.svg);
     background-position: center;
     background-size: 100% 100%;
 }
 
 .bg-register-image {
-    background: url(../img/undraw_profile_6l1l.svg);
+    background: url(../img/privacy-guard.svg);
     background-position: 10px, 10px;
-    background-size: 98% 98%;
+    background-size: 100% 100%;
 }
 
 .bg-password-image {
