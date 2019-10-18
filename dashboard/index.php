@@ -334,22 +334,24 @@ if(isset($_GET['code'])) {
 			<div>
 				<h1 class="uk-text-large uk-text-uppercase uk-text-bold">Links Table</h1>
 			</div>
-			<table class="uk-table uk-table-divider">
-				<thead>
-					<tr>
-						<th>Title</th>
-						<th>URL</th>
-						<th>Protocol</th>
-						<th>Link</th>
-						<th>Owner</th>
-						<th>Date</th>
-						<th>Clicks</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php include '../includes/links_table.php' ?>
-				</tbody>
-			</table>
+			<div class="uk-overflow-auto">
+				<table class="uk-table uk-table-divider">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>URL</th>
+							<th>Protocol</th>
+							<th>Link</th>
+							<th>Owner</th>
+							<th>Date</th>
+							<th>Clicks</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php include '../includes/links_table.php' ?>
+					</tbody>
+				</table>
+			</div>
 
 			<footer class="uk-section uk-section-small uk-text-center">
 				<hr class="uk-divider-icon">
