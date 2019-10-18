@@ -2743,7 +2743,7 @@ select.uk-form-width-xsmall {
 .uk-label {
     display: inline-block;
     padding: 0 10px;
-    background: #1e87f0;
+    background: #7289da;
     line-height: 1.5;
     font-size: .875rem;
     color: #fff;
@@ -5843,7 +5843,7 @@ ul.uk-nav-sub {
 }
 
 .uk-text-primary {
-    color: #1e87f0 !important
+    color: #7289da !important
 }
 
 .uk-text-secondary {
@@ -6152,7 +6152,7 @@ iframe.uk-cover {
 }
 
 .uk-background-primary {
-    background-color: #1e87f0
+    background-color: #7289da
 }
 
 .uk-background-secondary {

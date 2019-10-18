@@ -4,7 +4,7 @@ function trash(code, title) {
     //Swal
     Swal.fire({
         title: 'Are you sure?',
-        html: "Do you want delete <b>" + title + "</b> linky",
+        html: "Do you want delete <b>" + title + "</b> link?",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -33,7 +33,7 @@ function trash(code, title) {
                             //Swal
                             Swal.fire(
                                 'Deleted!',
-                                'Your linky has been deleted.',
+                                'Your link has been deleted.',
                                 'success'
                             )
 
@@ -48,7 +48,7 @@ function trash(code, title) {
                         //Swal
                         Swal.fire(
                             'error!',
-                            'Your linky not exist.',
+                            'Your link not exist.',
                             'error'
                         )
 
@@ -74,7 +74,7 @@ function edit(code, title) {
         const {
             value: newTitle
         } = await Swal.fire({
-            title: 'Change linky title of ' + title,
+            title: 'Change link title of ' + title,
             input: 'text',
             inputPlaceholder: 'Enter new title'
         })
@@ -100,7 +100,7 @@ function edit(code, title) {
                         if (obj.edit == true) {
 
                             //Swal
-                            Swal.fire('Entered title: ' + newTitle);
+                            Swal.fire('Success!','New title: ' + newTitle, 'success');
 
                             //Ne plus afficher le linky
                             let tr = document.getElementById('edit' + code);
@@ -196,14 +196,15 @@ function hideBar() {
 function copy(code) {
 
     var dummyContent = "https://clypy.me/" + code;
-    var dummy = $('<input>').val(dummyContent).appendTo('body').select()
-    document.execCommand('copy');
+    
 
-    //SweetAlert 
-    Swal.fire(
-        'Copy!',
-        'The following link has been copied : ' + dummyContent,
-        'success'
-    )
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = dummyContent;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+
+    UIkit.notification('<span uk-icon="icon: check"></span> Link has been copied', {status:'success', pos: 'bottom-right'})
 
 }

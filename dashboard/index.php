@@ -131,6 +131,19 @@ if(isset($_GET['code'])) {
 
 <body>
 
+	<!-- LOADER -->
+	<div class="loader">
+		<div class="uk-position-center">
+		<h1 style="color: #fff" class="uk-text-large uk-text-center uk-text-bolder">Clypy.me</h1>
+		</div>
+		<div class="lds-ellipsis">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+    </div>
+
 	<!--HEADER-->
 	<header id="top-head" class="uk-position-fixed">
 		<div class="uk-container uk-container-expand uk-background-primary">
@@ -161,7 +174,7 @@ if(isset($_GET['code'])) {
 		
 		<!-- Left Content Box Dark -->
 		<?php include '../includes/user_info.php' ?>
-
+		<hr class="uk-divider-icon">
 		<div class="left-nav-wrap">
 			<ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav>
 				<li class="uk-nav-header">ACTIONS</li>
@@ -194,11 +207,14 @@ if(isset($_GET['code'])) {
 			<!-- Header card -->
 			<?php include '../includes/header.php' ?>
 			
-			<hr>
+			<hr class="uk-divider-icon">
 			<div>
 				<h1 class="uk-text-large uk-text-uppercase uk-text-center uk-text-bold"><span uk-icon="chevron-down"></span> View of <?=$view ?> <span uk-icon="chevron-down"></span></h1>
 			</div>
-			<hr>
+			<hr class="uk-divider-icon">
+			<div>
+				<h1 class="uk-text-large uk-text-uppercase uk-text-bold">Links Charts</h1>
+			</div>
 			<div class="uk-grid uk-grid-medium" data-uk-grid>
 
 				<!-- panel -->
@@ -288,7 +304,7 @@ if(isset($_GET['code'])) {
 				<!-- /panel -->
 				<!-- panel -->
 				<div class="uk-width-1-2@s uk-width-1-3@l uk-width-2-3@xl">
-					<div class="uk-card uk-card-default uk-card-small uk-card-hover">
+					<div class="uk-card uk-card-default uk-card-small uk-card-hover uk-panel">
 						<div class="uk-card-header">
 							<div class="uk-grid uk-grid-small">
 								<div class="uk-width-auto">
@@ -314,8 +330,29 @@ if(isset($_GET['code'])) {
 				</div>
 				<!-- /panel -->
 			</div>
+			<hr class="uk-divider-icon">
+			<div>
+				<h1 class="uk-text-large uk-text-uppercase uk-text-bold">Links Table</h1>
+			</div>
+			<table class="uk-table uk-table-divider">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>URL</th>
+						<th>Protocol</th>
+						<th>Link</th>
+						<th>Owner</th>
+						<th>Date</th>
+						<th>Clicks</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php include '../includes/links_table.php' ?>
+				</tbody>
+			</table>
+
 			<footer class="uk-section uk-section-small uk-text-center">
-				<hr>
+				<hr class="uk-divider-icon">
 				<p class="uk-text-small uk-text-center">Copyright &copy; Clypy.me 2019</p>
 			</footer>
 		</div>
@@ -325,6 +362,8 @@ if(isset($_GET['code'])) {
 	<div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: true">
 		<div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
 			<button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
+			<?php include '../includes/user_info.php' ?>
+			<hr class="uk-divider-icon">
 			<ul class="uk-nav uk-nav-default uk-nav-parent-icon " data-uk-nav>
 				<li class="uk-nav-header">ACTIONS</li>
 				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle" class="uk-margin-small-right"></span>Create new link</a>
@@ -371,7 +410,7 @@ if(isset($_GET['code'])) {
       <form class="uk-search uk-search-large" action="" method="POST">
         <p class="uk-text-center">Create your link shorted</p>
         <input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
-        <hr>
+        <hr class="uk-divider-icon">
         <input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url"
 		  required>
 		<br/>
@@ -398,6 +437,13 @@ if(isset($_GET['code'])) {
 
 	<!-- JS FONCTION INIT -->
 	<script>
+
+		//Loader
+		window.addEventListener("load", function () {
+			const loader = document.querySelector(".loader");
+			loader.className += " hidden"; // class "loader hidden"
+		});
+
 
 		//Default req 
 		chartArea('<?=$view ?>', 'day');
