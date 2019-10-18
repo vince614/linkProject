@@ -48,7 +48,7 @@ if(isset($_GET['code'])) {
 
         }else {
 
-            $err = "Code is expired ! ";
+            $err = "Code is expired or invalid ! ";
 
         }
 
