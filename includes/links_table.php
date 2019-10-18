@@ -1,8 +1,8 @@
 <?php 
 
 //Requête liens
-$req_links = $bdd->prepare('SELECT * FROM links_table WHERE owner_username = ? ORDER BY id DESC');
-$req_links->execute(array($username));
+$req_links = $bdd->prepare('SELECT * FROM links_table WHERE owner_email = ? ORDER BY id DESC');
+$req_links->execute(array($email));
 $req_links_count = $req_links->rowCount();
 
 //Si il y as des résultats 
@@ -43,7 +43,7 @@ if ($req_links_count > 0) {
 
 ?>
 
-<tr id="<?=$code ?>">
+<tr  id="<?=$code ?>">
     <td id="edit<?=$code ?>"><?=$title ?></td>
     <td><?=$url ?></td>
     <td><?=$protocol ?></td>
@@ -51,12 +51,6 @@ if ($req_links_count > 0) {
     <td><?=$owner_username ?></td>
     <td><?=$date ?></td>
     <td><?=$clicksCount ?></td>
-    <td>
-        <center>
-            <button onclick="edit('<?=$code  ?>','<?=$title ?>')"  class="btn btn-info btn-circle btn-sm" uk-tooltip="Edit"><i class="far fa-edit"></i></button>
-            <button onclick="trash('<?=$code  ?>','<?=$title ?>')"  class="btn btn-danger btn-circle btn-sm" uk-tooltip="Delete"><i class="fas fa-trash"></i></button>
-        </center>
-    </td>
 </tr>
 
 <?php } } ?>

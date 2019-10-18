@@ -25,12 +25,23 @@ while ($t = $test->fetch()) {
     $array[$t['code']] = $t['nb'];
 
 }
-//Variable 
-$max_value = max($array);
-$sum_value = array_sum($array);
+//Variable
+if(!empty($array)) {
 
-arsort($array);
-$key_of_max = key($array);
+    $max_value = max($array);
+    $sum_value = array_sum($array);
+    arsort($array);
+    $key_of_max = key($array);
+
+    $sum = $max_value * 100;
+    $result_value = round($sum / $sum_value);
+
+}else {
+
+    $result_value = "0";
+    $key_of_max = "No links";
+    
+}
 
 
 
@@ -38,9 +49,6 @@ $key_of_max = key($array);
 $diff = $new_click_count - $last_click_count;
 $result = $diff * 100;
 $pourc = round($result / ($last_click_count + 1));
-
-$sum = $max_value * 100;
-$result_value = round($sum / $sum_value);
 
 
 
