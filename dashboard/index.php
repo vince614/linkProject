@@ -117,16 +117,19 @@ if(isset($_GET['code'])) {
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="../assets/img/clypy.png" type="image/x-icon">
-    <meta name="description" content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
-    <meta name="author" content="Vince">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+	<link rel="shortcut icon" href="../assets/img/clypy.png" type="image/x-icon">
+	<meta name="description"
+		content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
+	<meta name="author" content="Vince">
 	<title>Dashboard - Clypy.me</title>
 	<!-- CSS FILES -->
 	<link rel="stylesheet" type="text/css" href="../assets/css/uikit.min.css">
 	<link rel="stylesheet" type="text/css" href="css/dashboard.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet">
 </head>
 
 <body>
@@ -134,7 +137,7 @@ if(isset($_GET['code'])) {
 	<!-- LOADER -->
 	<div class="loader">
 		<div class="uk-position-center">
-		<h1 style="color: #fff" class="uk-text-large uk-text-center uk-text-bolder">Clypy.me</h1>
+			<h1 style="color: #fff" class="uk-text-large uk-text-center uk-text-bolder">Clypy.me</h1>
 		</div>
 		<div class="lds-ellipsis">
 			<div></div>
@@ -142,7 +145,7 @@ if(isset($_GET['code'])) {
 			<div></div>
 			<div></div>
 		</div>
-    </div>
+	</div>
 
 	<!--HEADER-->
 	<header id="top-head" class="uk-position-fixed">
@@ -150,14 +153,16 @@ if(isset($_GET['code'])) {
 			<nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
 				<div class="uk-navbar-left">
 					<div class="uk-navbar-item uk-hidden@m">
-						<a class="uk-logo" href="#"><img class="custom-logo" src="img/dashboard-logo-white.svg" alt=""></a>
+						<a class="uk-logo" href="#"><img class="custom-logo" src="img/dashboard-logo-white.svg"
+								alt=""></a>
 					</div>
 				</div>
 				<div class="uk-navbar-right">
 					<ul class="uk-navbar-nav">
-						<li><a href="#" data-uk-icon="icon:user" title="Your profile" data-uk-tooltip></a></li>
+						<li><a uk-toggle="target: #modal-toggle" data-uk-icon="icon:settings" title="Settings" data-uk-tooltip></a></li>
 						<li><a href="../" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a></li>
-						<li><a href="../logout.php" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a></li>
+						<li><a href="../logout.php" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a>
+						</li>
 						<li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"
 								title="Offcanvas" data-uk-tooltip></a></li>
 					</ul>
@@ -171,16 +176,17 @@ if(isset($_GET['code'])) {
 		<div class="left-logo uk-flex uk-flex-middle">
 			<img class="custom-logo" src="img/dashboard-logo.svg" alt="">
 		</div>
-		
+
 		<!-- Left Content Box Dark -->
 		<?php include '../includes/user_info.php' ?>
 		<hr class="uk-divider-icon">
 		<div class="left-nav-wrap">
 			<ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav>
 				<li class="uk-nav-header">ACTIONS</li>
-				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle" class="uk-margin-small-right"></span>Create new link</a>
+				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle"
+							class="uk-margin-small-right"></span>Create new link</a>
 				<li class="uk-nav-header">LINKS</li>
-				
+
 				<!-- Include links nav -->
 				<?php include '../includes/links_nav.php'; ?>
 
@@ -192,10 +198,11 @@ if(isset($_GET['code'])) {
 					<a href="../" class="uk-icon-link" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a>
 				</li>
 				<li>
-					<a href="#" class="uk-icon-link" data-uk-icon="icon: user" title="Profile" data-uk-tooltip></a>
+					<a class="uk-icon-link" data-uk-icon="icon: settings" title="Settings" uk-toggle="target: #modal-toggle" data-uk-tooltip></a>
 				</li>
 				<li>
-					<a href="../logout.php" class="uk-icon-link" data-uk-tooltip="Sign out" data-uk-icon="icon: sign-out"></a>
+					<a href="../logout.php" class="uk-icon-link" data-uk-tooltip="Sign out"
+						data-uk-icon="icon: sign-out"></a>
 				</li>
 			</ul>
 		</div>
@@ -206,10 +213,11 @@ if(isset($_GET['code'])) {
 		<div class="uk-container uk-container-expand">
 			<!-- Header card -->
 			<?php include '../includes/header.php' ?>
-			
+
 			<hr class="uk-divider-icon">
 			<div>
-				<h1 class="uk-text-large uk-text-uppercase uk-text-center uk-text-bold"><span uk-icon="chevron-down"></span> View of <?=$view ?> <span uk-icon="chevron-down"></span></h1>
+				<h1 class="uk-text-large uk-text-uppercase uk-text-center uk-text-bold"><span
+						uk-icon="chevron-down"></span> View of <?=$view ?> <span uk-icon="chevron-down"></span></h1>
 			</div>
 			<hr class="uk-divider-icon">
 			<div>
@@ -226,10 +234,10 @@ if(isset($_GET['code'])) {
 									<h4>Overview clicks <span id="chart-area-badge" class="uk-label">day</span></h4>
 								</div>
 								<div class="uk-width-expand uk-text-right panel-icons">
-									<a href="#offcanvas-slide-area" class="uk-icon-link" title="Configuration" data-uk-tooltip 
-									data-uk-icon="icon: cog" uk-toggle></a>
-									<a id="hide-show-area" class="uk-icon-link" title="Close" onclick="hideAreaChart()" data-uk-tooltip
-										data-uk-icon="icon: close"></a>
+									<a href="#offcanvas-slide-area" class="uk-icon-link" title="Configuration"
+										data-uk-tooltip data-uk-icon="icon: cog" uk-toggle></a>
+									<a id="hide-show-area" class="uk-icon-link" title="Close" onclick="hideAreaChart()"
+										data-uk-tooltip data-uk-icon="icon: close"></a>
 								</div>
 							</div>
 						</div>
@@ -255,10 +263,10 @@ if(isset($_GET['code'])) {
 									<h4>Devices clicks <span id="chart-pie-badge" class="uk-label">day</span></h4>
 								</div>
 								<div class="uk-width-expand uk-text-right panel-icons">
-									<a href="#offcanvas-slide-pie" class="uk-icon-link" title="Configuration" data-uk-tooltip
-										data-uk-icon="icon: cog" uk-toggle></a>
-									<a id="hide-show-pie" class="uk-icon-link" title="Close" onclick="hidePieChart()" data-uk-tooltip
-										data-uk-icon="icon: close"></a>
+									<a href="#offcanvas-slide-pie" class="uk-icon-link" title="Configuration"
+										data-uk-tooltip data-uk-icon="icon: cog" uk-toggle></a>
+									<a id="hide-show-pie" class="uk-icon-link" title="Close" onclick="hidePieChart()"
+										data-uk-tooltip data-uk-icon="icon: close"></a>
 								</div>
 							</div>
 						</div>
@@ -284,8 +292,8 @@ if(isset($_GET['code'])) {
 									<h4>Location clicks <span class="uk-label">Total</span></h4>
 								</div>
 								<div class="uk-width-expand uk-text-right panel-icons">
-									<a id="hide-pie" class="uk-icon-link" title="Close" data-uk-tooltip onclick="hidePie()"
-										data-uk-icon="icon: close"></a>
+									<a id="hide-pie" class="uk-icon-link" title="Close" data-uk-tooltip
+										onclick="hidePie()" data-uk-icon="icon: close"></a>
 								</div>
 							</div>
 						</div>
@@ -311,8 +319,8 @@ if(isset($_GET['code'])) {
 									<h4>Browser clicks <span class="uk-label">Total</span></h4>
 								</div>
 								<div class="uk-width-expand uk-text-right panel-icons">
-									<a id="hide-bar" class="uk-icon-link" title="Close" data-uk-tooltip onclick="hideBar()"
-										data-uk-icon="icon: close"></a>
+									<a id="hide-bar" class="uk-icon-link" title="Close" data-uk-tooltip
+										onclick="hideBar()" data-uk-icon="icon: close"></a>
 								</div>
 							</div>
 						</div>
@@ -368,9 +376,10 @@ if(isset($_GET['code'])) {
 			<hr class="uk-divider-icon">
 			<ul class="uk-nav uk-nav-default uk-nav-parent-icon " data-uk-nav>
 				<li class="uk-nav-header">ACTIONS</li>
-				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle" class="uk-margin-small-right"></span>Create new link</a>
+				<li><a href="#modal-full" uk-toggle><span data-uk-icon="icon:  plus-circle"
+							class="uk-margin-small-right"></span>Create new link</a>
 				<li class="uk-nav-header">LINKS</li>
-				
+
 				<!-- Include links nav -->
 				<?php include '../includes/links_nav_responsive.php'; ?>
 
@@ -383,10 +392,14 @@ if(isset($_GET['code'])) {
 
 			<ul class="uk-nav uk-nav-default uk-position-center">
 				<li class="uk-nav-header">Overview clicks sort by:</li>
-				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','day')">Day</a></li>
-                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','week')">Week</a></li>
-                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','month')">Month</a></li>
-                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartArea('<?=$view ?>','year')">Year</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartArea('<?=$view ?>','day')">Day</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartArea('<?=$view ?>','week')">Week</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartArea('<?=$view ?>','month')">Month</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartArea('<?=$view ?>','year')">Year</a></li>
 			</ul>
 
 		</div>
@@ -397,36 +410,43 @@ if(isset($_GET['code'])) {
 
 			<ul class="uk-nav uk-nav-default uk-position-center">
 				<li class="uk-nav-header">Devices clicks sort by:</li>
-				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','day')">Day</a></li>
-                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','week')">Week</a></li>
-                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','month')">Month</a></li>
-                <li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top" onclick="chartPie('<?=$view ?>','year')">Year</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartPie('<?=$view ?>','day')">Day</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartPie('<?=$view ?>','week')">Week</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartPie('<?=$view ?>','month')">Month</a></li>
+				<li><a class="uk-button uk-button-default uk-button-small uk-margin-small-top"
+						onclick="chartPie('<?=$view ?>','year')">Year</a></li>
 			</ul>
 
 		</div>
 	</div>
 
 	<div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
-    <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
-      <button class="uk-modal-close-full" type="button" uk-close></button>
-      <form class="uk-search uk-search-large" action="" method="POST">
-        <p class="uk-text-center">Create your link shorted</p>
-        <input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
-        <hr class="uk-divider-icon">
-        <input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url"
-		  required>
-		<br/>
-		<br/>
-		<br/>
-        <button class="uk-button uk-button-default uk-button-small uk-align-center" type="submit">Create link</button>
-      </form>
-    </div>
-  </div>
+		<div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
+			<button class="uk-modal-close-full" type="button" uk-close></button>
+			<form class="uk-search uk-search-large" action="" method="POST">
+				<p class="uk-text-center">Create your link shorted</p>
+				<input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
+				<hr class="uk-divider-icon">
+				<input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url"
+					required>
+				<br />
+				<br />
+				<br />
+				<button class="uk-button uk-button-default uk-button-small uk-align-center" type="submit">Create
+					link</button>
+			</form>
+		</div>
+	</div>
+
+	<?php include '../includes/settings.php' ?>
 	<!-- /OFFCANVAS -->
 
 	<!-- JS FILES -->
 	<script src="../assets/js/uikit.min.js"></script>
-  	<script src="../assets/js/uikit-icons.min.js"></script>
+	<script src="../assets/js/uikit-icons.min.js"></script>
 	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="../vendor/chart.js/Chart.min.js"></script>
@@ -439,7 +459,6 @@ if(isset($_GET['code'])) {
 
 	<!-- JS FONCTION INIT -->
 	<script>
-
 		//Loader
 		window.addEventListener("load", function () {
 			const loader = document.querySelector(".loader");
@@ -452,7 +471,6 @@ if(isset($_GET['code'])) {
 		chartBar('<?=$view ?>', 'day');
 		chartsPie("<?=$view ?>");
 		chartPie('<?=$view ?>', 'day');
-		
 	</script>
 </body>
 
