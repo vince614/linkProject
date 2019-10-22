@@ -100,7 +100,7 @@ function edit(code, title) {
                         if (obj.edit == true) {
 
                             //Swal
-                            Swal.fire('Success!','New title: ' + newTitle, 'success');
+                            Swal.fire('Success!', 'New title: ' + newTitle, 'success');
 
                             //Ne plus afficher le linky
                             let tr = document.getElementById('edit' + code);
@@ -135,68 +135,68 @@ function edit(code, title) {
 //hide / show 
 function hidePieChart() {
 
-    if($('#card-pie-chart').is(':visible')) {
+    if ($('#card-pie-chart').is(':visible')) {
         $('#card-pie-chart').hide(300);
         $('#hide-show-pie').attr('title', 'Open');
         $('#hide-show-pie').attr('data-uk-icon', 'icon: plus');
-    }else {
+    } else {
         $('#card-pie-chart').show(300);
         $('#hide-show-pie').attr('title', 'Close');
         $('#hide-show-pie').attr('data-uk-icon', 'icon: close');
     }
-    
+
 
 }
 
 function hideAreaChart() {
 
-    if($('#card-area-chart').is(':visible')) {
+    if ($('#card-area-chart').is(':visible')) {
         $('#card-area-chart').hide(300);
         $('#hide-show-area').attr('title', 'Open');
         $('#hide-show-area').attr('data-uk-icon', 'icon: plus');
-    }else {
+    } else {
         $('#card-area-chart').show(300);
         $('#hide-show-area').attr('title', 'Close');
         $('#hide-show-area').attr('data-uk-icon', 'icon: close');
     }
-    
+
 
 }
 
 function hidePie() {
 
-    if($('#card-pie').is(':visible')) {
+    if ($('#card-pie').is(':visible')) {
         $('#card-pie').hide(300);
         $('#hide-pie').attr('title', 'Open');
         $('#hide-pie').attr('data-uk-icon', 'icon: plus');
-    }else {
+    } else {
         $('#card-pie').show(300);
         $('#hide-pie').attr('title', 'Close');
         $('#hide-pie').attr('data-uk-icon', 'icon: close');
     }
-    
+
 
 }
 
 function hideBar() {
 
-    if($('#card-bar').is(':visible')) {
+    if ($('#card-bar').is(':visible')) {
         $('#card-bar').hide(300);
         $('#hide-bar').attr('title', 'Open');
         $('#hide-bar').attr('data-uk-icon', 'icon: plus');
-    }else {
+    } else {
         $('#card-bar').show(300);
         $('#hide-bar').attr('title', 'Close');
         $('#hide-bar').attr('data-uk-icon', 'icon: close');
     }
-    
+
 
 }
 
 function copy(code) {
 
     var dummyContent = "https://clypy.me/" + code;
-    
+
 
     var dummy = document.createElement("textarea");
     document.body.appendChild(dummy);
@@ -205,6 +205,145 @@ function copy(code) {
     document.execCommand("copy");
     document.body.removeChild(dummy);
 
-    UIkit.notification('<span uk-icon="icon: check"></span> Link has been copied', {status:'success', pos: 'bottom-right'})
+    UIkit.notification('<span uk-icon="icon: check"></span> Link has been copied', {
+        status: 'success',
+        pos: 'bottom-right'
+    })
 
 }
+
+function openPage(page) {
+
+    $('.page').hide()
+    $('#' + page).show(200);
+
+}
+
+//Settings 
+//=================================================================
+
+$(document).ready(function () {
+
+    $("#submitProfile").click(function () {
+
+        let username = $('#username').val();
+
+        $.ajax({
+            type: "POST",
+            url: "../functions/settings.php",
+            data: {
+                username: username
+            },
+            success: function (data) {
+
+                var obj = JSON.parse(data);
+                console.log(obj);
+
+                if ('err' in obj) {
+
+                    Swal.fire(
+                        'error!',
+                        obj.err,
+                        'error'
+                    )
+
+                } else {
+
+                    //Reload
+                    location.reload();
+
+                }
+
+            }
+
+        });
+
+
+    });
+
+    $("#submitPassword").click(function () {
+
+        let oldPassword = $('#oldPassword').val();
+        let newPassword = $('#newPassword').val();
+        let newPasswordVerif = $('#newPasswordVerif').val();
+
+        $.ajax({
+            type: "POST",
+            url: "../functions/settings.php",
+            data: {
+                oldPassword: oldPassword,
+                newPassword: newPassword,
+                newPasswordVerif,
+                newPasswordVerif
+            },
+            success: function (data) {
+
+                var obj = JSON.parse(data);
+                console.log(obj);
+
+                if ('err' in obj) {
+
+                    Swal.fire(
+                        'error!',
+                        obj.err,
+                        'error'
+                    )
+
+                } else {
+
+                    //Reload
+                    location.reload();
+
+                }
+
+
+            }
+        });
+
+
+    });
+
+    $('#deleteAccount').click(function (){
+
+        //Swal
+    Swal.fire({
+        title: 'Are you sure?',
+        html: "Do you want delete your account?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+
+            //Ajax 
+            $.ajax({
+                type: "POST",
+                url: "../functions/settings.php",
+                data: {
+                    delete: 1
+                },
+                success: function (data) {
+
+                    //Recupérer le fichier json en objet
+                    var obj = JSON.parse(data);
+                    console.log(obj);
+
+                    if('delete' in obj){
+
+                        location.href="../"; 
+
+                    }
+
+
+                }
+            });
+
+        }
+    })
+
+    })
+
+
+});
