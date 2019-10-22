@@ -153,7 +153,7 @@ if(isset($_GET['code'])) {
 			<nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
 				<div class="uk-navbar-left">
 					<div class="uk-navbar-item uk-hidden@m">
-						<a class="uk-logo" href="#"><img class="custom-logo" src="img/dashboard-logo-white.svg"
+						<a class="uk-logo" href="#"><img class="custom-logo" src="img/logo.png"
 								alt=""></a>
 					</div>
 				</div>
@@ -174,7 +174,7 @@ if(isset($_GET['code'])) {
 	<!-- LEFT BAR -->
 	<aside id="left-col" class="uk-light uk-visible@m">
 		<div class="left-logo uk-flex uk-flex-middle">
-			<img class="custom-logo" src="img/dashboard-logo.svg" alt="">
+			<img class="custom-logo" src="img/logo.png" alt="">
 		</div>
 
 		<!-- Left Content Box Dark -->
