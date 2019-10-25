@@ -1,31 +1,30 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "e65534bd48ff6474086236095e90cdf8",
     "content-hash": "6e3dc4a0a669254dbf79c21dbc148c36",
     "packages": [
         {
             "name": "chonsser/oauth2-discord",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chonsser/oauth2-discord.git",
-                "reference": "58c105e6fdfaf0117bc94d7b73e526209bd54870"
+                "reference": "c40501203c856aae0fb88a51636c8f8025809f98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chonsser/oauth2-discord/zipball/58c105e6fdfaf0117bc94d7b73e526209bd54870",
-                "reference": "58c105e6fdfaf0117bc94d7b73e526209bd54870",
+                "url": "https://api.github.com/repos/chonsser/oauth2-discord/zipball/c40501203c856aae0fb88a51636c8f8025809f98",
+                "reference": "c40501203c856aae0fb88a51636c8f8025809f98",
                 "shasum": ""
             },
             "require": {
                 "doctrine/collections": "^1.4",
                 "ext-mbstring": "*",
                 "league/oauth2-client": "^2.2",
-                "php": ">=7.0"
+                "php": ">=7.1"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.7"
@@ -48,7 +47,7 @@
                 }
             ],
             "description": "OAuth2 provider for Discord API authentication",
-            "time": "2017-07-01 10:18:28"
+            "time": "2017-10-27T04:38:22+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -115,7 +114,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2017-01-03 10:49:41"
+            "time": "2017-01-03T10:49:41+00:00"
         },
         {
             "name": "facebook/graph-sdk",
@@ -173,7 +172,7 @@
                 "facebook",
                 "sdk"
             ],
-            "time": "2018-12-11 22:56:31"
+            "time": "2018-12-11T22:56:31+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -216,7 +215,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2016-07-18 04:51:16"
+            "time": "2016-07-18T04:51:16+00:00"
         },
         {
             "name": "google/apiclient",
@@ -275,7 +274,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2017-01-09 23:08:43"
+            "time": "2017-01-09T23:08:43+00:00"
         },
         {
             "name": "google/apiclient-services",
@@ -309,7 +308,7 @@
             "keywords": [
                 "google"
             ],
-            "time": "2016-10-18 01:01:16"
+            "time": "2016-10-18T01:01:16+00:00"
         },
         {
             "name": "google/auth",
@@ -357,7 +356,7 @@
                 "google",
                 "oauth2"
             ],
-            "time": "2016-11-02 14:59:14"
+            "time": "2016-11-02T14:59:14+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -422,7 +421,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2018-04-22 15:46:56"
+            "time": "2018-04-22T15:46:56+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -473,7 +472,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -544,7 +543,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2019-07-01 23:21:34"
+            "time": "2019-07-01T23:21:34+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -611,7 +610,7 @@
                 "oauth2",
                 "single sign on"
             ],
-            "time": "2018-11-22 18:33:57"
+            "time": "2018-11-22T18:33:57+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -663,7 +662,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2019-09-18 18:44:20"
+            "time": "2019-09-18T18:44:20+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -741,7 +740,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2019-09-06 13:49:17"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -786,7 +785,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-07-02 15:55:56"
+            "time": "2018-07-02T15:55:56+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -852,7 +851,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2019-09-27 21:33:43"
+            "time": "2019-09-27T21:33:43+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -944,7 +943,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2019-09-17 03:41:22"
+            "time": "2019-09-17T03:41:22+00:00"
         },
         {
             "name": "psr/cache",
@@ -990,7 +989,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1040,7 +1039,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -1087,7 +1086,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20 15:27:04"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -1127,7 +1126,7 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2019-03-08 08:55:37"
+            "time": "2019-03-08T08:55:37+00:00"
         },
         {
             "name": "wohali/oauth2-discord-new",
@@ -1186,7 +1185,7 @@
                 "oauth",
                 "oauth2"
             ],
-            "time": "2017-10-15 23:24:28"
+            "time": "2017-10-15T23:24:28+00:00"
         }
     ],
     "packages-dev": [],

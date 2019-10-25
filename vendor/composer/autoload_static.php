@@ -20,6 +20,10 @@ class ComposerStaticInit9252df05a026ad3050f902cb12520327
         array (
             'phpseclib\\' => 10,
         ),
+        'W' => 
+        array (
+            'Wohali\\OAuth2\\Client\\' => 21,
+        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -30,6 +34,10 @@ class ComposerStaticInit9252df05a026ad3050f902cb12520327
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'L' => 
+        array (
+            'League\\OAuth2\\Client\\' => 21,
         ),
         'G' => 
         array (
@@ -43,12 +51,21 @@ class ComposerStaticInit9252df05a026ad3050f902cb12520327
             'Firebase\\JWT\\' => 13,
             'Facebook\\' => 9,
         ),
+        'D' => 
+        array (
+            'Discord\\OAuth2\\Client\\Tests\\' => 28,
+            'Discord\\OAuth2\\Client\\' => 22,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'phpseclib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
+        'Wohali\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wohali/oauth2-discord-new/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -69,6 +86,10 @@ class ComposerStaticInit9252df05a026ad3050f902cb12520327
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'League\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/oauth2-client/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -94,6 +115,14 @@ class ComposerStaticInit9252df05a026ad3050f902cb12520327
         array (
             0 => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook',
         ),
+        'Discord\\OAuth2\\Client\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chonsser/oauth2-discord/tests',
+        ),
+        'Discord\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chonsser/oauth2-discord/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -110,6 +139,10 @@ class ComposerStaticInit9252df05a026ad3050f902cb12520327
         ),
         'D' => 
         array (
+            'Doctrine\\Common\\Collections\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
+            ),
             'Detection' => 
             array (
                 0 => __DIR__ . '/..' . '/mobiledetect/mobiledetectlib/namespaced',

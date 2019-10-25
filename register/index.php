@@ -154,6 +154,9 @@ if ($isLogin == true) {
                 <a href="facebook.php" class="btn btn-facebook btn-user btn-block">
                   <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                 </a>
+                <a href="discord.php" class="btn btn-primary btn-user btn-block">
+                  <i class="fab fa-discord fa-fw"></i> Register with Discord
+                </a>
               </form>
               <hr>
               <div class="text-center">
