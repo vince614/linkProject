@@ -153,13 +153,13 @@ if(isset($_GET['code'])) {
 			<nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
 				<div class="uk-navbar-left">
 					<div class="uk-navbar-item uk-hidden@m">
-						<a class="uk-logo" href="#"><img class="custom-logo" src="img/logo.png"
-								alt=""></a>
+						<a class="uk-logo" href="#"><img class="custom-logo" src="img/logo.png" alt=""></a>
 					</div>
 				</div>
 				<div class="uk-navbar-right">
 					<ul class="uk-navbar-nav">
-						<li><a uk-toggle="target: #modal-toggle" data-uk-icon="icon:settings" title="Settings" data-uk-tooltip></a></li>
+						<li><a uk-toggle="target: #modal-toggle" data-uk-icon="icon:settings" title="Settings"
+								data-uk-tooltip></a></li>
 						<li><a href="../" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a></li>
 						<li><a href="../logout.php" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a>
 						</li>
@@ -198,7 +198,8 @@ if(isset($_GET['code'])) {
 					<a href="../" class="uk-icon-link" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a>
 				</li>
 				<li>
-					<a class="uk-icon-link" data-uk-icon="icon: settings" title="Settings" uk-toggle="target: #modal-toggle" data-uk-tooltip></a>
+					<a class="uk-icon-link" data-uk-icon="icon: settings" title="Settings"
+						uk-toggle="target: #modal-toggle" data-uk-tooltip></a>
 				</li>
 				<li>
 					<a href="../logout.php" class="uk-icon-link" data-uk-tooltip="Sign out"
@@ -471,6 +472,36 @@ if(isset($_GET['code'])) {
 		chartBar('<?=$view ?>', 'day');
 		chartsPie("<?=$view ?>");
 		chartPie('<?=$view ?>', 'day');
+	</script>
+
+	<div id="conveythis-wrapper-main"><a href="https://www.translation-services-usa.com/"
+			class="conveythis-no-translate" title="translation services">translation services</a></div>
+	<script src="//cdn.conveythis.com/javascriptPlugin/38/conveythis.js"></script>
+	<script src="//cdn.conveythis.com/javascriptPlugin/38/translate.js"></script>
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function (e) {
+			conveythis.init({
+				icon: "rect",
+				text: "full-text",
+				positionTop: null,
+				positionBottom: 0,
+				positionLeft: null,
+				positionRight: 0,
+				change: {},
+				languages: [{
+					"id": 727,
+					"active": false
+				}, {
+					"id": 703,
+					"active": true
+				}],
+				api_key: "pub_ecfef164f9a6a8efa8e49a5769f00942",
+				source_language_id: 703,
+				auto_translate: 0,
+				hide_conveythis_logo: 0,
+
+			});
+		});
 	</script>
 </body>
 

@@ -50,7 +50,8 @@ $req_clicks_count = $req_clicks->rowCount();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/img/clypy.png" type="image/x-icon">
-    <meta name="description" content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
+    <meta name="description"
+        content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
     <meta name="author" content="Vince">
 
     <title>Clypy.me - Best URL Shortener</title>
@@ -65,8 +66,6 @@ $req_clicks_count = $req_clicks->rowCount();
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-
-
 
 </head>
 
@@ -106,14 +105,14 @@ $req_clicks_count = $req_clicks->rowCount();
                     <a class="btn btn-sm btn-primary display-4" href="login/">
                         <span class="btn-icon mbri-mobile mbr-iconfont mbr-iconfont-btn">
                         </span>
-                        Sign in / Sign up 
+                        Sign in / Sign up
                     </a>
                 </div>
             </div>
         </nav>
     </section>
 
-    <section class="header6 cid-rEuzOBLVQD mbr-fullscreen" >
+    <section class="header6 cid-rEuzOBLVQD mbr-fullscreen">
 
 
 
@@ -127,7 +126,7 @@ $req_clicks_count = $req_clicks->rowCount();
                         URL SHORTENER
                     </h1>
                     <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">
-                    Reduce your url with clypy, and get advanced stats on clicks.
+                        Reduce your url with clypy, and get advanced stats on clicks.
                     </p>
                     <div class="mbr-section-btn align-center">
                         <a class="btn btn-md btn-primary display-4" href="login/">Start now</a>
@@ -152,7 +151,7 @@ $req_clicks_count = $req_clicks->rowCount();
 
         <div class="container">
             <h3 class="mbr-section-subtitle mbr-fonts-style display-5">
-                Best url shortener ⚡ ! 
+                Best url shortener ⚡ !
             </h3>
 
             <div class="container pt-4 mt-2">
@@ -171,8 +170,10 @@ $req_clicks_count = $req_clicks->rowCount();
                                     Shortcut links
                                 </h4>
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                <strong>Clypy</strong> gives you the possibility to shorten your URLs for easy access to the desired address. 
-                                The handy solution for an influencer to keep in view the links you share with your community !
+                                    <strong>Clypy</strong> gives you the possibility to shorten your URLs for easy
+                                    access to the desired address.
+                                    The handy solution for an influencer to keep in view the links you share with your
+                                    community !
                                 </p>
                             </div>
                         </div>
@@ -192,8 +193,9 @@ $req_clicks_count = $req_clicks->rowCount();
                                     Users
                                 </h4>
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                <a href="register/">Sign up</a> on <strong>clypy</strong> to start the adventure! If you already have an account, 
-                                we thank you for your trust and we invite you to <a href="login/">log in</a>!
+                                    <a href="register/">Sign up</a> on <strong>clypy</strong> to start the adventure! If
+                                    you already have an account,
+                                    we thank you for your trust and we invite you to <a href="login/">login</a>!
                                 </p>
                             </div>
                         </div>
@@ -212,8 +214,10 @@ $req_clicks_count = $req_clicks->rowCount();
                                     Clicks
                                 </h4>
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                    When a person is directed to our URLs, he is instantly redirected to the links you have. 
-                                    This <strong>quick redirect</strong> allows us to collect information and thus traced beautiful curves in <a href="dashboard/">dashboard</a>!
+                                    When a person is directed to our URLs, he is instantly redirected to the links you
+                                    have.
+                                    This <strong>quick redirect</strong> allows us to collect information and thus
+                                    traced beautiful curves in <a href="dashboard/">dashboard</a>!
                                 </p>
                             </div>
                         </div>
@@ -237,7 +241,8 @@ $req_clicks_count = $req_clicks->rowCount();
                 <div class="mbr-text col-12 mbr-fonts-style display-7 col-md-8 align-center">
                     <p>
                         <strong>Create your links in just a few clicks and benefit all our advantages!</strong>
-                        Clypy is <strong>free</strong> for everyone and has been developed with ❤ by <a href="#">vince</a>.
+                        Clypy is <strong>free</strong> for everyone and has been developed with ❤ by <a
+                            href="#">vince</a>.
                         Start now the new experience that Clypy offers.
                     </p>
                 </div>
@@ -305,7 +310,6 @@ $req_clicks_count = $req_clicks->rowCount();
         </div>
     </section>
 
-
     <script src="assets/web/assets/jquery/jquery.min.js"></script>
     <script src="assets/popper/popper.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -320,6 +324,36 @@ $req_clicks_count = $req_clicks->rowCount();
     <script src="assets/sociallikes/social-likes.js"></script>
     <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
     <script src="assets/theme/js/script.js"></script>
+
+    <div id="conveythis-wrapper-main"><a href="https://www.translation-services-usa.com/"
+            class="conveythis-no-translate" title="translation services">translation services</a></div>
+    <script src="//cdn.conveythis.com/javascriptPlugin/38/conveythis.js"></script>
+    <script src="//cdn.conveythis.com/javascriptPlugin/38/translate.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (e) {
+            conveythis.init({
+                icon: "rect",
+                text: "full-text",
+                positionTop: null,
+                positionBottom: 0,
+                positionLeft: null,
+                positionRight: 0,
+                change: {},
+                languages: [{
+                    "id": 727,
+                    "active": false
+                }, {
+                    "id": 703,
+                    "active": true
+                }],
+                api_key: "pub_ecfef164f9a6a8efa8e49a5769f00942",
+                source_language_id: 703,
+                auto_translate: 0,
+                hide_conveythis_logo: 0,
+
+            });
+        });
+    </script>
 
 
 </body>

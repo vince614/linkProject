@@ -46,27 +46,38 @@ if(isset($_POST['oldPassword'], $_POST['newPassword'], $_POST['newPasswordVerif'
         //Fetch password 
         if($m = $verif->fetch()) {
             $mdp = $m['pass'];
+            $auth = $m['auth'];
         }
 
-        if($oldPassword == $mdp) {
+        if($auth == "form"){
+            
+            if($oldPassword == $mdp) {
 
-            if($newPassword == $newPasswordVerif) {
+                if($newPassword == $newPasswordVerif) {
 
-                $update = $bdd->prepare('UPDATE account SET pass = ? WHERE mail = ?');
-                $update->execute(array($newPassword, $email));
+                    $update = $bdd->prepare('UPDATE account SET pass = ? WHERE mail = ?');
+                    $update->execute(array($newPassword, $email));
 
+
+                }else {
+
+                    $myObj->err = "Password not match !";
+
+                }
 
             }else {
 
-                $myObj->err = "Password not match !";
+                $myObj->err = "Password is incorrect !";
 
             }
 
         }else {
 
-            $myObj->err = "Password is incorrect !";
+            $myObj->err = "You can't change your password because you use ".$auth." authentification !";
 
         }
+
+        
 
     }
 }

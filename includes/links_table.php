@@ -47,7 +47,7 @@ if ($req_links_count > 0) {
     <td id="edit<?=$code ?>"><?=$title ?></td>
     <td><?=$url ?></td>
     <td><?=$protocol ?></td>
-    <td><a href="http://localhost/clypy.me/<?=$code ?>" target="_blank">http://localhost/clypy.me/<?=$code ?></a></td>
+    <td><a href="https://clypy.me/<?=$code ?>" target="_blank">clypy.me/<?=$code ?></a></td>
     <td><?=$owner_username ?></td>
     <td><?=$date ?></td>
     <td><?=$clicksCount ?></td>

@@ -164,6 +164,36 @@ if(isset($_POST['login'], $_POST['pass'])) {
   <!-- Custom scripts for all pages-->
   <script src="../assets/js/sb-admin-2.min.js"></script>
 
+  <div id="conveythis-wrapper-main"><a href="https://www.translation-services-usa.com/"
+            class="conveythis-no-translate" title="translation services">translation services</a></div>
+    <script src="//cdn.conveythis.com/javascriptPlugin/38/conveythis.js"></script>
+    <script src="//cdn.conveythis.com/javascriptPlugin/38/translate.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (e) {
+            conveythis.init({
+                icon: "rect",
+                text: "full-text",
+                positionTop: null,
+                positionBottom: 0,
+                positionLeft: null,
+                positionRight: 0,
+                change: {},
+                languages: [{
+                    "id": 727,
+                    "active": false
+                }, {
+                    "id": 703,
+                    "active": true
+                }],
+                api_key: "pub_ecfef164f9a6a8efa8e49a5769f00942",
+                source_language_id: 703,
+                auto_translate: 0,
+                hide_conveythis_logo: 0,
+
+            });
+        });
+    </script>
+
 </body>
 
 </html>
