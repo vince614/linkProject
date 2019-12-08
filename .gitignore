@@ -1,4 +1,9 @@
+## Folders
 vendor/
 vince/
 squirrelmail/
 linkProject/
+.idea/
+
+##Files
+includes/config.php

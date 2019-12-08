@@ -4,7 +4,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$stats = "link";
+$stats = "clypy";
 
 try {
 
