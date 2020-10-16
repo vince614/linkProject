@@ -1,6 +1,12 @@
-RewriteEngine on
+<IfModule mod_rewrite.c>
 
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-f
+    RewriteEngine On
 
-RewriteRule ^([\w]+)$ code.php?code=$1
+    ## Rewrite conditions
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    ## Rewrite rule
+    RewriteRule ^(.*)$ index.php?url=$1 [L,NC,QSA]
+
+</IfModule>

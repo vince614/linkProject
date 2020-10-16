@@ -5,6 +5,7 @@
         "facebook/graph-sdk": "^5.7",
         "phpmailer/phpmailer": "^6.1",
         "chonsser/oauth2-discord": "^1.0",
-        "wohali/oauth2-discord-new": "^1.0"
+        "wohali/oauth2-discord-new": "^1.0",
+      "ext-pdo": "*"
     }
 }
