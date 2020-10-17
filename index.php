@@ -29,27 +29,36 @@ $router = new Router($general->getUrl());
 $router->get('/', function () {});
 
 
+/**
+ * Login routes
+ * @GET route
+ */
+$router->get('/login', function () {});
+$router->get('/loginDiscord', function () {});
+$router->get('/loginGoogle', function () {});
+$router->get('/loginFacebook', function () {});
+
+/**
+ * Logout route
+ * @GET route
+ */
+$router->get('/logout', function () {
+    if (isset($_SESSION)) {
+        // Destroy session
+        unset($_SESSION['user']);
+        // Delete cookies
+        setcookie('login', null);
+        setcookie('pass_hache', null);
+        setcookie('remember_key', null, null, '/');
+    }
+    // Redirect
+    header('Location: ./');
+});
+
+
 // Run router
 try {
     $router->run();
 } catch (RouterException $e) {
     echo $e->getMessage();
-}
-
-
-//Variable
-$isLogin = false;
-
-// includes
-include './includes/config.php';
-
-//Si l'utilisateur est connecté
-if(isset($_SESSION['username'])) {
-    if (!empty($_SESSION['username'])) {
-
-      //Var connection
-      $username = $_SESSION['username'];
-      $isLogin = true;
-
-    }
 }

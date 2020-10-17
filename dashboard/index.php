@@ -13,8 +13,8 @@ session_start();
 include '../includes/config.php';
 
 //Si l'utilisateur est connecté 
-if(isset($_SESSION['username'])) {
-  if (!empty($_SESSION['username'])) {
+if(isset($_SESSION['user'])) {
+  if (!empty($_SESSION['user'])) {
     
     //Var connection 
 	$username = $_SESSION['username'];

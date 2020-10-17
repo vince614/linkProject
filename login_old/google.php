@@ -1,20 +1,4 @@
-<?php 
-
-//Require
-require ("../vendor/autoload.php");
-
-//includes 
-include '../includes/config.php';
-
-//Start session
-session_start();
-
-//Verif si la personne est connecté 
-if(isset($_SESSION['username'])) {
-
-    header('Location ../dashboard/');
-  
-  }
+<?php
 
 //Scope 
 $scopes = [

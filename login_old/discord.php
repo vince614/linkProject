@@ -1,14 +1,5 @@
 <?php
 
-//Require
-require ("../vendor/autoload.php");
-
-//includes 
-include '../includes/config.php';
-
-//Start session
-session_start();
-
 $provider = new \Wohali\OAuth2\Client\Provider\Discord([
     'clientId' => '636565800379219989',
     'clientSecret' => 'YLIevJgW5z5ggqhQAIcHlbRN2PQF0WZC',

@@ -1,10 +1,12 @@
-## Folders
-vendor/
-vince/
-squirrelmail/
-linkProject/
-.idea/
+## PHPStorm
+.idea
+
+## Ignore packages
+vendor
+node_modules
+
+## Database config
+Models/Core/Database.php
 
 ##Files
-includes/config.php
 TODO.txt

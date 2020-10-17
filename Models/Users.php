@@ -27,15 +27,18 @@ class Users extends Database
      * @param $email
      * @param $password
      * @param $confirmPassword
+     * @param string $auth
      * @return bool
      */
-    public function register($username, $email, $password, $confirmPassword)
+    public function register($username, $email, $password, $confirmPassword, $auth = self::CODE_USER_AUTH)
     {
-        if ($password === $confirmPassword) {
-            if (strlen($password) >= self::MIN_PASSWORD_LENGTH) {
+        // Secure mode when register with form
+        $secureMode = $auth == self::CODE_USER_AUTH;
+        if ($password === $confirmPassword || !$secureMode) {
+            if (strlen($password) >= self::MIN_PASSWORD_LENGTH || !$secureMode) {
                 if (!$this->getUserByEmail($email)) {
-                    $req = Database::getPDO()->prepare("INSERT INTO account (username, pass, mail, auth, date_time) VALUES (?, ?, ?, ?, ?)");
-                    $req->execute(array((string) $username, (string) sha1($password), (string) $email, self::CODE_USER_AUTH, time()));
+                    $req = Database::getPDO()->prepare("INSERT INTO users (username, password, email, auth, date_time) VALUES (?, ?, ?, ?, ?)");
+                    $req->execute(array((string) $username, (string) sha1($password), (string) $email, $auth, time()));
                     return false;
                 }
                 $this->_addError("Cette adresse mail existe déjà");
@@ -57,20 +60,23 @@ class Users extends Database
      */
     public function login($email, $password)
     {
-        if ($this->getUserByEmail($email)) {
-            $req = Database::getPDO()->prepare("SELECT * FROM account WHERE mail = ? AND pass = ?");
-            $req->execute(array($email, sha1($password)));
-            if ($req->rowCount() > 0) {
-
-                $userInformation = $req->fetch();
-                //@TODO Set login statement
-
+        if ($this->_validateEmail($email)) {
+            if ($this->getUserByEmail($email)) {
+                $req = Database::getPDO()->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+                $req->execute(array($email, sha1($password)));
+                if ($req->rowCount() > 0) {
+                    // Set user session
+                    $userInformation = $req->fetch();
+                    Database::_setLogin($userInformation);
+                    return true;
+                }
+                $this->_addError("Le mot de passe n'est pas correct. Veuillez réessayer");
                 return false;
             }
-            $this->_addError("Le mot de passe n'est pas correct. Veuillez réessayer");
+            $this->_addError("Aucun compte n'existe avec cette adresse mail");
             return false;
         }
-        $this->_addError("Aucun compte n'existe avec cette adresse mail");
+        $this->_addError("Merci de saisir une adresse mail valide");
         return false;
     }
 
@@ -82,7 +88,7 @@ class Users extends Database
      */
     public function getUser($userId)
     {
-        $req = Database::getPDO()->prepare("SELECT * FROM account WHERE id = ?");
+        $req = Database::getPDO()->prepare("SELECT * FROM users WHERE id = ?");
         $req->execute(array((int)$userId));
         if ($req->rowCount() > 0) {
             return $req->fetch();
@@ -98,7 +104,7 @@ class Users extends Database
      */
     public function getUserByEmail($email)
     {
-        $req = Database::getPDO()->prepare("SELECT * FROM account WHERE mail = ?");
+        $req = Database::getPDO()->prepare("SELECT * FROM users WHERE email = ?");
         $req->execute(array((string)$email));
         if ($req->rowCount() > 0) {
             return $req->fetch();
@@ -114,7 +120,7 @@ class Users extends Database
      */
     public function deleteUser($userId)
     {
-        $req = Database::getPDO()->prepare("DELETE FROM account WHERE id = ?");
+        $req = Database::getPDO()->prepare("DELETE FROM users WHERE id = ?");
         $req->execute(array($userId));
         if ($req->rowCount() > 0) {
             return true;
@@ -149,12 +155,12 @@ class Users extends Database
             if ($username) {
                 $query .= " AND ";
             }
-            $query .= "SET pass = ?";
+            $query .= "SET password = ?";
             $datas[] = (string) $password;
         }
 
         // Send request
-        $req = Database::getPDO()->prepare("UPDATE account {$query} WHERE id = ?");
+        $req = Database::getPDO()->prepare("UPDATE users {$query} WHERE id = ?");
         $req->execute($datas);
         if ($req->rowCount() > 0) {
             return true;

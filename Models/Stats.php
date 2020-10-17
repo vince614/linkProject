@@ -27,7 +27,7 @@ class Stats extends Database
      */
     public function getUsersCount()
     {
-        $req = Database::getPDO()->query("SELECT * FROM account");
+        $req = Database::getPDO()->query("SELECT * FROM users");
         return $req->rowCount();
     }
 

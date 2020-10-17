@@ -41,4 +41,20 @@ class Database
     {
         return $this->_pdo;
     }
+
+    /**
+     * Set login
+     *
+     * @param $userInformations
+     */
+    protected function _setLogin($userInformations)
+    {
+        $_SESSION['user'] = [
+            'id' => $userInformations['id'],
+            'email' => $userInformations['email'],
+            'username' => $userInformations['username'],
+            'avatar' => isset($userInformations['avatar']) ? $userInformations['avatar'] : null,
+            'register_date' => $userInformations['date_time']
+        ];
+    }
 }

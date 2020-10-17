@@ -1,11 +1,12 @@
 <?php
 namespace Controllers\Core;
+use General\General;
 
 /**
  * Class Controller
  * @package Controllers\Core
  */
-class Controller
+class Controller extends General
 {
 
     /**
@@ -72,7 +73,17 @@ class Controller
      */
     public function isLogin()
     {
-        return isset($_SESSION['username']) && !empty($_SESSION['username']);
+        return isset($_SESSION['user']) && !empty($_SESSION['user']);
+    }
+
+    /**
+     * Get Post
+     *
+     * @return mixed
+     */
+    public function getPost()
+    {
+        return $_POST;
     }
 
 }

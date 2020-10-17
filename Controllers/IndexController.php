@@ -22,7 +22,7 @@ class IndexController extends Controller
     const STATS_MODEL_PATH = 'Models/Stats.php';
 
     /**
-     * HomeController constructor.
+     * IndexController constructor.
      *
      * @param $path
      */
