@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="<?php echo $this->getHost() ?>/assets/img/clypy.png" type="image/x-icon">
+    <meta name="description"
+          content="Clypy.me shorten your links and follow them to see their evulotion with statistical data">
+    <meta name="author" content="Vince">
+
+    <title>Register - Clypy.me</title>
+
+    <link href="<?php echo $this->getHost() ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link href="<?php echo $this->getHost() ?>/assets/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-primary">
+<div class="container">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                        </div>
+                        <form class="user" action="" method="POST">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user" name="username"
+                                       placeholder="Username" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control form-control-user" name="mail"
+                                       placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="password" class="form-control form-control-user" name="password"
+                                           placeholder="Password" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control form-control-user" name="confirmPassword"
+                                           placeholder="Repeat Password" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
+                            <?php if (isset($errors)) {
+                                foreach ($errors as $error) {
+                                    echo '<center><p style="color:red">' . $error . '</p></center>';
+                                }
+                            } ?>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="<?php echo $this->getHost() ?>/forgot-password">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
+                            <a class="small" href="<?php echo $this->getHost() ?>/login">Already have an account? Login!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

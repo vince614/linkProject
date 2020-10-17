@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use http\QueryString;
 use Model\Core\Database;
 
 /**
@@ -38,13 +39,13 @@ class Users extends Database
             if (strlen($password) >= self::MIN_PASSWORD_LENGTH || !$secureMode) {
                 if (!$this->getUserByEmail($email)) {
                     $req = Database::getPDO()->prepare("INSERT INTO users (username, password, email, auth, date_time) VALUES (?, ?, ?, ?, ?)");
-                    $req->execute(array((string) $username, (string) sha1($password), (string) $email, $auth, time()));
-                    return false;
+                    $req->execute(array($username, sha1($password), $email, $auth, time()));
+                    return true;
                 }
                 $this->_addError("Cette adresse mail existe déjà");
                 return false;
             }
-            $this->_addError("Votre mot de passe dois faire plus de " . self::MIN_PASSWORD_LENGTH - 1 . " caractères");
+            $this->_addError(sprintf("Votre mot de passe dois faire plus de %d caractères", self::MIN_PASSWORD_LENGTH - 1));
             return false;
         }
         $this->_addError("Veuillez entrez deux mots de passe identique");

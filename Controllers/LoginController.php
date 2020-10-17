@@ -10,6 +10,9 @@ use Model\Users;
 class LoginController extends Controller
 {
 
+    /**
+     * User model path
+     */
     const USERS_MODEL_PATH = "Models/Users.php";
 
     /**
@@ -25,6 +28,7 @@ class LoginController extends Controller
      */
     public function __construct($path)
     {
+        if ($this->isLogin()) header("Location: ./dashboard");
         $this->index($path);
     }
 

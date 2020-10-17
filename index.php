@@ -34,9 +34,17 @@ $router->get('/', function () {});
  * @GET route
  */
 $router->get('/login', function () {});
+$router->post('/login', function () {});
 $router->get('/loginDiscord', function () {});
 $router->get('/loginGoogle', function () {});
 $router->get('/loginFacebook', function () {});
+
+/**
+ * Register route
+ * @GET route
+ */
+$router->get('/register', function () {});
+$router->post('/register', function () {});
 
 /**
  * Logout route

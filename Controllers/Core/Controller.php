@@ -23,6 +23,14 @@ class Controller extends General
      */
     protected function render($view)
     {
+        // Get session message
+        if ($message = $this->getSessionMessage()) {
+            $this->setVar('sessionMessage', $message['msg']);
+            if ($redirect = $message['redirect']) {
+                $this->setVar('sessionRedirect', $redirect);
+            }
+        }
+
         extract($this->vars);
 
         /**
@@ -34,6 +42,11 @@ class Controller extends General
         } else {
             $this->notFound();
         }
+
+        /**
+         * Include end of file
+         */
+        require 'Views/script/script.phtml';
     }
 
     /**
@@ -84,6 +97,38 @@ class Controller extends General
     public function getPost()
     {
         return $_POST;
+    }
+
+    /**
+     * Add session message & redirect
+     *
+     * @param $msg
+     * @param $redirect
+     */
+    protected function _addSessionMessage($msg, $redirect = false)
+    {
+        $_SESSION['message'] = [
+            'msg' => $msg,
+            'redirect' => $redirect
+        ];
+    }
+
+    /**
+     * Get session message
+     *
+     * @return bool|mixed
+     */
+    public function getSessionMessage()
+    {
+        if (isset($_SESSION['message'])
+            && !empty($_SESSION['message'])) {
+
+            $msg = $_SESSION['message'];
+            unset($_SESSION['message']);
+
+            return $msg;
+        }
+        return false;
     }
 
 }

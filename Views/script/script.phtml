@@ -1,0 +1,37 @@
+<script src="<?php echo $this->getHost() ?>/node_modules/sweetalert2/dist/sweetalert2.all.js"></script>
+<script>
+
+    let sessionMessage = false;
+    let sessionRedirect = false;
+
+    <?php if (isset($sessionMessage)): ?>
+        sessionMessage = "<?php echo $sessionMessage; ?>";
+        <?php if (isset($sessionRedirect)): ?>
+            sessionRedirect = "<?php echo $sessionRedirect; ?>";
+        <?php endif; ?>
+    <?php endif; ?>
+
+    if (sessionMessage) {
+        successMessage(sessionMessage, sessionRedirect);
+    }
+
+    /**
+     * Send success notifications
+     * @param msg
+     * @param redirect
+     * @return {*}
+     */
+    function successMessage(msg, redirect) {
+        return Swal.fire({
+            icon: 'success',
+            title: 'Succès',
+            html: msg
+        }).then(() => {
+            if (redirect) {
+                location.href = redirect;
+            }
+        })
+    }
+
+</script>
+</html>
