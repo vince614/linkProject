@@ -30,15 +30,25 @@ class DashboardController extends Controller
     private $_usersModel;
 
     /**
+     * Get code to change view
+     * @var int
+     */
+    private $_code;
+
+    /**
      * DashboardController constructor.
      *
      * @param $path
+     * @param $code
      */
-    public function __construct($path)
+    public function __construct($path, $code = null)
     {
         // If not logged in redirect
         if (!$this->isLogin()) {
             header('Location: ./login');
+        }
+        if ($code) {
+            $this->_code = $code;
         }
         $this->index($path);
     }
@@ -72,7 +82,7 @@ class DashboardController extends Controller
     }
 
     /**
-     *
+     * Before render
      */
     private function _beforerender()
     {
@@ -82,17 +92,20 @@ class DashboardController extends Controller
             $this->setVar('user', $user);
             $this->setVar('links', $this->_linksModel->getLinks($user['email']));
             $this->setVar('stats', $this->_linksModel->getClicksCount($user['email']));
+            if ($this->_code) {
+                $this->setVar('codeView', $this->_code);
+            }
 
         }
 
-        if ($request = $this->getPost() && $login) {
+        if ($request = $this->getPost()) {
+            if ($login) {
+                $this->setVar('user', $this->getUserLogged());
+                $url = $request['url_origin'];
+                $title = $request['title'];
+                $this->_linksModel->createNewLink($url, $title, $this->getUserLogged());
+            }
 
-            $this->setVar('user', $this->getUserLogged());
-
-            $url = $request['url'];
-            $title = $request['title'];
-
-            $this->_linksModel->createNewLink($url, $title, $this->getUserLogged());
         }
     }
 

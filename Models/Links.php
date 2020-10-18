@@ -28,7 +28,7 @@ class Links extends Database
         // Check if URL is valide
         if ($this->_verifUrl($url)) {
             // Check if is https URL
-            $HTTPS = explode(':', $url)[0] == 'https';
+            $HTTPS = explode(':', $url)[0] == 'https' ? 1 : 0;
             // Generate code & check if his alreadey exist
             $codeExist = true;
             $code = "";

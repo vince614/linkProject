@@ -4,6 +4,7 @@
 session_start();
 
 // Use namespaces
+use Controllers\DashboardController;
 use General\General;
 use Router\Router;
 use Router\RouterException;
@@ -48,9 +49,14 @@ $router->post('/register', function () {});
 
 /**
  * Dashboard route
- * @GET route
+ * @GET & @POST route
  */
 $router->get('/dashboard', function () {});
+$router->get('/dashboard/:code', function ($code) {
+    require_once 'Controllers/DashboardController.php';
+    new DashboardController('dashboard', $code);
+});
+$router->post('/dashboard', function () {});
 
 /**
  * Charts route
@@ -73,6 +79,15 @@ $router->get('/logout', function () {
     }
     // Redirect
     header('Location: ./');
+});
+
+/**
+ * Code route
+ * @GET route
+ */
+$router->get('/:code', function ($code) {
+    echo $code;
+    exit;
 });
 
 
