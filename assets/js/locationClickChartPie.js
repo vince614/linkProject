@@ -1,16 +1,14 @@
-
-
-function drawPie() {
+function drawPie(datas, label) {
 
     // Pie Chart Example
     var ctx = document.getElementById("PieChart");
     myPieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: labels,
+            labels: label,
             datasets: [{
-                data: datasCharts,
-                backgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6','#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D','#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
+                data: datas,
+                backgroundColor: ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D', '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
@@ -40,37 +38,37 @@ function drawPie() {
 
 }
 
+/**
+ * Charts pie
+ *
+ * @param code
+ */
 function chartsPie(code) {
 
-    //Show loader
+    // Show loader
     $("#loader-pie2").show();
-
-    //Hide canvas
     $('#PieChart').hide();
 
     //Ajax 
     $.ajax({
-            type: "POST",
-            url: "../functions/chart_pie2.php",
-            data: {
-                code: code
+        type: "POST",
+        url: "../charts",
+        data: {
+            code: code,
+            chart: 'locationClick'
 
-            },
-            success: function(data) {
+        },
+        success: function (data) {
+            // Parse datas
+            let obj = JSON.parse(data);
+            console.log(obj);
 
-                //Recupérer le fichier json en objet
-                var obj = JSON.parse(data);
-                console.log(obj);
+            // Datas
+            let datasCharts = Object.values(obj);
+            let labels = Object.keys(obj);
 
-                //Datas 
-                datasCharts = Object.values(obj.country);
-
-                //Labels 
-                labels = Object.keys(obj.country);
-
-                drawPie();
-
-            }
+            drawPie(datasCharts, labels);
+        }
     });
 
 }

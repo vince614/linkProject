@@ -155,38 +155,27 @@ if(isset($_GET['code'])){
                     $owner_email = $c['owner_email'];
                     $redirect = $c['links_origin'];
                     $title = $c['title'];
-                        
+
                     //Insert
                     $ins = $bdd->prepare('INSERT INTO clicks (code, owner_username, owner_email, isPhone, isTablet, isDesktop, browser, country, country_code, states, city, clicks_time) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
                     $ins->execute(array($code, $owner_username, $owner_email, $isMobile, $isTablet, $isDesktop, $user_browser, $country, $country_code, $state, $city, $time));
 
                     //Redirect
-                    header('Location: '.$redirect);
+                    //header('Location: '.$redirect);
 
                 }
 
             }else {
-
                 header('Location: ./404');
-            
             }
-
         }else {
-
             header('Location: ./404');
-        
         }
-
     }else {
-
         header('Location: ./404');
-    
     }
-
 }else {
-
     header('Location: ./404');
-
 }
 
 

@@ -47,6 +47,18 @@ $router->get('/register', function () {});
 $router->post('/register', function () {});
 
 /**
+ * Dashboard route
+ * @GET route
+ */
+$router->get('/dashboard', function () {});
+
+/**
+ * Charts route
+ * @POST route
+ */
+$router->post('/charts', function () {});
+
+/**
  * Logout route
  * @GET route
  */

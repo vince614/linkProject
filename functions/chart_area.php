@@ -89,7 +89,7 @@ if(isset($_SESSION['email'])) {
                 $time_Days_after = $time - 24*60*60*$i;
 
                 //Si on veux tout les linky 
-                if($code == 'all') {
+                if ($code == 'all') {
 
                     //Requête all day of week
                     $req_week = $bdd->prepare('SELECT id FROM clicks WHERE owner_email = ? AND clicks_time BETWEEN ? AND ?');

@@ -131,4 +131,20 @@ class Controller extends General
         return false;
     }
 
+    /**
+     * Get user logged
+     *
+     * @return mixed
+     */
+    public function getUserLogged()
+    {
+        if ($this->isLogin()) {
+            // If user don't have avatar set default avatar
+            if ($_SESSION['user']['avatar'] === null) {
+                $_SESSION['user']['avatar'] = $this->getHost() . "/assets/img/undraw_profile_pic_ic5t.svg";
+            }
+            return $_SESSION['user'];
+        }
+    }
+
 }

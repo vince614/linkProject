@@ -1,7 +1,0 @@
-ErrorDocument 404 ../404
-RewriteEngine on
-
-RewriteCond %{SCRIPT_FILENAME} !-d
-RewriteCond %{SCRIPT_FILENAME} !-f
-
-RewriteRule ^([\w]+)$ index.php?code=$1
