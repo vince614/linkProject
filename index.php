@@ -6,6 +6,7 @@ session_start();
 // Use namespaces
 use Controllers\DashboardController;
 use General\General;
+use Model\Code;
 use Router\Router;
 use Router\RouterException;
 
@@ -86,8 +87,8 @@ $router->get('/logout', function () {
  * @GET route
  */
 $router->get('/:code', function ($code) {
-    echo $code;
-    exit;
+    require_once 'Models/Code.php';
+    new Code($code);
 });
 
 
