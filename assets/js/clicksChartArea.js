@@ -5,12 +5,6 @@
  * @param data
  */
 function drawChart(label, data) {
-
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Kanit', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
-
-    // Area Chart Example
     var ctx = document.getElementById("myAreaChart");
     myLineChart = new Chart(ctx, {
         type: 'line',
@@ -125,7 +119,7 @@ function clicksChartArea(code, date) {
     //Ajax 
     $.ajax({
         type: "POST",
-        url: "../charts",
+        url: hostUrl + "/charts",
         data: {
             code: code,
             date: date,

@@ -4,12 +4,6 @@
  * @param dataCharts
  */
 function drawChartPie(dataCharts) {
-
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
-
-    // Pie Chart Example
     let ctx = document.getElementById("myPieChart");
     pieChart = new Chart(ctx, {
         type: 'doughnut',
@@ -62,7 +56,7 @@ function chartPie(code, date) {
 
     $.ajax({
         type: "POST",
-        url: "../charts",
+        url: hostUrl + "/charts",
         data: {
             code: code,
             date: date,

@@ -114,7 +114,7 @@ class Users extends Database
     }
 
     /**
-     * Delete user by user id
+     * Delete user by ID
      *
      * @param $userId
      * @return bool
@@ -124,50 +124,81 @@ class Users extends Database
         $req = Database::getPDO()->prepare("DELETE FROM users WHERE id = ?");
         $req->execute(array($userId));
         if ($req->rowCount() > 0) {
+            // Destroy session
+            unset($_SESSION['user']);
+            setcookie('login', null);
+            setcookie('pass_hache', null);
+            setcookie('remember_key', null, null, '/');
+
             return true;
         }
         return false;
     }
 
     /**
-     * Edit user username &/or password
+     * Change password
      *
      * @param $userId
-     * @param null $username
-     * @param null $password
+     * @param $oldpassword
+     * @param $newPassword
+     * @param $newPasswordVerif
      * @return bool
      */
-    public function editUser($userId, $username = null, $password = null)
+    public function changePassword($userId, $oldpassword, $newPassword, $newPasswordVerif)
     {
-        // If don't have informations return statement false
-        if (!$username && !$password) {
+        $user = $this->getUser($userId);
+        if ($user) {
+            if (sha1($oldpassword) == $user['password']) {
+                if (strlen($newPassword) >= self::MIN_PASSWORD_LENGTH) {
+                    if ($newPassword == $newPasswordVerif) {
+                        $req = Database::getPDO()->prepare("UPDATE users SET password = ? WHERE id = ?");
+                        $req->execute(array(sha1($newPassword), $userId));
+                        return true;
+                    }
+                    $this->_addError("Password don't match");
+                    return false;
+                }
+                $this->_addError(sprintf("Votre mot de passe dois faire plus de %d caractères", self::MIN_PASSWORD_LENGTH - 1));
+                return false;
+            }
+            $this->_addError("Password is incorrect");
             return false;
         }
+        $this->_addError("User not found");
+        return false;
+    }
 
-        // Initialize datas & query
-        $query = "";
-        $datas = [(int)$userId];
-
-        if ($username) {
-            $query .= "SET username = ?";
-            $datas[] = (string) $username;
-        }
-        if ($password) {
-            if ($username) {
-                $query .= " AND ";
-            }
-            $query .= "SET password = ?";
-            $datas[] = (string) $password;
-        }
-
-        // Send request
-        $req = Database::getPDO()->prepare("UPDATE users {$query} WHERE id = ?");
-        $req->execute($datas);
-        if ($req->rowCount() > 0) {
+    /**
+     * Change username
+     *
+     * @param $userId
+     * @param $username
+     * @return bool
+     */
+    public function changeUsername($userId, $username)
+    {
+        $user = $this->getUser($userId);
+        if ($user) {
+            $req = Database::getPDO()->prepare("UPDATE users SET username = ? WHERE id = ?");
+            $req->execute(array($username, $userId));
+            $this->_refreshSession($userId);
             return true;
         }
-        $this->_errors[] = "Un error was expected. User isn't editable."; //@TODO Faire une meilleur erreur
+        $this->_addError("User not found");
         return false;
+    }
+
+    /**
+     * Refresh session
+     *
+     * @param $userId
+     */
+    private function _refreshSession($userId)
+    {
+        $user = $this->getUser($userId);
+        if ($user) {
+            $this->_setLogin($user);
+        }
     }
 
     /**

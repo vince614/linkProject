@@ -59,8 +59,8 @@ if (isset($codeView)) {
                 <ul class="uk-navbar-nav">
                     <li><a uk-toggle="target: #modal-toggle" data-uk-icon="icon:settings" title="Settings"
                            data-uk-tooltip></a></li>
-                    <li><a href="../" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a></li>
-                    <li><a href="../logout.php" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a>
+                    <li><a href="<?php echo $this->getHost() ?>" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a></li>
+                    <li><a href="<?php echo $this->getHost() . '/logout' ?>" data-uk-icon="icon:  sign-out" title="Sign Out" data-uk-tooltip></a>
                     </li>
                     <li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"
                            title="Offcanvas" data-uk-tooltip></a></li>
@@ -98,7 +98,7 @@ if (isset($codeView)) {
                                    data-uk-icon="icon: forward" title="View" data-uk-tooltip></a>
                             </li>
                             <li>
-                                <a onclick="copy('<?php echo $link['link']['code'] ?>')" class="uk-icon-link"
+                                <a onclick="copy('<?php echo $this->getHost() . '/' . $link['link']['code'] ?>')" class="uk-icon-link"
                                    data-uk-icon="icon: copy" title="Copy" data-uk-tooltip></a>
                             </li>
                             <li>
@@ -119,14 +119,14 @@ if (isset($codeView)) {
     <div class="bar-bottom">
         <ul class="uk-subnav uk-flex uk-flex-center uk-child-width-1-4" data-uk-grid>
             <li>
-                <a href="../" class="uk-icon-link" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a>
+                <a href="<?php echo $this->getHost() ?>" class="uk-icon-link" data-uk-icon="icon: home" title="Home" data-uk-tooltip></a>
             </li>
             <li>
                 <a class="uk-icon-link" data-uk-icon="icon: settings" title="Settings"
                    uk-toggle="target: #modal-toggle" data-uk-tooltip></a>
             </li>
             <li>
-                <a href="../logout.php" class="uk-icon-link" data-uk-tooltip="Sign out"
+                <a href="<?php echo $this->getHost() . '/logout' ?>" class="uk-icon-link" data-uk-tooltip="Sign out"
                    data-uk-icon="icon: sign-out"></a>
             </li>
         </ul>
@@ -185,7 +185,7 @@ if (isset($codeView)) {
                             <div class="uk-width-expand uk-text-right panel-icons">
                                 <a href="#offcanvas-slide-area" class="uk-icon-link" title="Configuration"
                                    data-uk-tooltip data-uk-icon="icon: cog" uk-toggle></a>
-                                <a id="hide-show-area" class="uk-icon-link" title="Close" onclick="hideAreaChart()"
+                                <a id="hide-show-area" class="uk-icon-link" title="Close" onclick="hideOverviewClick()"
                                    data-uk-tooltip data-uk-icon="icon: close"></a>
                             </div>
                         </div>
@@ -213,7 +213,7 @@ if (isset($codeView)) {
                             <div class="uk-width-expand uk-text-right panel-icons">
                                 <a href="#offcanvas-slide-pie" class="uk-icon-link" title="Configuration"
                                    data-uk-tooltip data-uk-icon="icon: cog" uk-toggle></a>
-                                <a id="hide-show-pie" class="uk-icon-link" title="Close" onclick="hidePieChart()"
+                                <a id="hide-show-pie" class="uk-icon-link" title="Close" onclick="hideDeviceClick()"
                                    data-uk-tooltip data-uk-icon="icon: close"></a>
                             </div>
                         </div>
@@ -240,7 +240,7 @@ if (isset($codeView)) {
                             </div>
                             <div class="uk-width-expand uk-text-right panel-icons">
                                 <a id="hide-pie" class="uk-icon-link" title="Close" data-uk-tooltip
-                                   onclick="hidePie()" data-uk-icon="icon: close"></a>
+                                   onclick="hideLocationClick()" data-uk-icon="icon: close"></a>
                             </div>
                         </div>
                     </div>
@@ -266,7 +266,7 @@ if (isset($codeView)) {
                             </div>
                             <div class="uk-width-expand uk-text-right panel-icons">
                                 <a id="hide-bar" class="uk-icon-link" title="Close" data-uk-tooltip
-                                   onclick="hideBar()" data-uk-icon="icon: close"></a>
+                                   onclick="hideBrowserClicks()" data-uk-icon="icon: close"></a>
                             </div>
                         </div>
                     </div>
@@ -346,7 +346,7 @@ if (isset($codeView)) {
                                data-uk-icon="icon: forward" title="View" data-uk-tooltip></a>
                         </li>
                         <li>
-                            <a onclick="copy('<?php echo $link['link']['code'] ?>')" class="uk-icon-link"
+                            <a onclick="copy('<?php echo $this->getHost() . '/' . $link['link']['code'] ?>')" class="uk-icon-link"
                                data-uk-icon="icon: copy" title="Copy" data-uk-tooltip></a>
                         </li>
                         <li>
@@ -399,19 +399,19 @@ if (isset($codeView)) {
 <div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
     <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
         <button class="uk-modal-close-full" type="button" uk-close></button>
-        <form class="uk-search uk-search-large" action="" method="POST">
+        <div class="uk-search uk-search-large">
             <p class="uk-text-center">Create your link shorted</p>
-            <input class="uk-search-input uk-text-center" name="title" type="text" placeholder="Title" required>
+            <input class="uk-search-input uk-text-center" id="createTitle" type="text" placeholder="Title" required>
             <hr class="uk-divider-icon">
-            <input class="uk-search-input uk-text-center" name="url_origin" type="url" placeholder="Paste long url"
+            <input class="uk-search-input uk-text-center" id="createUrlOrigin" type="url" placeholder="Paste long url"
                    required>
             <br/>
             <br/>
             <br/>
-            <button class="uk-button uk-button-default uk-button-small uk-align-center" type="submit">Create
+            <button class="uk-button uk-button-default uk-button-small uk-align-center" id="createNewLinkButton">Create
                 link
             </button>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -490,6 +490,9 @@ if (isset($codeView)) {
 <script src="<?php echo $this->getHost() ?>/assets/js/browerClickChartBar.js"></script>
 <script src="<?php echo $this->getHost() ?>/assets/js/functions.js"></script>
 <script>
+
+     const hostUrl = "<?php echo $this->getHost(); ?>";
+
     // Hide loader
     window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
@@ -543,6 +546,10 @@ if (isset($codeView)) {
         let sec = a.getSeconds();
         return date + ' ' + month + ' ' + year;
     }
+
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = 'Nunito';
+    Chart.defaults.global.defaultFontColor = '#858796';
 
     // Default req
     clicksChartArea('<?php echo $view ?>', 'day');

@@ -1,7 +1,10 @@
-//Function delete 
+/**
+ * Trash
+ *
+ * @param code
+ * @param title
+ */
 function trash(code, title) {
-
-    //Swal
     Swal.fire({
         title: 'Are you sure?',
         html: "Do you want delete <b>" + title + "</b> link?",
@@ -12,8 +15,6 @@ function trash(code, title) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-
-            //Ajax 
             $.ajax({
                 type: "POST",
                 url: "../functions/delete.php",
@@ -21,67 +22,48 @@ function trash(code, title) {
                     code: code
                 },
                 success: function (data) {
-
-                    //Recupérer le fichier json en objet
-                    var obj = JSON.parse(data);
-                    console.log(obj);
-
+                    let obj = JSON.parse(data);
                     if (obj.exist == true) {
-
                         if (obj.delete == true) {
-
-                            //Swal
                             Swal.fire(
                                 'Deleted!',
                                 'Your link has been deleted.',
                                 'success'
-                            )
-
-                            //Ne plus afficher le linky
+                            );
                             let td = document.getElementById(code);
                             td.style.display = 'none';
-
                         }
-
                     } else {
-
-                        //Swal
                         Swal.fire(
                             'error!',
                             'Your link not exist.',
                             'error'
                         )
-
                     }
-
-
-
-
-
                 }
             });
-
         }
     })
-
 }
 
-//Function edit
+/**
+ * Edit link
+ *
+ * @param code
+ * @param title
+ */
 function edit(code, title) {
 
     (async () => {
-
         const {
             value: newTitle
         } = await Swal.fire({
             title: 'Change link title of ' + title,
             input: 'text',
             inputPlaceholder: 'Enter new title'
-        })
+        });
 
         if (newTitle) {
-
-            //Ajax 
             $.ajax({
                 type: "POST",
                 url: "../functions/edit.php",
@@ -90,260 +72,122 @@ function edit(code, title) {
                     title: newTitle
                 },
                 success: function (data) {
-
-                    //Recupérer le fichier json en objet
-                    var obj = JSON.parse(data);
-                    console.log(obj);
-
+                    let obj = JSON.parse(data);
                     if (obj.exist == true) {
-
                         if (obj.edit == true) {
-
-                            //Swal
                             Swal.fire('Success!', 'New title: ' + newTitle, 'success');
-
-                            //Ne plus afficher le linky
                             let tr = document.getElementById('edit' + code);
                             tr.innerText = newTitle;
-
                         }
-
                     } else {
-
-                        //Swal
                         Swal.fire(
                             'error!',
                             'Your linky not exist.',
                             'error'
                         )
-
                     }
-
-
-
-
-
                 }
             });
-
         }
-
     })()
-
-}
-
-//hide / show 
-function hidePieChart() {
-
-    if ($('#card-pie-chart').is(':visible')) {
-        $('#card-pie-chart').hide(300);
-        $('#hide-show-pie').attr('title', 'Open');
-        $('#hide-show-pie').attr('data-uk-icon', 'icon: plus');
-    } else {
-        $('#card-pie-chart').show(300);
-        $('#hide-show-pie').attr('title', 'Close');
-        $('#hide-show-pie').attr('data-uk-icon', 'icon: close');
-    }
-
-
-}
-
-function hideAreaChart() {
-
-    if ($('#card-area-chart').is(':visible')) {
-        $('#card-area-chart').hide(300);
-        $('#hide-show-area').attr('title', 'Open');
-        $('#hide-show-area').attr('data-uk-icon', 'icon: plus');
-    } else {
-        $('#card-area-chart').show(300);
-        $('#hide-show-area').attr('title', 'Close');
-        $('#hide-show-area').attr('data-uk-icon', 'icon: close');
-    }
-
-
-}
-
-function hidePie() {
-
-    if ($('#card-pie').is(':visible')) {
-        $('#card-pie').hide(300);
-        $('#hide-pie').attr('title', 'Open');
-        $('#hide-pie').attr('data-uk-icon', 'icon: plus');
-    } else {
-        $('#card-pie').show(300);
-        $('#hide-pie').attr('title', 'Close');
-        $('#hide-pie').attr('data-uk-icon', 'icon: close');
-    }
-
-
-}
-
-function hideBar() {
-
-    if ($('#card-bar').is(':visible')) {
-        $('#card-bar').hide(300);
-        $('#hide-bar').attr('title', 'Open');
-        $('#hide-bar').attr('data-uk-icon', 'icon: plus');
-    } else {
-        $('#card-bar').show(300);
-        $('#hide-bar').attr('title', 'Close');
-        $('#hide-bar').attr('data-uk-icon', 'icon: close');
-    }
-
-
-}
-
-function copy(code) {
-
-    var dummyContent = "https://clypy.me/" + code;
-
-
-    var dummy = document.createElement("textarea");
-    document.body.appendChild(dummy);
-    dummy.value = dummyContent;
-    dummy.select();
-    document.execCommand("copy");
-    document.body.removeChild(dummy);
-
-    UIkit.notification('<span uk-icon="icon: check"></span> Link has been copied', {
-        status: 'success',
-        pos: 'bottom-right'
-    })
-
-}
-
-function openPage(page) {
-
-    $('.page').hide()
-    $('#' + page).show(200);
-
 }
 
 //Settings 
 //=================================================================
 
 $(document).ready(function () {
-
+    /** Submit profile **/
     $("#submitProfile").click(function () {
-
         let username = $('#username').val();
-
         $.ajax({
             type: "POST",
-            url: "../functions/settings.php",
+            url: hostUrl + "/dashboard",
             data: {
+                type: 'changeUsername',
                 username: username
             },
             success: function (data) {
-
-                var obj = JSON.parse(data);
-                console.log(obj);
-
-                if ('err' in obj) {
-
+                if (data) {
                     Swal.fire(
-                        'error!',
-                        obj.err,
+                        'Error !',
+                        data,
                         'error'
                     )
-
                 } else {
-
-                    //Reload
                     location.reload();
-
                 }
-
             }
-
         });
-
-
     });
 
+    /** Submit password **/
     $("#submitPassword").click(function () {
-
         let oldPassword = $('#oldPassword').val();
         let newPassword = $('#newPassword').val();
         let newPasswordVerif = $('#newPasswordVerif').val();
-
         $.ajax({
             type: "POST",
-            url: "../functions/settings.php",
+            url: hostUrl + "/dashboard",
             data: {
+                type: 'changePassword',
                 oldPassword: oldPassword,
                 newPassword: newPassword,
-                newPasswordVerif,
-                newPasswordVerif
+                newPasswordVerif: newPasswordVerif
             },
             success: function (data) {
-
-                var obj = JSON.parse(data);
-                console.log(obj);
-
-                if ('err' in obj) {
-
+                if (data) {
                     Swal.fire(
-                        'error!',
-                        obj.err,
+                        'Error !',
+                        data,
                         'error'
                     )
-
                 } else {
-
-                    //Reload
                     location.reload();
-
                 }
-
-
             }
         });
-
-
     });
 
-    $('#deleteAccount').click(function (){
-
-        //Swal
-    Swal.fire({
-        title: 'Are you sure?',
-        html: "Do you want delete your account?",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.value) {
-
-            //Ajax 
-            $.ajax({
-                type: "POST",
-                url: "../functions/settings.php",
-                data: {
-                    delete: 1
-                },
-                success: function (data) {
-
-                    //Recupérer le fichier json en objet
-                    var obj = JSON.parse(data);
-                    console.log(obj);
-
-                    if('delete' in obj){
-
-                        location.href="../"; 
-
+    /** Delete account **/
+    $('#deleteAccount').click(function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            html: "Do you want delete your account?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: hostUrl + "/dashboard",
+                    data: {
+                        type: 'deleteCustomer'
+                    },
+                    success: function () {
+                        location.href = hostUrl;
                     }
+                });
+            }
+        });
+    });
 
-
-                }
-            });
-
-        }
+    $('#createNewLinkButton').click(function () {
+        let title = $('#createTitle').val();
+        let url = $('#createUrlOrigin').val();
+        $.ajax({
+            type: "POST",
+            url: hostUrl + "/dashboard",
+            data: {
+                type: 'addLink',
+                title: title,
+                url: url
+            },
+            success: function () {
+                location.href = hostUrl + '/dashboard';
+            }
+        });
     })
-
-    })
-
-
 });

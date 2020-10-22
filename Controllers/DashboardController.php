@@ -86,27 +86,49 @@ class DashboardController extends Controller
      */
     private function _beforerender()
     {
-        if ($login = $this->isLogin()) {
+        $login = $this->isLogin();
+        if ($login) {
             $user = $this->getUserLogged();
+            if ($request = $this->getPost()) {
+                if (isset($request['type'])) {
+                    $type = $request['type'];
+                    switch ($type) {
+                        case 'deleteCustomer':
+                            $this->_usersModel->deleteUser($user['id']);
+                            $this->_addSessionMessage('Votre compte à bien été supprimé');
+                            break;
+                        case 'changePassword':
+                            $success = $this->_usersModel->changePassword($user['id'], $request['oldPassword'], $request['newPassword'], $request['newPasswordVerif']);
+                            if (!$success) {
+                                echo $this->_usersModel->getErrors()[0];
+                            } else {
+                                $this->_addSessionMessage('Votre mot de passe à bien été mis à jour !');
+                            }
+                            break;
+                        case 'changeUsername':
+                            $success = $this->_usersModel->changeUsername($user['id'], $request['username']);
+                            if (!$success) {
+                                echo $this->_usersModel->getErrors()[0];
+                            } else {
+                                $this->_addSessionMessage("Votre nom d'utilisateur à bien été mis à jour !");
+                            }
+                            break;
+                        case 'addLink':
+                            $this->_linksModel->createNewLink($request['url'], $request['title'], $user);
+                            $this->_addSessionMessage("Votre lien à bien été crée !");
+                            break;
+                    }
+                }
+                exit;
+            }
 
+            // Set vars in view
             $this->setVar('user', $user);
             $this->setVar('links', $this->_linksModel->getLinks($user['email']));
             $this->setVar('stats', $this->_linksModel->getClicksCount($user['email']));
             if ($this->_code) {
                 $this->setVar('codeView', $this->_code);
             }
-
-        }
-
-        if ($request = $this->getPost()) {
-            if ($login) {
-                $this->setVar('user', $this->getUserLogged());
-                $url = $request['url_origin'];
-                $title = $request['title'];
-                $this->_linksModel->createNewLink($url, $title, $this->getUserLogged());
-            }
-
         }
     }
-
 }

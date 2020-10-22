@@ -5,10 +5,10 @@
     let sessionRedirect = false;
 
     <?php if (isset($sessionMessage)): ?>
-        sessionMessage = "<?php echo $sessionMessage; ?>";
-        <?php if (isset($sessionRedirect)): ?>
-            sessionRedirect = "<?php echo $sessionRedirect; ?>";
-        <?php endif; ?>
+    sessionMessage = "<?php echo $sessionMessage; ?>";
+    <?php if (isset($sessionRedirect)): ?>
+    sessionRedirect = "<?php echo $sessionRedirect; ?>";
+    <?php endif; ?>
     <?php endif; ?>
 
     if (sessionMessage) {
@@ -31,6 +31,100 @@
                 location.href = redirect;
             }
         })
+    }
+
+    /**
+     * Open page
+     * @param page
+     */
+    function openPage(page) {
+        $('.page').hide();
+        $('#' + page).show(200);
+    }
+
+    /**
+     * Copy text
+     *
+     * @param code
+     */
+    function copy(code) {
+        var dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = code;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+
+        successMessage('Link has been copied !')
+    }
+
+    /**
+     * Hide browser click container
+     */
+    function hideBrowserClicks() {
+        let cardBar = $('#card-bar');
+        let hideBar = $('#hide-bar');
+
+        if (cardBar.is(':visible')) {
+            cardBar.hide(300);
+            hideBar.attr('title', 'Open');
+            hideBar.attr('data-uk-icon', 'icon: plus');
+        } else {
+            cardBar.show(300);
+            hideBar.attr('title', 'Close');
+            hideBar.attr('data-uk-icon', 'icon: close');
+        }
+    }
+
+    /**
+     * Hide location click
+     */
+    function hideLocationClick() {
+        let cardPie = $('#card-pie');
+        let hidePie = $('#hide-pie');
+        if (cardPie.is(':visible')) {
+            cardPie.hide(300);
+            hidePie.attr('title', 'Open');
+            hidePie.attr('data-uk-icon', 'icon: plus');
+        } else {
+            cardPie.show(300);
+            hidePie.attr('title', 'Close');
+            hidePie.attr('data-uk-icon', 'icon: close');
+        }
+    }
+
+    /**
+     * Hide device click
+     */
+    function hideDeviceClick() {
+        let cardPieChart = $('#card-pie-chart');
+        let hideShowPie = $('#hide-show-pie');
+        if (cardPieChart.is(':visible')) {
+            cardPieChart.hide(300);
+            hideShowPie.attr('title', 'Open');
+            hideShowPie.attr('data-uk-icon', 'icon: plus');
+        } else {
+            cardPieChart.show(300);
+            hideShowPie.attr('title', 'Close');
+            hideShowPie.attr('data-uk-icon', 'icon: close');
+        }
+    }
+
+    /**
+     * Hide overview click
+     */
+    function hideOverviewClick() {
+        let cardAreaChart =  $('#card-area-chart');
+        let hideShowArea = $('#hide-show-area');
+        if (cardAreaChart.is(':visible')) {
+            cardAreaChart.hide(300);
+            hideShowArea.attr('title', 'Open');
+            hideShowArea.attr('data-uk-icon', 'icon: plus');
+        } else {
+            cardAreaChart.show(300);
+            hideShowArea.attr('title', 'Close');
+            hideShowArea.attr('data-uk-icon', 'icon: close');
+        }
     }
 
 </script>

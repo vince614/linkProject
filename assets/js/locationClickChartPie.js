@@ -1,6 +1,4 @@
 function drawPie(datas, label) {
-
-    // Pie Chart Example
     var ctx = document.getElementById("PieChart");
     myPieChart = new Chart(ctx, {
         type: 'pie',
@@ -52,7 +50,7 @@ function chartsPie(code) {
     //Ajax 
     $.ajax({
         type: "POST",
-        url: "../charts",
+        url: hostUrl + "/charts",
         data: {
             code: code,
             chart: 'locationClick'

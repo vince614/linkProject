@@ -5,12 +5,6 @@
  * @param labels
  */
 function drawBar(datas, labels) {
-
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#858796';
-
-    // Bar Chart Example
     var ctx = document.getElementById("myBarChart");
     myBarChart = new Chart(ctx, {
         type: 'bar',
@@ -78,7 +72,7 @@ function browerClickChartBar(code) {
     let labels;
     $.ajax({
         type: "POST",
-        url: "../charts",
+        url: hostUrl + "/charts",
         data: {
             code: code,
             chart: 'browserClicks'
