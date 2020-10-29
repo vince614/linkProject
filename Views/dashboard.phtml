@@ -94,7 +94,7 @@ if (isset($codeView)) {
                         <ul class="uk-subnav uk-flex uk-flex-center uk-child-width-1-4 uk-margin-small-top uk-margin-small-bottom"
                             data-uk-grid>
                             <li>
-                                <a href="./<?php echo $link['link']['code'] ?>" class="uk-icon-link"
+                                <a href="<?php echo $this->getHost() . '/dashboard/' . $link['link']['code'] ?>" class="uk-icon-link"
                                    data-uk-icon="icon: forward" title="View" data-uk-tooltip></a>
                             </li>
                             <li>
