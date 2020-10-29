@@ -45,7 +45,7 @@ class DashboardController extends Controller
     {
         // If not logged in redirect
         if (!$this->isLogin()) {
-            header('Location: ./login');
+            header('Location: ' . $this->getHost() . '/login');
         }
         if ($code) {
             $this->_code = $code;
