@@ -1,6 +1,7 @@
 <?php
 namespace General;
 use Model\Core\Database;
+use PDO;
 
 /**
  * Require class Database
@@ -56,6 +57,40 @@ class General extends Database
             $this->_initHost();
         }
         return $this->_host;
+    }
+
+    /**
+     * Try to connect with cookie
+     */
+    public function tryConnectionWithCookie()
+    {
+        if (isset($_COOKIE['remember_key'])
+            && !empty($_COOKIE['remember_key'])) {
+
+            /** @var PDO $pdo */
+            $pdo = Database::getPDO();
+
+            // Get remember key
+            $rememberKey = $_COOKIE['remember_key'];
+
+            $req = $pdo->prepare("SELECT * FROM remember_me WHERE remember_key = ?");
+            $req->execute(array($rememberKey));
+            if ($req->rowCount() > 0) {
+
+                // Get user ID
+                $result = $req->fetch();
+                $userId = $result['user_id'];
+
+                // Get user information
+                $req = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+                $req->execute(array($userId));
+                if ($req->rowCount() > 0) {
+                    // Set login
+                    $user = $req->fetch();
+                    Database::_setLogin($user);
+                }
+            }
+        }
     }
 
 }

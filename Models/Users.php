@@ -2,6 +2,7 @@
 namespace Model;
 use http\QueryString;
 use Model\Core\Database;
+use PDO;
 
 /**
  * Class Users
@@ -69,7 +70,7 @@ class Users extends Database
                     // Set user session
                     $userInformation = $req->fetch();
                     Database::_setLogin($userInformation);
-                    return true;
+                    return $userInformation;
                 }
                 $this->_addError("Le mot de passe n'est pas correct. Veuillez réessayer");
                 return false;
@@ -228,6 +229,57 @@ class Users extends Database
     private function _addError($error)
     {
         $this->_errors[] = $error;
+    }
+
+    /**
+     * Set remember key
+     *
+     * @param $userId
+     * @return bool
+     */
+    public function setRememberKey($userId)
+    {
+        /** @var PDO $pdo */
+        $pdo = Database::getPDO();
+
+        // Delete all old keys
+        $req = $pdo->prepare("DELETE FROM remember_me WHERE user_id = ?");
+        $req->execute(array($userId));
+
+        while (true) {
+
+            // Generate key
+            $key = $this->_generateRememberKey(30);
+
+            // Check if key exist
+            $req = $pdo->prepare("SELECT * FROM remember_me WHERE remember_key = ?");
+            $req->execute(array($key));
+            if ($req->rowCount() == 0) {
+
+                // Insert key in database
+                $req = $pdo->prepare("INSERT INTO remember_me (user_id, remember_key) VALUES (?, ?)");
+                $req->execute(array($userId, $key));
+
+                // Set cookie for 30 days
+                $cookieDaysExpire = 30;
+                setcookie('remember_key', $key, time() + 3600 * 24 * $cookieDaysExpire, '/');
+
+                // Stop loop
+                return true;
+            }
+        }
+    }
+
+    /**
+     * Generate random key
+     *
+     * @param $lenght
+     * @return string
+     */
+    protected function _generateRememberKey($lenght)
+    {
+        $randomPseudoBytes = openssl_random_pseudo_bytes($lenght);
+        return base64_encode($randomPseudoBytes);
     }
 
 }

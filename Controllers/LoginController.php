@@ -77,6 +77,11 @@ class LoginController extends Controller
             // Try to login
             $login = $this->_usersModel->login($email, $password);
 
+            // Set remember key cookie
+            if ($login && $remember) {
+                $this->_usersModel->setRememberKey($login['id']);
+            }
+
             if (!$login) {
                 $this->setVar('errors', $this->_usersModel->getErrors());
                 return;

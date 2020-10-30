@@ -21,6 +21,9 @@ require_once "vendor/autoload.php";
 // General class
 $general = new General();
 
+// Try to connect
+$general->tryConnectionWithCookie();
+
 // Set router URL
 $router = new Router($general->getUrl());
 

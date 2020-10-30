@@ -7,6 +7,7 @@
         "chonsser/oauth2-discord": "^1.0",
         "wohali/oauth2-discord-new": "^1.0",
       "ext-pdo": "*",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-openssl": "*"
     }
 }
