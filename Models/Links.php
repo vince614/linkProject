@@ -224,4 +224,37 @@ class Links extends Database
         $result = $diff * 100;
         return round($result / ($second + 1));
     }
+
+    /**
+     * Delete link with code
+     *
+     * @param $code
+     * @return bool
+     */
+    public function deleteLink($code)
+    {
+        $req = Database::getPDO()->prepare("DELETE FROM links_table WHERE code = ?");
+        $req->execute(array($code));
+        if ($req->rowCount() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Change title of link
+     *
+     * @param $code
+     * @param $title
+     * @return bool
+     */
+    public function changeLinkTitle($code, $title)
+    {
+        $req = Database::getPDO()->prepare("UPDATE links_table SET title = ? WHERE code = ?");
+        $req->execute(array($title, $code));
+        if ($req->rowCount() > 0) {
+            return true;
+        }
+        return false;
+    }
 }

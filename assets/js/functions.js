@@ -8,7 +8,7 @@ function trash(code, title) {
     Swal.fire({
         title: 'Are you sure?',
         html: "Do you want delete <b>" + title + "</b> link?",
-        type: 'warning',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -17,29 +17,13 @@ function trash(code, title) {
         if (result.value) {
             $.ajax({
                 type: "POST",
-                url: "../functions/delete.php",
+                url: hostUrl + "/dashboard",
                 data: {
+                    type: 'deleteLink',
                     code: code
                 },
-                success: function (data) {
-                    let obj = JSON.parse(data);
-                    if (obj.exist == true) {
-                        if (obj.delete == true) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your link has been deleted.',
-                                'success'
-                            );
-                            let td = document.getElementById(code);
-                            td.style.display = 'none';
-                        }
-                    } else {
-                        Swal.fire(
-                            'error!',
-                            'Your link not exist.',
-                            'error'
-                        )
-                    }
+                success: function () {
+                    location.reload();
                 }
             });
         }
@@ -66,26 +50,14 @@ function edit(code, title) {
         if (newTitle) {
             $.ajax({
                 type: "POST",
-                url: "../functions/edit.php",
+                url: hostUrl + "/dashboard",
                 data: {
+                    type: 'changeLinkTitle',
                     code: code,
                     title: newTitle
                 },
-                success: function (data) {
-                    let obj = JSON.parse(data);
-                    if (obj.exist == true) {
-                        if (obj.edit == true) {
-                            Swal.fire('Success!', 'New title: ' + newTitle, 'success');
-                            let tr = document.getElementById('edit' + code);
-                            tr.innerText = newTitle;
-                        }
-                    } else {
-                        Swal.fire(
-                            'error!',
-                            'Your linky not exist.',
-                            'error'
-                        )
-                    }
+                success: function () {
+                    location.reload();
                 }
             });
         }

@@ -117,6 +117,18 @@ class DashboardController extends Controller
                             $this->_linksModel->createNewLink($request['url'], $request['title'], $user);
                             $this->_addSessionMessage("Votre lien à bien été crée !");
                             break;
+                        case 'deleteLink':
+                            $isDeleted = $this->_linksModel->deleteLink($request['code']);
+                            if ($isDeleted) {
+                                $this->_addSessionMessage("Votre lien à bien été supprimé !");
+                            }
+                            break;
+                        case 'changeLinkTitle':
+                            $isChanged = $this->_linksModel->changeLinkTitle($request['code'], $request['title']);
+                            if ($isChanged) {
+                                $this->_addSessionMessage("Votre lien à bien été renommé !");
+                            }
+                            break;
                     }
                 }
                 exit;
