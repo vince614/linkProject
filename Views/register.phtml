@@ -28,28 +28,28 @@
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            <h1 class="h4 text-gray-900 mb-4"><?php echo $this->__('Create an Account !') ?></h1>
                         </div>
                         <form class="user" action="" method="POST">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-user" name="username"
-                                       placeholder="Username" required>
+                                       placeholder="<?php echo $this->__('Username') ?>" required>
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control form-control-user" name="mail"
-                                       placeholder="Email Address" required>
+                                       placeholder="<?php echo $this->__('Email address') ?>" required>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="password" class="form-control form-control-user" name="password"
-                                           placeholder="Password" required>
+                                           placeholder="<?php echo $this->__('Password') ?>" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user" name="confirmPassword"
-                                           placeholder="Repeat Password" required>
+                                           placeholder="<?php echo $this->__('Repeat password') ?>" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
+                            <button type="submit" class="btn btn-primary btn-user btn-block"><?php echo $this->__("Register Account") ?></button>
                             <?php if (isset($errors)) {
                                 foreach ($errors as $error) {
                                     echo '<center><p style="color:red">' . $error . '</p></center>';
@@ -58,10 +58,10 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="<?php echo $this->getHost() ?>/forgot-password">Forgot Password?</a>
+                            <a class="small" href="<?php echo $this->getHost() ?>/forgot-password"><?php echo $this->__('Forgot password ?') ?></a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="<?php echo $this->getHost() ?>/login">Already have an account? Login!</a>
+                            <a class="small" href="<?php echo $this->getHost() ?>/login"><?php echo $this->__('Already have an account ? Login') ?></a>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -31,25 +30,25 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4"><?php echo $this->__("Welcome Back !") ?></h1>
                                 </div>
                                 <form class="user" action="" method="POST">
                                     <div class="form-group">
                                         <input type="email" class="form-control form-control-user" name="email"
                                                aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address or Username" required>
+                                               placeholder="<?php echo $this->__('Email address') ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" name="password"
-                                               placeholder="Password" required>
+                                               placeholder="<?php echo $this->__("Password") ?>" required>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input name="remember" type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                            <label class="custom-control-label" for="customCheck"><?php echo $this->__("Remember Me") ?></label>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                                    <button type="submit" class="btn btn-primary btn-user btn-block"><?php echo $this->__("Login") ?></button>
                                     <?php if (isset($errors)) {
                                         foreach ($errors as $error) {
                                             echo '<center><p style="color:red">' . $error . '</p></center>';
@@ -57,21 +56,24 @@
                                     } ?>
                                     <hr>
                                     <a href="<?php echo $this->getHost() ?>/loginGoogle" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                        <i class="fab fa-google fa-fw"></i>
+                                        <?php echo $this->__('Login with Google') ?>
                                     </a>
                                     <a href="<?php echo $this->getHost() ?>/loginFacebook" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        <i class="fab fa-facebook-f fa-fw"></i>
+                                        <?php echo $this->__('Login with Facebook') ?>
                                     </a>
                                     <a href="<?php echo $this->getHost() ?>/loginDiscord" class="btn btn-primary btn-user btn-block">
-                                        <i class="fab fa-discord fa-fw"></i> Login with Discord
+                                        <i class="fab fa-discord fa-fw"></i>
+                                        <?php echo $this->__('Login with Discord') ?>
                                     </a>
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="<?php echo $this->getHost() ?>/forgot-password">Forgot Password?</a>
+                                    <a class="small" href="<?php echo $this->getHost() ?>/forgot-password"><?php echo $this->__("Forgot password ?") ?></a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="<?php echo $this->getHost() ?>/register">Create an Account!</a>
+                                    <a class="small" href="<?php echo $this->getHost() ?>/register"><?php echo $this->__('Create an Account !') ?></a>
                                 </div>
                             </div>
                         </div>
